@@ -1,30 +1,11 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
+  <h2 class="text-danger">App.vue 進入</h2>
+  <!-- 依據專案調整，這裡為進入點，再往下規劃路徑 -->
+  <!-- 例如有共用版型 nav、footer 放在自建 layout.vue 後，再往下規畫路徑 -->
+  <!-- <router-view/> 會放進要顯示的內容 -->
   <router-view/>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+// 已在 main.js 統一匯入 BootStrap
 </style>
