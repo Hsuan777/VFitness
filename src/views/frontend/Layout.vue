@@ -1,13 +1,125 @@
 <template>
-  <div class="container bg-light">
-    <h2 class="text-info">Layout 範例標題</h2>
-    <p>底下三個連結根據不同路徑匯入內容，除了 Home 為預設路徑</p>
-    <div id="nav" class="pb-3 mb-3 border-bottom">
-      <!-- 修改三處，views > *.vue、router > index.js、App.vue -->
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>｜
-      <router-link to="/Test">Test</router-link>
+  <update-carts @update-data="getCartsData"></update-carts>
+  <!-- 置頂導覽列 -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <div class="container position-relative">
+      <a class="navbar-brand" href="index.html">V.S</a>
+      <!-- mobile 直接進購物車頁面 -->
+      <router-link to="/checkout" class="nav-link d-lg-none d-flex align-items-center ms-auto">
+        <i class="fas fa-cart-plus h4 mb-0 text-dark me-2"></i>
+        <p class="mb-0">
+          購物車(<span class="text-danger">{{cartsCount}}</span>)
+          TWD${{cartsData.total}}
+        </p>
+      </router-link>
+      <!-- <a class="nav-link d-lg-none d-flex align-items-center ms-auto" href="#carts"
+      data-bs-toggle="collapse" role="button">
+        <i class="fas fa-cart-plus h4 mb-0 text-dark me-2"></i>
+        <p class="mb-0">
+          購物車(<span class="text-danger">{{cartsData.count}}</span>)
+          TWD${{cartsData.total}}
+        </p>
+      </a> -->
+      <!-- mobile 折疊按鈕 -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+      aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ms-auto d-flex align-items-center">
+          <router-link to="/about" class="nav-link">關於我們</router-link>
+          <span class="d-none d-lg-block pb-1">|</span>
+          <router-link to="/productsList" class="nav-link" ref="products">
+            餐飲與課程
+          </router-link>
+          <span class="d-none d-lg-block pb-1">|</span>
+          <router-link to="/area" class="nav-link">租借場地</router-link>
+          <span class="d-none d-lg-block pb-1">|</span>
+          <a class="nav-link btn btn-link link-dark d-none d-lg-flex align-items-center"
+          href="#cartContent" data-bs-toggle="dropdown" data-bs-display="static" role="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+            class="bi bi-cart-check text-dark me-2" viewBox="0 0 16 16">
+              <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0
+               1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+              <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2
+              2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0
+              .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102
+              4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2
+              0 1 1 0 0 1 2 0z"/>
+            </svg>
+            購物車(<span class="text-danger">{{cartsCount}}</span>) TWD${{cartsData.total}}
+          </a>
+          <!-- 購物車內容 -->
+          <div id="cartContent" ref="cartsComponent" class="dropdown-menu dropdown-menu-end me-2">
+            <carts :carts-data="cartsData"></carts>
+          </div>
+        </div>
+      </div>
     </div>
+  </nav>
+  <section>
     <router-view/>
-  </div>
+  </section>
 </template>
+
+<script>
+import carts from '../../components/carts.vue';
+import updateCarts from '../../components/updateCarts.vue';
+
+export default {
+  data() {
+    return {
+      cartsData: {
+        carts: [],
+      },
+    };
+  },
+  methods: {
+    // getCartsList(test) {
+    //   const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
+    //   this.axios.get(apiUrl).then((res) => {
+    //     if (res.data.success) {
+    //       console.log(test);
+    //       this.cartsData = res.data.data;
+    //       console.log('執行更新');
+    //       console.log(this.cartsData);
+    //       // if (!this.cartsData.carts[0] && window.location.pathname === '/checkout.html') {
+    //       //   window.location.replace('./productList.html');
+    //       // }
+    //       // 從 computed 取得該變數所 return 的值
+    //       // this.$emit('push-total', this.cartCount);
+    //     } else {
+    //       this.swal(res.data.message);
+    //     }
+    //   }).catch((res) => {
+    //     this.swal('無法取得資料喔～快去看什麼問題吧！');
+    //     console.log(res);
+    //   });
+    // },
+    getCartsData(data) {
+      this.cartsData = data;
+    },
+  },
+  components: {
+    carts,
+    updateCarts,
+  },
+  computed: {
+    // 這裡的取用方式不用加()，像預先定義的變數取用即可
+    cartsCount() {
+      let count = 0;
+      this.cartsData.carts.forEach((item) => {
+        count += item.qty;
+      });
+      return count;
+    },
+  },
+  created() {
+    // this.getCartsList();
+  },
+  mounted() {
+    console.log(this.refs);
+  },
+};
+</script>

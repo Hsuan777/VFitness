@@ -101,8 +101,8 @@ export default {
         this.swal('無法修改資料喔～快去看什麼問題吧！');
       });
     },
-    deleteProduct(itemID) {
-      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product/${itemID}`;
+    deleteOrder(itemID) {
+      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/order/${itemID}`;
       this.isLoading.itemID = itemID;
       this.axios.delete(apiUrl).then((res) => {
         if (res.data.success) {
@@ -117,9 +117,8 @@ export default {
       });
     },
     openDeleteModal() {
-      // 找不到 bootstrap 這個物件，待修正
-      const modal = new this.bootstrap.Modal(document.getElementById('deleteModal'));
-      modal.show();
+      // const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+      // modal.show();
     },
     swal(msg) {
       this.$swal.fire({
