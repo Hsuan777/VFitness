@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <loading :active="isLoading"></loading>
     <!-- 置頂導覽列 -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
@@ -56,7 +55,7 @@ export default {
   },
   methods: {
     signOut() {
-      this.axios.post(`${process.env.VUE_APP_API_URL}/logout`).then((res) => {
+      this.axios.post(`${process.env.VUE_APP_API}/logout`).then((res) => {
         document.cookie = 'hexToken=; expires=; path=/';
         if (res.data.success) {
           this.swal(res.data.message);
@@ -71,7 +70,7 @@ export default {
     checkLogin() {
       const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
       this.axios.defaults.headers.common.Authorization = token;
-      this.axios.post(`${process.env.VUE_APP_API_URL}/api/user/check`).then((res) => {
+      this.axios.post(`${process.env.VUE_APP_API}/api/user/check`).then((res) => {
         if (!res.data.success) {
           this.$router.replace({ name: 'Signin' });
         }
@@ -79,7 +78,7 @@ export default {
     },
     swal(msg) {
       this.$swal.fire({
-        position: 'bottom-end',
+        position: 'center',
         title: msg,
         width: 'auto',
         showConfirmButton: false,

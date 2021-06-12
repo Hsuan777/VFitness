@@ -41,13 +41,19 @@ const routes = [
         name: 'Orders',
         component: () => import('../views/backend/Orders.vue'),
       },
+      // 404 訊息
+      {
+        path: ':pathMatch(.*)*',
+        component: () => import('../views/NotFound.vue'),
+      },
     ],
   },
-  // 404
+  // 重新導向
   {
     path: '/:pathMatch(.*)*',
+    // component: () => import('../views/NotFound.vue'),
     redirect: {
-      name: 'Layout',
+      name: 'Home',
     },
   },
 ];

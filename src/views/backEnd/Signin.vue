@@ -4,16 +4,6 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a class="navbar-brand" href="#">V.S</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-        data-bs-target="#backEndTopNav" aria-controls="backEndTopNav"
-        aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="backEndTopNav">
-          <div class="navbar-nav ms-auto">
-            <a class="nav-link" href="#" @click.prevent="signOut">Sign out</a>
-          </div>
-        </div>
       </div>
     </nav>
     <!-- 登入 -->
@@ -58,7 +48,7 @@ export default {
   methods: {
     signIn() {
       this.isLoading = true;
-      this.axios.post(`${process.env.VUE_APP_API_URL}/admin/signin`, this.userInfo).then((res) => {
+      this.axios.post(`${process.env.VUE_APP_API}/admin/signin`, this.userInfo).then((res) => {
         const { token, expired } = res.data;
         // 登入與登出屬性必須一致，才能更新。
         document.cookie = `hexToken=${token}; expires=${new Date(expired)}; path=/`;
@@ -71,13 +61,14 @@ export default {
           this.swal(res.data.message);
         }
       }).catch(() => {
+        this.isLoading = false;
         this.swal('登入失敗!');
       });
     },
     checkLogin() {
       const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
       this.axios.defaults.headers.common.Authorization = token;
-      this.axios.post(`${process.env.VUE_APP_API_URL}/api/user/check`).then((res) => {
+      this.axios.post(`${process.env.VUE_APP_API}/api/user/check`).then((res) => {
         if (res.data.success) {
           this.$router.replace({ name: 'Manage' });
         } else {
@@ -87,7 +78,7 @@ export default {
     },
     swal(msg) {
       this.$swal.fire({
-        position: 'bottom-end',
+        position: 'center',
         title: msg,
         width: 'auto',
         showConfirmButton: false,
