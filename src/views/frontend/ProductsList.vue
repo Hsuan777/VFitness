@@ -1,6 +1,5 @@
 <template>
   <loading :active="isLoading.status"></loading>
-  <update-carts :is-update-data="isUpdate"></update-carts>
   <!-- 商品頁籤 -->
   <nav class="custom__categoryTab container-fluid mb-lg-3 bg-white">
     <div class="container">
@@ -21,12 +20,15 @@
     <ul class="list-unstyled row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
       <li class="custom__select col" v-for="item in products" :key="item.id">
         <div class="card card-body border-0">
-          <a :href="'product.html?id=' + item.id" class="text-decoration-none link-dark">
+          <router-link :to="`/product/${item.id}`" class="text-decoration-none link-dark">
             <img :src="item.imageUrl" alt="item.title"
             class="custom__product__img mb-2 rounded-3 w-100">
-          </a>
-          <h3 class="h4 mb-0"><a href="'product.html?id=' + item.id"
-          class="text-decoration-none text-dark">{{item.title}}</a></h3>
+          </router-link>
+          <h3 class="h4 mb-0">
+            <router-link :to="`/product/${item.id}`" class="text-decoration-none text-dark">
+              {{item.title}}
+            </router-link>
+          </h3>
           <div class="d-flex align-items-center my-2 pb-2 border-bottom">
             <p class="h4 mb-0 text-danger">{{item.price}}</p>
             <div class="spinner-border spinner-border-sm text-danger ms-auto me-3"
@@ -54,8 +56,6 @@
 </template>
 
 <script>
-import updateCarts from '../../components/updateCarts.vue';
-
 export default {
   data() {
     return {
@@ -64,9 +64,10 @@ export default {
         status: false,
       },
       products: {},
-      isUpdate: '',
     };
   },
+  // 參考 emits Option，不先定義在向外丟時，vue 會警告
+  emits: ['update'],
   methods: {
     getProductsAll() {
       this.isLoading.status = true;
@@ -82,20 +83,6 @@ export default {
         this.swal('無法取得資料喔～快去看什麼問題吧！');
       });
     },
-    getCartsList() {
-      // console.log(document.getElementById('carts').getCartsList());
-      // const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
-      // this.axios.get(apiUrl).then((res) => {
-      //   if (res.data.success) {
-      //     this.cartsData = res.data.data;
-      //     this.$emit('push-total', this.cartCount);
-      //   } else {
-      //     this.swal(res.data.message);
-      //   }
-      // }).catch(() => {
-      //   this.swal('無法取得資料喔～快去看什麼問題吧！');
-      // });
-    },
     addCart(itemID) {
       this.isLoading.itemID = itemID;
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
@@ -103,14 +90,12 @@ export default {
       this.axios.post(apiUrl, productData).then((res) => {
         if (res.data.success) {
           this.isLoading.itemID = '';
-          // this.isUpdate = 'true';
-          // console.log(document.getElementById('carts').getCartsList());
-          // this.getCartList();
-          console.log(this.$refs);
+          // 觸發父層元件之函式，但在這得先定義 emits
+          this.$emit('update');
+          this.swal(res.data.message);
         } else {
           this.swal(res.data.message);
         }
-        this.isUpdate = '';
       }).catch((res) => {
         this.swal('無法取得資料喔～快去看什麼問題吧！');
         console.log(res);
@@ -118,7 +103,7 @@ export default {
     },
     swal(msg) {
       this.$swal.fire({
-        position: 'bottom-end',
+        position: 'center',
         title: msg,
         width: 'auto',
         showConfirmButton: false,
@@ -128,12 +113,6 @@ export default {
   },
   created() {
     this.getProductsAll();
-  },
-  components: {
-    updateCarts,
-  },
-  mounted() {
-    console.log(this.$refs);
   },
 };
 </script>

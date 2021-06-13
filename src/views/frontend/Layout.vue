@@ -1,5 +1,4 @@
 <template>
-  <update-carts @update-data="getCartsData"></update-carts>
   <!-- 置頂導覽列 -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container position-relative">
@@ -34,8 +33,6 @@
             餐飲與課程
           </router-link>
           <span class="d-none d-lg-block pb-1">|</span>
-          <router-link to="/area" class="nav-link">租借場地</router-link>
-          <span class="d-none d-lg-block pb-1">|</span>
           <a class="nav-link btn btn-link link-dark d-none d-lg-flex align-items-center"
           href="#cartContent" data-bs-toggle="dropdown" data-bs-display="static" role="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -52,20 +49,19 @@
           </a>
           <!-- 購物車內容 -->
           <div id="cartContent" ref="cartsComponent" class="dropdown-menu dropdown-menu-end me-2">
-            <carts :carts-data="cartsData"></carts>
+            <carts :carts-data="cartsData" @update="getCartsList"></carts>
           </div>
         </div>
       </div>
     </div>
   </nav>
   <section>
-    <router-view/>
+    <router-view @update="getCartsList"/>
   </section>
 </template>
 
 <script>
 import carts from '../../components/carts.vue';
-import updateCarts from '../../components/updateCarts.vue';
 
 export default {
   data() {
@@ -76,37 +72,23 @@ export default {
     };
   },
   methods: {
-    // getCartsList(test) {
-    //   const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
-    //   this.axios.get(apiUrl).then((res) => {
-    //     if (res.data.success) {
-    //       console.log(test);
-    //       this.cartsData = res.data.data;
-    //       console.log('執行更新');
-    //       console.log(this.cartsData);
-    //       // if (!this.cartsData.carts[0] && window.location.pathname === '/checkout.html') {
-    //       //   window.location.replace('./productList.html');
-    //       // }
-    //       // 從 computed 取得該變數所 return 的值
-    //       // this.$emit('push-total', this.cartCount);
-    //     } else {
-    //       this.swal(res.data.message);
-    //     }
-    //   }).catch((res) => {
-    //     this.swal('無法取得資料喔～快去看什麼問題吧！');
-    //     console.log(res);
-    //   });
-    // },
-    getCartsData(data) {
-      this.cartsData = data;
+    getCartsList() {
+      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
+      this.axios.get(apiUrl).then((res) => {
+        if (res.data.success) {
+          this.cartsData = res.data.data;
+        } else {
+          this.swal(res.data.message);
+        }
+      }).catch(() => {
+        this.swal('取得購物車清單有問題喔～快去看什麼問題吧！');
+      });
     },
   },
   components: {
     carts,
-    updateCarts,
   },
   computed: {
-    // 這裡的取用方式不用加()，像預先定義的變數取用即可
     cartsCount() {
       let count = 0;
       this.cartsData.carts.forEach((item) => {
@@ -116,10 +98,7 @@ export default {
     },
   },
   created() {
-    // this.getCartsList();
-  },
-  mounted() {
-    console.log(this.refs);
+    this.getCartsList();
   },
 };
 </script>

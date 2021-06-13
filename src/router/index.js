@@ -13,19 +13,29 @@ const routes = [
         component: () => import('../views/frontend/Home.vue'),
       },
       {
-        path: 'productsList',
-        name: 'ProductsList',
-        component: () => import('../views/frontend/ProductsList.vue'),
-      },
-      {
         path: 'about',
         name: 'About',
         component: () => import('../views/frontend/About.vue'),
       },
       {
-        path: 'test',
-        name: 'Test',
-        component: () => import('../views/frontend/Test.vue'),
+        path: 'productsList',
+        name: 'ProductsList',
+        component: () => import('../views/frontend/ProductsList.vue'),
+      },
+      {
+        path: 'product/:id',
+        name: 'Product',
+        component: () => import('../views/frontend/Product.vue'),
+      },
+      {
+        path: 'checkout',
+        name: 'Checkout',
+        component: () => import('../views/frontend/Checkout.vue'),
+      },
+      {
+        path: 'order/:id',
+        name: 'Order',
+        component: () => import('../views/frontend/Order.vue'),
       },
     ],
   },
@@ -56,7 +66,6 @@ const routes = [
   // 重新導向
   {
     path: '/:pathMatch(.*)*',
-    // component: () => import('../views/NotFound.vue'),
     redirect: {
       name: 'Home',
     },
