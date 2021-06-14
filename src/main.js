@@ -22,7 +22,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 // 匯入 bootstrap
-import * as bootstrap from 'bootstrap';
+import 'bootstrap';
 import './assets/styles/main.scss'; // bootstrap 客製化
 
 import App from './App.vue';
@@ -46,7 +46,6 @@ const app = createApp(App);
 app.use(VueAxios, axios);
 app.use(router);
 app.use(VueSweetalert2);
-app.use(bootstrap);
 
 // 註冊 vee-validate 三個全域元件
 app.component('Form', Form);
