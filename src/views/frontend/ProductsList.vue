@@ -68,6 +68,7 @@ export default {
   },
   // 參考 emits Option，不先定義在向外丟時，vue 會警告
   emits: ['update'],
+  props: ['cartsUpdate'],
   methods: {
     getProductsAll() {
       this.isLoading.status = true;

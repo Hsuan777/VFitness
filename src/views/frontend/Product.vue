@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import emitter from '../../components/emitter';
+
 export default {
   data() {
     return {
@@ -55,6 +57,7 @@ export default {
     };
   },
   emits: ['update'],
+  props: ['cartsUpdate'],
   methods: {
     getProduct() {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/product/${this.$route.params.id}`;
@@ -74,8 +77,9 @@ export default {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       this.axios.get(apiUrl).then((res) => {
         if (res.data.success) {
-          let cartsOfProduct = [];
           const cartsData = res.data.data;
+          let cartsOfProduct = [];
+          this.cartsOfProduct = [{ qty: 1 }];
           cartsOfProduct = cartsData.carts
             .filter((item) => item.product.id === this.$route.params.id);
           if (cartsOfProduct[0]) {
@@ -133,15 +137,28 @@ export default {
         timer: 2000,
       });
     },
+    test(data) {
+      console.log(data);
+      console.log('Y');
+    },
   },
   created() {
     this.getProduct();
     this.checkCartsList();
+    emitter.on('update', (data) => {
+      console.log(data);
+    });
+    // console.log(this.cartsUpdate);
   },
   watch: {
     $route(to) {
       if (this.product.id !== to.params.id && to.name === 'Product') {
         this.getProduct();
+        this.checkCartsList();
+      }
+    },
+    cartsUpdate(value) {
+      if (value) {
         this.checkCartsList();
       }
     },

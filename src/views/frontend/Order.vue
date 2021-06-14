@@ -52,7 +52,7 @@
         </table>
         <!-- 無串接金流，故按下後自動付款 -->
         <input type="button" value="由此付款"
-          class="btn btn-primary text-white d-block w-50 mx-auto" @click="postOrder">
+          class="btn btn-primary text-white d-block w-50 mx-auto" @click="payOrder">
       </div>
     </div>
   </section>
@@ -73,6 +73,7 @@ export default {
       },
     };
   },
+  props: ['cartsUpdate'],
   methods: {
     getOrder() {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order/${this.$route.params.id}`;
@@ -93,7 +94,7 @@ export default {
         this.swal('無法取得資料喔～快去看什麼問題吧！');
       });
     },
-    postOrder() {
+    payOrder() {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}}/pay/${this.order.id}`;
       this.axios.post(apiUrl).then((res) => {
         if (res.data.success) {

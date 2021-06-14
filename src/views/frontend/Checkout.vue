@@ -27,13 +27,13 @@
               <error-message name="聯絡信箱" class="invalid-feedback"></error-message>
             </div>
             <div class="col">
-              <label for="userTel" class="form-label">聯絡電話
+              <label for="userTel" class="form-label">手機號碼
                 <span class="text-danger">*</span>
               </label>
-              <Field id="userTel" name="聯絡電話" type="tel" class="form-control"
-              :class="{ 'is-invalid': errors['聯絡電話'] }" :rules="checkPhone"
+              <Field id="userTel" name="手機號碼" type="tel" class="form-control"
+              :class="{ 'is-invalid': errors['手機號碼'] }" :rules="checkPhone"
               v-model="order.user.tel"></Field>
-              <error-message name="聯絡電話" class="invalid-feedback"></error-message>
+              <error-message name="手機號碼" class="invalid-feedback"></error-message>
             </div>
             <div class="col">
               <label for="userAddress" class="form-label">聯絡地址(餐飲外送用)
@@ -147,10 +147,12 @@ export default {
         },
         message: '',
       },
+      isSubmitOrder: false,
       couponCode: 'test777',
     };
   },
   emits: ['update'],
+  props: ['cartsUpdate'],
   methods: {
     getCartsList() {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
@@ -159,7 +161,7 @@ export default {
         this.isLoading.status = false;
         if (res.data.success) {
           this.cartsData = res.data.data;
-          if (!this.cartsData.carts.length) {
+          if (!this.cartsData.carts.length && !this.isSubmitOrder) {
             this.$router.replace('/productsList');
           }
         } else {
@@ -233,15 +235,17 @@ export default {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order`;
       this.axios.post(apiUrl, { data: this.order }).then((res) => {
         if (res.data.success) {
+          this.isSubmitOrder = true;
           this.swal('感謝您的選購，還請確認付款資訊，謝謝。');
           this.$refs.orderForm.resetForm();
           this.$emit('update');
           setTimeout(() => {
             this.$router.replace(`/order/${res.data.orderId}`);
-          }, 3000);
+          }, 2000);
         } else {
           this.swal(res.data.message);
         }
+        // this.isSubmitOrder = false;
       }).catch((res) => {
         console.log(res);
         this.swal('無法送出訂單喔～');
@@ -249,7 +253,7 @@ export default {
     },
     checkPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/;
-      return phoneNumber.test(value) ? true : '需要正確的電話號碼';
+      return phoneNumber.test(value) ? true : '需要正確的"手機"號碼';
     },
     swal(msg) {
       this.$swal.fire({
@@ -263,6 +267,13 @@ export default {
   },
   created() {
     this.getCartsList();
+  },
+  watch: {
+    cartsUpdate(value) {
+      if (value) {
+        this.getCartsList();
+      }
+    },
   },
 };
 </script>

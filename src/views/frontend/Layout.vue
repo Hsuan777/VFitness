@@ -2,7 +2,8 @@
   <!-- 置頂導覽列 -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container position-relative">
-      <a class="navbar-brand" href="index.html">V.S</a>
+      <router-link to="/" class="navbar-brand">VFitness</router-link>
+      <!-- <a class="navbar-brand" href="/">V.S</a> -->
       <!-- mobile 直接進購物車頁面 -->
       <router-link to="/checkout" class="nav-link d-lg-none d-flex align-items-center ms-auto">
         <i class="fas fa-cart-plus h4 mb-0 text-dark me-2"></i>
@@ -29,7 +30,7 @@
         <div class="navbar-nav ms-auto d-flex align-items-center">
           <router-link to="/about" class="nav-link">關於我們</router-link>
           <span class="d-none d-lg-block pb-1">|</span>
-          <router-link to="/productsList" class="nav-link" ref="products">
+          <router-link to="/productsList" class="nav-link">
             餐飲與課程
           </router-link>
           <span class="d-none d-lg-block pb-1">|</span>
@@ -56,12 +57,14 @@
     </div>
   </nav>
   <section>
-    <router-view @update="getCartsList"/>
+    <!-- view 需要不同 name，每個頁面都需要同樣的 props -->
+    <router-view :carts-update="isUpdate" @update="getCartsList"/>
   </section>
 </template>
 
 <script>
 import carts from '../../components/carts.vue';
+import emitter from '../../components/emitter';
 
 export default {
   data() {
@@ -69,12 +72,15 @@ export default {
       cartsData: {
         carts: [],
       },
+      isUpdate: '',
     };
   },
   methods: {
     getCartsList() {
+      this.isUpdate = '1';
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       this.axios.get(apiUrl).then((res) => {
+        this.isUpdate = '';
         if (res.data.success) {
           this.cartsData = res.data.data;
         } else {
@@ -99,6 +105,10 @@ export default {
   },
   created() {
     this.getCartsList();
+    // emitter.on('push', (data) => {
+    //   console.log(data);
+    // });
+    emitter.emit('update', '更新喔');
   },
 };
 </script>
