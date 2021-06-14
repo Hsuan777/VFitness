@@ -6,7 +6,6 @@
         <router-link :to="`/product/${item.product.id}`" class="me-5">
           {{item.product.title}}
         </router-link>
-        <!-- <a :href="'product.html?id=' + item.id" class="me-5">{{item.product.title}}</a> -->
         <button type="button"
         class="btn btn-link btn-sm pe-0 text-decoration-none link-secondary ms-auto"
         @click="deleteCart(item.id)">

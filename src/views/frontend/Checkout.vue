@@ -78,8 +78,11 @@
         <ul class="list-group">
           <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
             <div class="d-flex align-items-center">
-              <a :href="'product.html?id=' + item.product.id"
-                class="me-5">{{item.product.title}}</a>
+              <router-link :to="`/product/${item.product.id}`" class="me-5">
+                {{item.product.title}}
+              </router-link>
+              <!-- <a :href="'product.html?id=' + item.product.id"
+                class="me-5">{{item.product.title}}</a> -->
               <input type="button" value="X"
               class="btn btn-link btn-sm pe-0 text-decoration-none link-secondary ms-auto"
               @click="deleteCart(item.id)">
