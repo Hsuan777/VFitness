@@ -40,8 +40,6 @@
 </template>
 
 <script>
-import emitter from '../../components/emitter';
-
 export default {
   data() {
     return {
@@ -145,10 +143,6 @@ export default {
   created() {
     this.getProduct();
     this.checkCartsList();
-    emitter.on('update', (data) => {
-      console.log(data);
-    });
-    // console.log(this.cartsUpdate);
   },
   watch: {
     $route(to) {

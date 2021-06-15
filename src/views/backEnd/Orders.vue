@@ -1,10 +1,19 @@
 <template>
   <loading :active="isLoading.status"></loading>
-  <header class="d-flex align-items-center py-2">
-    <h2 class="h3 mb-0">訂單列表</h2>
-    <input type="search" name="" id="" class="ms-auto">
-  </header>
-  <div class="card-body">
+  <h2 class="h3 mb-0 py-2">訂單列表</h2>
+  <div class="d-flex py-2">
+    <page :pages="totalPages" :currentPage="currentPage" @display-page="getOrders"></page>
+    <input class="form-control ms-2 w-25" list="datalistOptions"
+      id="searchData" placeholder="To search...">
+    <datalist id="datalistOptions">
+      <option value="San Francisco"></option>
+      <option value="New York"></option>
+      <option value="Seattle"></option>
+      <option value="Los Angeles"></option>
+      <option value="Chicago"></option>
+    </datalist>
+  </div>
+  <div class="card-body p-1">
     <table class="table">
       <thead>
         <tr>
@@ -72,19 +81,25 @@ export default {
         itemID: '',
         status: false,
       },
-      orders: {},
+      orders: [],
       tempOrder: {
         user: {},
       },
+      currentPage: 1,
+      totalPages: 0,
     };
   },
   methods: {
-    getOrders(page = 1) {
+    // 預設值與變數連動，當值從元件傳出時就會跟著變化，若不設定預設值，只會從變數取得數值
+    // 效果，當更新付款時，畫面刷新分頁不會跳回第一頁
+    getOrders(page = this.currentPage) {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/orders?page=${page}`;
       this.isLoading.status = true;
       this.axios.get(apiUrl).then((res) => {
         if (res.data.success) {
           this.orders = res.data.orders;
+          this.currentPage = res.data.pagination.current_page;
+          this.totalPages = res.data.pagination.total_pages;
         } else {
           this.swal(res.data.message);
         }
@@ -124,9 +139,8 @@ export default {
         } else {
           this.swal(res.data.message);
         }
-      }).catch((res) => {
+      }).catch(() => {
         this.swal('無法刪除資料喔～快去看什麼問題吧！');
-        console.log(res);
       });
     },
     openDeleteModal(item) {
@@ -139,7 +153,8 @@ export default {
     },
     swal(msg) {
       this.$swal.fire({
-        position: 'bottom-end',
+        position: 'center',
+        icon: 'success',
         title: msg,
         width: 'auto',
         showConfirmButton: false,

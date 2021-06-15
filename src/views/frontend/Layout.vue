@@ -64,7 +64,6 @@
 
 <script>
 import carts from '../../components/carts.vue';
-import emitter from '../../components/emitter';
 
 export default {
   data() {
@@ -105,10 +104,6 @@ export default {
   },
   created() {
     this.getCartsList();
-    // emitter.on('push', (data) => {
-    //   console.log(data);
-    // });
-    emitter.emit('update', '更新喔');
   },
 };
 </script>

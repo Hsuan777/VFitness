@@ -25,6 +25,9 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import 'bootstrap';
 import './assets/styles/main.scss'; // bootstrap 客製化
 
+// 匯入 分頁元件
+import page from './components/tools/pagination.vue';
+
 import App from './App.vue';
 import router from './router';
 
@@ -47,9 +50,14 @@ app.use(VueAxios, axios);
 app.use(router);
 app.use(VueSweetalert2);
 
-// 註冊 vee-validate 三個全域元件
+// 註冊 vee-validate 三個元件
 app.component('Form', Form);
 app.component('Field', Field);
 app.component('ErrorMessage', ErrorMessage);
+
+// 註冊 Loading 元件
 app.component('Loading', Loading);
+
+// 註冊 分頁元件
+app.component('page', page);
 app.mount('#app');
