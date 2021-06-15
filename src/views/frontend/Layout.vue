@@ -57,7 +57,6 @@
     </div>
   </nav>
   <section>
-    <!-- view 需要不同 name，每個頁面都需要同樣的 props -->
     <router-view :carts-update="isUpdate" @update="getCartsList"/>
   </section>
 </template>

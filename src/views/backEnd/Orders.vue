@@ -2,16 +2,9 @@
   <loading :active="isLoading.status"></loading>
   <h2 class="h3 mb-0 py-2">訂單列表</h2>
   <div class="d-flex py-2">
-    <page :pages="totalPages" :currentPage="currentPage" @display-page="getOrders"></page>
-    <input class="form-control ms-2 w-25" list="datalistOptions"
-      id="searchData" placeholder="To search...">
-    <datalist id="datalistOptions">
-      <option value="San Francisco"></option>
-      <option value="New York"></option>
-      <option value="Seattle"></option>
-      <option value="Los Angeles"></option>
-      <option value="Chicago"></option>
-    </datalist>
+    <page :pages="totalPages" :currentPage="currentPage" @display-page="getOrders"
+     class="me-2"></page>
+    <search @filter-data="getFilterData"></search>
   </div>
   <div class="card-body p-1">
     <table class="table">
@@ -28,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in orders" :key="item.id" :class="{'table-success': item.is_paid}">
+        <tr v-for="item in filterData" :key="item.id" :class="{'table-success': item.is_paid}">
           <td>{{item.user.name}}</td>
           <td>{{item.user.email}}</td>
           <td>{{item.user.tel}}</td>
@@ -87,6 +80,7 @@ export default {
       },
       currentPage: 1,
       totalPages: 0,
+      searchData: '',
     };
   },
   methods: {
@@ -107,6 +101,9 @@ export default {
       }).catch(() => {
         this.swal('無法取得資料喔～快去看什麼問題吧！');
       });
+    },
+    getFilterData(data) {
+      this.searchData = data;
     },
     putOrder(item, action) {
       const orderObj = { data: { ...item } };
@@ -165,6 +162,11 @@ export default {
   components: {
     orderModal,
     delModal,
+  },
+  computed: {
+    filterData() {
+      return this.orders.filter((item) => item.user.name.match(this.searchData));
+    },
   },
   created() {
     this.getOrders();

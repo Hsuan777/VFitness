@@ -27,6 +27,7 @@ import './assets/styles/main.scss'; // bootstrap 客製化
 
 // 匯入 分頁元件
 import page from './components/tools/pagination.vue';
+import search from './components/tools/search.vue';
 
 import App from './App.vue';
 import router from './router';
@@ -60,4 +61,7 @@ app.component('Loading', Loading);
 
 // 註冊 分頁元件
 app.component('page', page);
+
+// 註冊 搜尋輸入框元件
+app.component('search', search);
 app.mount('#app');
