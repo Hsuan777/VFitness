@@ -1,6 +1,7 @@
 <template>
-  <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div ref="modal" class="modal fade"
+    data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -22,7 +23,25 @@
 </template>
 
 <script>
+import Modal from 'bootstrap/js/dist/modal';
+
 export default {
-  props: ['data', 'tab', 'loading'],
+  data() {
+    return {
+      modal: {},
+    };
+  },
+  props: ['data', 'tab'],
+  methods: {
+    showModal() {
+      this.modal.show();
+    },
+    hideModal() {
+      this.modal.hide();
+    },
+  },
+  mounted() {
+    this.modal = new Modal(this.$refs.modal);
+  },
 };
 </script>

@@ -1,6 +1,7 @@
 <template>
+  <loading :active="isLoading.status"></loading>
   <header class="d-flex align-items-center py-2">
-    <h3 class="mb-0">訂單列表</h3>
+    <h2 class="h3 mb-0">訂單列表</h2>
     <input type="search" name="" id="" class="ms-auto">
   </header>
   <div class="card-body">
@@ -44,40 +45,50 @@
           <td>
             <div class="btn-group">
               <!-- 可以修改金額與付款狀態 -->
+              <input type="button" value="修改" class="btn btn-outline-dark border-secondary"
+                @click="openEditModal(item)">
               <input type="button" value="刪除" class="btn btn-outline-danger border-secondary"
-              :class="{'disabled': !item.is_paid}" @click="openDeleteModal">
+              :class="{'disabled': !item.is_paid}" @click="openDeleteModal(item)">
             </div>
-            <delete-modal ref="deleteModal" :data="item.user.name" tab="訂單"
-            data-delete="deleteOrder">
-            </delete-modal>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+  <order-modal ref="orderModal" :data="tempOrder" @edit-total="putOrder"></order-modal>
+  <del-modal ref="deleteModal" :data="tempOrder.user.name" tab="訂單"
+    @delete-data="deleteOrder">
+  </del-modal>
 </template>
 
 <script>
-import deleteModal from '../../components/deleteModal.vue';
+import orderModal from '../../components/backendModal/orderModal.vue';
+import delModal from '../../components/backendModal/deleteModal.vue';
 
 export default {
   data() {
     return {
       isLoading: {
         itemID: '',
+        status: false,
       },
       orders: {},
+      tempOrder: {
+        user: {},
+      },
     };
   },
   methods: {
     getOrders(page = 1) {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/orders?page=${page}`;
+      this.isLoading.status = true;
       this.axios.get(apiUrl).then((res) => {
         if (res.data.success) {
           this.orders = res.data.orders;
         } else {
           this.swal(res.data.message);
         }
+        this.isLoading.status = false;
       }).catch(() => {
         this.swal('無法取得資料喔～快去看什麼問題吧！');
       });
@@ -101,24 +112,30 @@ export default {
         this.swal('無法修改資料喔～快去看什麼問題吧！');
       });
     },
-    deleteOrder(itemID) {
-      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/order/${itemID}`;
-      this.isLoading.itemID = itemID;
+    deleteOrder() {
+      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/order/${this.tempOrder.id}`;
+      this.isLoading.itemID = this.tempOrder.id;
       this.axios.delete(apiUrl).then((res) => {
         if (res.data.success) {
-          this.isLoading.itemID = false;
-          this.$ref.deleteModal.hide();
-          this.getProducts();
+          this.isLoading.itemID = '';
+          this.$refs.deleteModal.hideModal();
+          this.getOrders();
+          this.swal(res.data.message);
         } else {
           this.swal(res.data.message);
         }
-      }).catch(() => {
+      }).catch((res) => {
         this.swal('無法刪除資料喔～快去看什麼問題吧！');
+        console.log(res);
       });
     },
-    openDeleteModal() {
-      // const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
-      // modal.show();
+    openDeleteModal(item) {
+      this.tempOrder = { ...item };
+      this.$refs.deleteModal.showModal();
+    },
+    openEditModal(item) {
+      this.tempOrder = JSON.parse(JSON.stringify(item));
+      this.$refs.orderModal.showModal();
     },
     swal(msg) {
       this.$swal.fire({
@@ -130,11 +147,12 @@ export default {
       });
     },
   },
+  components: {
+    orderModal,
+    delModal,
+  },
   created() {
     this.getOrders();
-  },
-  components: {
-    deleteModal,
   },
 };
 </script>

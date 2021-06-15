@@ -5,7 +5,7 @@ import { createApp } from 'vue';
 import {
   Field, Form, ErrorMessage, defineRule, configure,
 } from 'vee-validate';
-import { required, email, min } from '@vee-validate/rules'; // 規則
+import AllRules from '@vee-validate/rules'; // 規則
 import { localize, setLocale } from '@vee-validate/i18n'; // 語系
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'; // 繁體
 
@@ -29,9 +29,9 @@ import App from './App.vue';
 import router from './router';
 
 // 定義驗證規則，vee-validate 已匯入使用 defineRule
-defineRule('required', required);
-defineRule('email', email);
-defineRule('min', min);
+Object.keys(AllRules).forEach((rule) => {
+  defineRule(rule, AllRules[rule]);
+});
 
 // 設定 vee-validate 全域規則，，vee-validate 已匯入使用 configure
 configure({
