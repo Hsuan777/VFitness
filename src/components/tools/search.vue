@@ -15,11 +15,6 @@ export default {
     };
   },
   emits: ['filter-data'],
-  computed: {
-    checkData() {
-      return this.searchData.filter((item) => item.user.name.match(this.cacheSearch));
-    },
-  },
   watch: {
     cacheSearch(value) {
       this.$emit('filter-data', value);
