@@ -61,6 +61,11 @@ const routes = [
         name: 'Coupons',
         component: () => import('../views/backend/Coupons.vue'),
       },
+      {
+        path: 'articles',
+        name: 'Articles',
+        component: () => import('../views/backend/Articles.vue'),
+      },
       // 404 訊息
       {
         path: ':pathMatch(.*)*',

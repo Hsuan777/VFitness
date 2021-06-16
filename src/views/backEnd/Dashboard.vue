@@ -29,9 +29,9 @@
               <li class="list-group-item">
                 <router-link to="/manage/orders">訂單</router-link>
               </li>
-              <!-- <li class="list-group-item">
+              <li class="list-group-item">
                 <router-link to="/manage/articles">文章</router-link>
-              </li> -->
+              </li>
               <li class="list-group-item">
                 <router-link to="/manage/coupons">優惠券</router-link>
               </li>
