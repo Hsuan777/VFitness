@@ -23,9 +23,9 @@
           <div class="p-2 border-end bg-light">
             <p class="h3">功能列</p>
             <ul class="list-group list-group-flush">
-              <!-- <li class="list-group-item">
+              <li class="list-group-item">
                 <router-link to="/manage/products">商品</router-link>
-              </li> -->
+              </li>
               <li class="list-group-item">
                 <router-link to="/manage/orders">訂單</router-link>
               </li>

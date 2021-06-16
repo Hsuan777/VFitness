@@ -52,6 +52,11 @@ const routes = [
     component: () => import('../views/backend/Dashboard.vue'),
     children: [
       {
+        path: 'products',
+        name: 'Products',
+        component: () => import('../views/backend/Products.vue'),
+      },
+      {
         path: 'orders',
         name: 'Orders',
         component: () => import('../views/backend/Orders.vue'),
