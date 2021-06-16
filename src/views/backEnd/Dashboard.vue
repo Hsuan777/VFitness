@@ -24,17 +24,17 @@
             <p class="h3">功能列</p>
             <ul class="list-group list-group-flush">
               <!-- <li class="list-group-item">
-                <router-link to="/products">商品</router-link>
+                <router-link to="/manage/products">商品</router-link>
               </li> -->
               <li class="list-group-item">
                 <router-link to="/manage/orders">訂單</router-link>
               </li>
               <!-- <li class="list-group-item">
-                <router-link to="/articles">文章</router-link>
-              </li>
-              <li class="list-group-item">
-                <router-link to="/coupons">優惠券</router-link>
+                <router-link to="/manage/articles">文章</router-link>
               </li> -->
+              <li class="list-group-item">
+                <router-link to="/manage/coupons">優惠券</router-link>
+              </li>
             </ul>
           </div>
         </div>
