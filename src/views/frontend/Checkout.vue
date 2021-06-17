@@ -131,10 +131,6 @@
 export default {
   data() {
     return {
-      isLoading: {
-        itemID: '',
-        status: false,
-      },
       cartsData: {
         carts: [],
       },

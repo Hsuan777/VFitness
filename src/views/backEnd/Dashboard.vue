@@ -48,11 +48,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      isLoading: false,
-    };
-  },
   methods: {
     signOut() {
       this.axios.post(`${process.env.VUE_APP_API}/logout`).then((res) => {

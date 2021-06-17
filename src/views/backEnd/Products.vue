@@ -70,10 +70,6 @@ import delModal from '../../components/backendModal/deleteModal.vue';
 export default {
   data() {
     return {
-      isLoading: {
-        itemID: '',
-        status: false,
-      },
       products: [],
       product: {
         category: '',

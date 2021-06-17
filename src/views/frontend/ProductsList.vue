@@ -59,10 +59,6 @@
 export default {
   data() {
     return {
-      isLoading: {
-        itemID: '',
-        status: false,
-      },
       products: {},
     };
   },

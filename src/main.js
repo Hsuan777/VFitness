@@ -70,5 +70,13 @@ app.mount('#app');
 
 // 若與該元件的固有內容(data、methods內)有同名，則優先使用該元件內容
 app.mixin({
+  data() {
+    return {
+      isLoading: {
+        itemID: '',
+        status: false,
+      },
+    };
+  },
   mixins: [swal],
 });

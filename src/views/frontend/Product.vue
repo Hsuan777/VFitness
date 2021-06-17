@@ -43,10 +43,6 @@
 export default {
   data() {
     return {
-      isLoading: {
-        itemID: '',
-        status: false,
-      },
       product: {},
       productUrl: '',
       cartsOfProduct: [{

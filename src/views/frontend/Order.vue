@@ -82,16 +82,16 @@ export default {
         if (res.data.success) {
           this.order = res.data.order;
           if (!this.order) {
-            this.swal('查無此訂單喔！');
+            this.swal('查無此訂單喔！', 'warning');
             setTimeout(() => {
               this.$router.replace('/productsList');
             }, 3000);
           }
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('無法取得資料喔～快去看什麼問題吧！');
+        this.swal('無法取得資料喔～', 'error');
       });
     },
     payOrder() {

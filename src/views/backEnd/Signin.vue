@@ -42,26 +42,24 @@ export default {
   data() {
     return {
       userInfo: {},
-      isLoading: false,
     };
   },
   methods: {
     signIn() {
-      this.isLoading = true;
+      this.isLoading.status = true;
       this.axios.post(`${process.env.VUE_APP_API}/admin/signin`, this.userInfo).then((res) => {
         const { token, expired } = res.data;
         // 登入與登出屬性必須一致，才能更新。
         document.cookie = `hexToken=${token}; expires=${new Date(expired)}; path=/`;
         this.$refs.signForm.resetForm();
-        this.isLoading = false;
         if (res.data.success) {
           this.swal(res.data.message);
           this.$router.replace({ name: 'Products' });
         } else {
           this.swal(res.data.message, 'error');
         }
+        this.isLoading.status = false;
       }).catch(() => {
-        this.isLoading = false;
         this.swal('登入失敗!', 'error');
       });
     },
