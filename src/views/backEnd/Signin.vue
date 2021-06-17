@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <loading :active="isLoading"></loading>
+    <loading :active="isLoading.status"></loading>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a class="navbar-brand" href="#">V.S</a>
