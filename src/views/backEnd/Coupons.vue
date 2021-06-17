@@ -3,7 +3,7 @@
   <h2 class="h3 mb-0 py-2">優惠券列表</h2>
   <div class="d-flex align-items-center py-2">
     <input type="button" value="新增" class="btn btn-primary me-2"
-      @click="openCouponModal(this.coupon)">
+      @click="openCouponModal">
     <page :pages="totalPages" :currentPage="currentPage" @display-page="getCoupons"
      class="me-2"></page>
     <div class="input-group">

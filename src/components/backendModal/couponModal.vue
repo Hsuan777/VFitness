@@ -6,7 +6,8 @@
         <div class="modal-header">
           <h5 class="modal-title text-primary" v-if="!tempCoupon.id">新增優惠券</h5>
           <h5 class="modal-title" v-else>修改優惠券</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            @click="resetForm">
           </button>
         </div>
         <Form action="" v-slot="{ errors }" ref="couponForm"
@@ -38,7 +39,8 @@
                   <span class="text-danger">*</span>
                 </label>
                 <Field id="couponCode" name="代碼" type="text" class="form-control"
-                  placeholder="英數較佳 e.g. VS777" :class="{ 'is-invalid': errors['代碼'] }"
+                  placeholder="英數較佳 e.g. VS777"
+                  :class="{ 'is-invalid': errors['代碼'] }"
                   rules="min:4|required" v-model="tempCoupon.code">
                 </Field>
                 <error-message name="代碼" class="invalid-feedback"></error-message>
@@ -46,7 +48,9 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              @click="resetForm">Close
+            </button>
             <button type="submit" class="btn btn-primary"
               :disabled="Object.keys(errors).length !== 0">
               <template v-if="tempCoupon.id === undefined">
@@ -72,7 +76,11 @@ export default {
   data() {
     return {
       modal: {},
-      tempCoupon: {},
+      tempCoupon: {
+        title: '',
+        percent: 0,
+        code: '',
+      },
     };
   },
   props: ['couponData'],
@@ -130,17 +138,16 @@ export default {
     hideModal() {
       this.modal.hide();
     },
+    resetForm() {
+      this.$refs.couponForm.resetForm();
+    },
   },
   mounted() {
     this.modal = new Modal(this.$refs.couponModal);
   },
   watch: {
     couponData(item) {
-      if (!item.id) {
-        this.$refs.couponForm.resetForm();
-      } else {
-        this.tempCoupon = item;
-      }
+      this.tempCoupon = item;
     },
   },
 };

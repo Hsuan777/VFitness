@@ -6,7 +6,8 @@
         <div class="modal-header">
           <h5 class="modal-title text-primary" v-if="tempProduct.id === undefined">新增商品</h5>
           <h5 class="modal-title" v-else>修改商品</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"
+            @click="resetForm"></button>
         </div>
         <Form action="" v-slot="{ errors }" ref="productForm" @submit="selectSubmit">
           <div class="modal-body">
@@ -127,7 +128,9 @@
           </div>
           <div class="modal-footer">
             <!-- 若有錯誤則阻止新增 -->
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              @click="resetForm">Close
+            </button>
             <button type="submit" class="btn btn-primary"
               :disabled="Object.keys(errors).length !== 0">
               <template v-if="tempProduct.id === undefined">
@@ -152,7 +155,22 @@ import Modal from 'bootstrap/js/dist/modal';
 export default {
   data() {
     return {
-      tempProduct: {},
+      tempProduct: {
+        category: '',
+        content: '',
+        description: '',
+        origin_price: 0,
+        price: 0,
+        title: '',
+        unit: '',
+        num: '',
+        imageUrl: '',
+        imagesUrl: [],
+        options: {
+          stars: 0,
+          calorie: 0,
+        },
+      },
     };
   },
   props: ['productData'],
@@ -204,6 +222,9 @@ export default {
     hideModal() {
       this.modal.hide();
     },
+    resetForm() {
+      this.$refs.productForm.resetForm();
+    },
   },
   mounted() {
     this.modal = new Modal(this.$refs.productModal);
@@ -211,9 +232,6 @@ export default {
   watch: {
     productData(item) {
       this.tempProduct = item;
-      if (!item.id) {
-        this.$refs.productForm.resetForm();
-      }
     },
   },
 };

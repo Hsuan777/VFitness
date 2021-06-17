@@ -18,6 +18,7 @@
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
+            @click="resetForm"
           ></button>
         </div>
         <Form action="" v-slot="{ errors }" ref="articleForm" @submit="selectSubmit">
@@ -132,6 +133,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
+              @click="resetForm"
             >
               Close
             </button>
@@ -159,7 +161,13 @@ import Modal from 'bootstrap/js/dist/modal';
 export default {
   data() {
     return {
-      tempArticle: {},
+      tempArticle: {
+        title: '',
+        author: '',
+        content: '',
+        description: '',
+        tag: [],
+      },
     };
   },
   props: ['articleData'],
@@ -221,6 +229,9 @@ export default {
     hideModal() {
       this.modal.hide();
     },
+    resetForm() {
+      this.$refs.articleForm.resetForm();
+    },
   },
   mounted() {
     this.modal = new Modal(this.$refs.articleModal);
@@ -228,10 +239,6 @@ export default {
   watch: {
     articleData(item) {
       this.tempArticle = item;
-      console.log(this.tempArticle);
-      if (!item.id) {
-        this.$refs.articleForm.resetForm();
-      }
     },
   },
 };
