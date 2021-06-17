@@ -86,10 +86,6 @@ import Modal from 'bootstrap/js/dist/modal';
 export default {
   data() {
     return {
-      isLoading: {
-        itemID: '',
-        status: false,
-      },
       modal: {},
       order: {
         user: {},

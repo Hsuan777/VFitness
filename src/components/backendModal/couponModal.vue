@@ -71,10 +71,6 @@ import Modal from 'bootstrap/js/dist/modal';
 export default {
   data() {
     return {
-      isLoading: {
-        itemID: '',
-        status: false,
-      },
       modal: {},
       tempCoupon: {},
     };
@@ -140,9 +136,10 @@ export default {
   },
   watch: {
     couponData(item) {
-      this.tempCoupon = item;
       if (!item.id) {
         this.$refs.couponForm.resetForm();
+      } else {
+        this.tempCoupon = item;
       }
     },
   },
