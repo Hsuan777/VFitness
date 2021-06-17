@@ -171,7 +171,7 @@ export default {
           this.$emit('update');
           this.swal(res.data.message);
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
         this.isLoading.itemID = '';
       }).catch(() => {
@@ -188,7 +188,7 @@ export default {
           this.$emit('update');
           this.swal(res.data.message);
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
         this.isLoading.itemID = '';
       }).catch(() => {
@@ -196,7 +196,6 @@ export default {
       });
     },
     selectSubmit() {
-      console.log('123');
       if (!this.tempProduct.id) {
         this.addProduct();
       } else {
@@ -208,16 +207,6 @@ export default {
     },
     hideModal() {
       this.modal.hide();
-    },
-    swal(msg) {
-      this.$swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: msg,
-        width: 'auto',
-        showConfirmButton: false,
-        timer: 2000,
-      });
     },
   },
   mounted() {

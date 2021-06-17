@@ -95,11 +95,11 @@ export default {
           this.currentPage = res.data.pagination.current_page;
           this.totalPages = res.data.pagination.total_pages;
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
         this.isLoading.status = false;
       }).catch(() => {
-        this.swal('無法取得資料喔～快去看什麼問題吧！');
+        this.swal('無法取得資料喔～快去看什麼問題吧！', 'error');
       });
     },
     getFilterData(data) {
@@ -118,10 +118,10 @@ export default {
           this.swal(res.data.message);
           this.getOrders();
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('無法修改資料喔～快去看什麼問題吧！');
+        this.swal('無法修改資料喔～快去看什麼問題吧！', 'error');
       });
     },
     deleteOrder() {
@@ -134,10 +134,10 @@ export default {
           this.getOrders();
           this.swal(res.data.message);
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('無法刪除資料喔～快去看什麼問題吧！');
+        this.swal('無法刪除資料喔～快去看什麼問題吧！', 'error');
       });
     },
     openDeleteModal(item) {
@@ -147,16 +147,6 @@ export default {
     openEditModal(item) {
       this.tempOrder = JSON.parse(JSON.stringify(item));
       this.$refs.orderModal.showModal();
-    },
-    swal(msg) {
-      this.$swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: msg,
-        width: 'auto',
-        showConfirmButton: false,
-        timer: 2000,
-      });
     },
   },
   components: {

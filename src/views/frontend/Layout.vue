@@ -82,10 +82,10 @@ export default {
         if (res.data.success) {
           this.cartsData = res.data.data;
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('取得購物車清單有問題喔～快去看什麼問題吧！');
+        this.swal('無法取得購物車清單喔～', 'error');
       });
     },
   },

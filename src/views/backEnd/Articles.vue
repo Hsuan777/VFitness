@@ -7,7 +7,7 @@
     <page :pages="totalPages" :currentPage="currentPage" @display-page="getArticles"
     class="me-2"></page>
     <div class="input-group">
-      <span class="input-group-text">搜尋優惠券名稱</span>
+      <span class="input-group-text">搜尋文章名稱</span>
       <search @filter-data="getFilterData"></search>
     </div>
   </div>
@@ -115,7 +115,7 @@ export default {
         }
         this.isLoading.status = false;
       }).catch(() => {
-        this.swal('無法取得資料喔～快去看什麼問題吧！');
+        this.swal('無法取得資料喔～快去看什麼問題吧！', 'error');
       });
     },
     // 修改與啟用先取得資料
@@ -129,7 +129,7 @@ export default {
             this.openArticleModal(res.data.article);
           }
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch((res) => {
         this.swal('無法取得資料喔～快去看什麼問題吧！', 'error');
@@ -153,7 +153,7 @@ export default {
         }
         this.isLoading.itemID = '';
       }).catch(() => {
-        this.swal('無法修改資料喔～快去看什麼問題吧！');
+        this.swal('無法修改資料喔～快去看什麼問題吧！', 'error');
       });
     },
     deleteArticle() {
@@ -186,16 +186,6 @@ export default {
     },
     getFilterData(data) {
       this.searchData = data;
-    },
-    swal(msg, iconStatus = 'success') {
-      this.$swal.fire({
-        position: 'center',
-        icon: iconStatus,
-        title: msg,
-        width: 'auto',
-        showConfirmButton: false,
-        timer: 2000,
-      });
     },
   },
   created() {

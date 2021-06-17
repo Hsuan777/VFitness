@@ -56,19 +56,10 @@ export default {
           this.$emit('update');
           this.swal('已刪除購物車商品囉！');
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('無法刪除資料喔～快去看什麼問題吧！');
-      });
-    },
-    swal(msg) {
-      this.$swal.fire({
-        position: 'center',
-        title: msg,
-        width: 'auto',
-        showConfirmButton: false,
-        timer: 2000,
+        this.swal('無法刪除商品喔～', 'error');
       });
     },
   },

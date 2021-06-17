@@ -61,10 +61,10 @@ export default {
           this.swal(res.data.message);
           this.$router.replace({ name: 'Signin' });
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('登出失敗!');
+        this.swal('登出失敗!', 'error');
       });
     },
     checkLogin() {
@@ -74,15 +74,6 @@ export default {
         if (!res.data.success) {
           this.$router.replace({ name: 'Signin' });
         }
-      });
-    },
-    swal(msg) {
-      this.$swal.fire({
-        position: 'center',
-        title: msg,
-        width: 'auto',
-        showConfirmButton: false,
-        timer: 2000,
       });
     },
   },

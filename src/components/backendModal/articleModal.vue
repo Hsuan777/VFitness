@@ -225,16 +225,6 @@ export default {
     hideModal() {
       this.modal.hide();
     },
-    swal(msg) {
-      this.$swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: msg,
-        width: 'auto',
-        showConfirmButton: false,
-        timer: 2000,
-      });
-    },
   },
   mounted() {
     this.modal = new Modal(this.$refs.articleModal);

@@ -78,10 +78,10 @@ export default {
         if (res.data.success) {
           this.products = res.data.products;
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('無法取得資料喔～快去看什麼問題吧！');
+        this.swal('無法取得商品全部資料喔～', 'error');
       });
     },
     addCart(itemID) {
@@ -95,20 +95,10 @@ export default {
           this.$emit('update');
           this.swal(res.data.message);
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
-      }).catch((res) => {
-        this.swal('無法取得資料喔～快去看什麼問題吧！');
-        console.log(res);
-      });
-    },
-    swal(msg) {
-      this.$swal.fire({
-        position: 'center',
-        title: msg,
-        width: 'auto',
-        showConfirmButton: false,
-        timer: 2000,
+      }).catch(() => {
+        this.swal('無法加入購物車喔～', 'error');
       });
     },
   },

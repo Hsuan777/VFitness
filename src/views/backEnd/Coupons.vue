@@ -87,11 +87,11 @@ export default {
         if (res.data.success) {
           this.coupons = res.data.coupons;
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
         this.isLoading.status = false;
       }).catch(() => {
-        this.swal('無法取得優惠券資料喔～快去看什麼問題吧！');
+        this.swal('無法取得優惠券資料喔～快去看什麼問題吧！', 'error');
       });
     },
     // 更新是否啟用
@@ -110,11 +110,11 @@ export default {
           this.getCoupons();
           this.swal(res.data.message);
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
         this.isLoading.itemID = '';
       }).catch(() => {
-        this.swal('無法修改資料喔～快去看什麼問題吧！');
+        this.swal('無法修改資料喔～快去看什麼問題吧！', 'error');
       });
     },
     deleteCoupon() {
@@ -130,7 +130,6 @@ export default {
         }
         this.isLoading.itemID = '';
       }).catch((res) => {
-        // this.swal('無法刪除資料喔～快去看什麼問題吧！');
         this.swal('無法刪除資料喔～快去看什麼問題吧！', 'error');
         console.log(res);
       });
@@ -145,16 +144,6 @@ export default {
     },
     getFilterData(data) {
       this.searchData = data;
-    },
-    swal(msg, iconStatus = 'success') {
-      this.$swal.fire({
-        position: 'center',
-        icon: iconStatus,
-        title: msg,
-        width: 'auto',
-        showConfirmButton: false,
-        timer: 2000,
-      });
     },
   },
   created() {

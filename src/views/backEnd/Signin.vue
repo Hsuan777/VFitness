@@ -58,11 +58,11 @@ export default {
           this.swal(res.data.message);
           this.$router.replace({ name: 'Products' });
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
         this.isLoading = false;
-        this.swal('登入失敗!');
+        this.swal('登入失敗!', 'error');
       });
     },
     checkLogin() {
@@ -74,15 +74,6 @@ export default {
         } else {
           this.$router.replace({ name: 'Signin' });
         }
-      });
-    },
-    swal(msg) {
-      this.$swal.fire({
-        position: 'center',
-        title: msg,
-        width: 'auto',
-        showConfirmButton: false,
-        timer: 2000,
       });
     },
   },

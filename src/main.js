@@ -25,9 +25,10 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import 'bootstrap';
 import './assets/styles/main.scss'; // bootstrap 客製化
 
-// 匯入 分頁元件
+// 匯入 tools 元件
 import page from './components/tools/pagination.vue';
 import search from './components/tools/search.vue';
+import swal from './components/tools/swal.vue'; // 作為 mixins
 
 import App from './App.vue';
 import router from './router';
@@ -64,4 +65,10 @@ app.component('page', page);
 
 // 註冊 搜尋輸入框元件
 app.component('search', search);
+
 app.mount('#app');
+
+// 若與該元件的固有內容(data、methods內)有同名，則優先使用該元件內容
+app.mixin({
+  mixins: [swal],
+});

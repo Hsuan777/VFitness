@@ -165,10 +165,10 @@ export default {
             this.$router.replace('/productsList');
           }
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('取得購物車清單有問題喔～快去看什麼問題吧！');
+        this.swal('取得購物車清單有問題喔～快去看什麼問題吧！', 'error');
       });
     },
     putCart(item, num) {
@@ -182,10 +182,10 @@ export default {
           this.getCartsList();
           this.swal(res.data.message);
         } else {
-          this.swal(`${res.data.message}，請重新整理頁面。`);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('無法更新資料喔～');
+        this.swal('無法更新資料喔～', 'error');
       });
     },
     deleteCart(itemID) {
@@ -201,7 +201,7 @@ export default {
           this.swal(res.data.message);
         }
       }).catch(() => {
-        this.swal('無法刪除資料喔～');
+        this.swal('無法刪除購物車內商品喔～', 'error');
       });
     },
     deleteCartAll() {
@@ -212,10 +212,10 @@ export default {
           this.$emit('update');
           this.getCartsList();
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('無法刪除資料喔～');
+        this.swal('無法刪除購物車內商品喔～', 'error');
       });
     },
     postCoupon() {
@@ -225,10 +225,10 @@ export default {
           this.swal(res.data.message);
           this.getCartsList();
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('無法更新資料喔～快去看什麼問題吧！');
+        this.swal('無法套用優惠券喔～', 'error');
       });
     },
     postOrder() {
@@ -243,26 +243,15 @@ export default {
             this.$router.replace(`/order/${res.data.orderId}`);
           }, 2000);
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
-        // this.isSubmitOrder = false;
-      }).catch((res) => {
-        console.log(res);
-        this.swal('無法送出訂單喔～');
+      }).catch(() => {
+        this.swal('無法送出訂單喔～', 'error');
       });
     },
     checkPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/;
       return phoneNumber.test(value) ? true : '需要正確的"手機"號碼';
-    },
-    swal(msg) {
-      this.$swal.fire({
-        position: 'center',
-        title: msg,
-        width: 'auto',
-        showConfirmButton: false,
-        timer: 2000,
-      });
     },
   },
   created() {

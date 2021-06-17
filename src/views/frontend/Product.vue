@@ -65,10 +65,10 @@ export default {
         if (res.data.success) {
           this.product = res.data.product;
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('無法取得產品資料喔～！');
+        this.swal('無法取得產品資料喔～', 'error');
       });
     },
     checkCartsList() {
@@ -84,11 +84,11 @@ export default {
             this.cartsOfProduct = [...cartsOfProduct];
           }
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch((res) => {
         console.log(res);
-        this.swal('無法取得購物車資料喔～！');
+        this.swal('無法取得購物車資料喔～', 'error');
       });
     },
     addCart(itemID, num) {
@@ -103,10 +103,10 @@ export default {
           this.swal(res.data.message);
           this.checkCartsList();
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('無法加入購物車喔～！');
+        this.swal('無法加入購物車喔～', 'error');
       });
     },
     putCart(item) {
@@ -120,24 +120,11 @@ export default {
           this.$emit('update');
           this.swal(res.data.message);
         } else {
-          this.swal(`${res.data.message}，請重新整理頁面。`);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('無法更新資料喔～快去看什麼問題吧！');
+        this.swal('無法更新購物車資料喔～', 'error');
       });
-    },
-    swal(msg) {
-      this.$swal.fire({
-        position: 'center',
-        title: msg,
-        width: 'auto',
-        showConfirmButton: false,
-        timer: 2000,
-      });
-    },
-    test(data) {
-      console.log(data);
-      console.log('Y');
     },
   },
   created() {

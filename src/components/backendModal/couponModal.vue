@@ -97,11 +97,11 @@ export default {
           this.$emit('update');
           this.swal(res.data.message);
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
         this.isLoading.itemID = '';
       }).catch(() => {
-        this.swal('無法加入資料喔～快去看什麼問題吧！');
+        this.swal('無法加入資料喔～快去看什麼問題吧！', 'error');
       });
     },
     putCoupon() {
@@ -114,11 +114,11 @@ export default {
           this.$emit('update');
           this.swal(res.data.message);
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
         this.isLoading.itemID = '';
       }).catch(() => {
-        this.swal('無法修改資料喔～快去看什麼問題吧！');
+        this.swal('無法修改資料喔～快去看什麼問題吧！', 'error');
       });
     },
     selectSubmit() {
@@ -133,16 +133,6 @@ export default {
     },
     hideModal() {
       this.modal.hide();
-    },
-    swal(msg) {
-      this.$swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: msg,
-        width: 'auto',
-        showConfirmButton: false,
-        timer: 2000,
-      });
     },
   },
   mounted() {

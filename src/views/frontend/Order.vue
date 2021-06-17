@@ -103,19 +103,10 @@ export default {
             this.$router.replace('/productsList');
           }, 3000);
         } else {
-          this.swal(res.data.message);
+          this.swal(res.data.message, 'error');
         }
       }).catch(() => {
-        this.swal('無法取得資料喔～快去看什麼問題吧！');
-      });
-    },
-    swal(msg) {
-      this.$swal.fire({
-        position: 'center',
-        title: msg,
-        width: 'auto',
-        showConfirmButton: false,
-        timer: 2000,
+        this.swal('付款未完成喔，請稍後再試～', 'error');
       });
     },
   },
