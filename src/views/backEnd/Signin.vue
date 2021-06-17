@@ -56,7 +56,7 @@ export default {
         this.isLoading = false;
         if (res.data.success) {
           this.swal(res.data.message);
-          this.$router.replace({ name: 'Manage' });
+          this.$router.replace({ name: 'Products' });
         } else {
           this.swal(res.data.message);
         }
