@@ -155,6 +155,7 @@ import Modal from 'bootstrap/js/dist/modal';
 export default {
   data() {
     return {
+      // 為了讓 resetForm 可以先抓到變數而不產生驗證錯誤訊息回饋
       tempProduct: {
         category: '',
         content: '',
@@ -177,7 +178,7 @@ export default {
   methods: {
     addProduct() {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product`;
-      const productObj = { data: { ...this.tempData } };
+      const productObj = { data: { ...this.tempProduct } };
       this.isLoading.itemID = 'add';
       this.axios.post(apiUrl, productObj).then((res) => {
         if (res.data.success) {
