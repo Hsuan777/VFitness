@@ -58,7 +58,7 @@
     </table>
   </div>
   <order-modal ref="orderModal" :data="tempOrder" @edit-total="putOrder"></order-modal>
-  <del-modal ref="deleteModal" :data="tempOrder.user.name" tab="訂單"
+  <del-modal ref="deleteModal" :title="tempOrder.user.name" tab="訂單"
     @delete-data="deleteOrder">
   </del-modal>
 </template>

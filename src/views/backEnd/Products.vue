@@ -58,7 +58,7 @@
   </table>
   <product-modal ref="productModal" :product-data="tempProduct"
     @update="getProducts"></product-modal>
-  <del-modal ref="deleteModal" :data="tempProduct.title" tab="商品"
+  <del-modal ref="deleteModal" :title="tempProduct.title" tab="商品"
     @delete-data="deleteProduct">
   </del-modal>
 </template>

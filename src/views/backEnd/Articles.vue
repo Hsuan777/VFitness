@@ -7,7 +7,7 @@
     <page :pages="totalPages" :currentPage="currentPage" @display-page="getArticles"
     class="me-2"></page>
     <div class="input-group">
-      <span class="input-group-text">搜尋文章名稱</span>
+      <span class="input-group-text">搜尋文章標題</span>
       <search @filter-data="getFilterData"></search>
     </div>
   </div>
@@ -23,7 +23,7 @@
     </thead>
     <tbody>
       <tr
-        v-for="item in articles"
+        v-for="item in filterData"
         :key="item.create_at"
         :class="{ 'table-success': item.isPublic }"
       >
@@ -74,7 +74,7 @@
   </table>
   <article-modal ref="articleModal" :article-data="tempArticle"
     @update="getArticles"></article-modal>
-  <del-modal ref="deleteModal" :data="tempArticle.title" tab="文章" @delete-data="deleteArticle">
+  <del-modal ref="deleteModal" :title="tempArticle.title" tab="文章" @delete-data="deleteArticle">
   </del-modal>
 </template>
 
@@ -127,9 +127,8 @@ export default {
         } else {
           this.swal(res.data.message, 'error');
         }
-      }).catch((res) => {
+      }).catch(() => {
         this.swal('無法取得資料喔～快去看什麼問題吧！', 'error');
-        console.log(res);
       });
     },
     // 更新是否啟用
@@ -164,13 +163,12 @@ export default {
           this.swal(res.data.message, 'error');
         }
         this.isLoading.itemID = '';
-      }).catch((res) => {
+      }).catch(() => {
         this.swal('無法刪除資料喔～快去看什麼問題吧！', 'error');
-        console.log(res);
       });
     },
     openArticleModal(item) {
-      this.tempArticle = { ...item };
+      this.tempArticle = JSON.parse(JSON.stringify(item));
       if (!this.tempArticle.tag) {
         this.tempArticle.tag = [];
       }
@@ -193,7 +191,7 @@ export default {
   },
   computed: {
     filterData() {
-      return this.coupons.filter((item) => item.code.match(this.searchData));
+      return this.articles.filter((item) => item.title.match(this.searchData));
     },
   },
 };

@@ -10,7 +10,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>您是否要刪除[ {{tab}} ][ {{data}}]?</p>
+          <p>您是否要刪除[ {{tab}} ][ {{title}}]?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -31,7 +31,7 @@ export default {
       modal: {},
     };
   },
-  props: ['data', 'tab'],
+  props: ['title', 'tab'],
   methods: {
     showModal() {
       this.modal.show();

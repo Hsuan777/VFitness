@@ -52,7 +52,7 @@
     </tbody>
   </table>
   <coupon-modal ref="couponModal" :coupon-data="tempCoupon" @update="getCoupons"></coupon-modal>
-  <del-modal ref="deleteModal" :data="tempCoupon.code" tab="優惠券" @delete-data="deleteCoupon">
+  <del-modal ref="deleteModal" :title="tempCoupon.code" tab="優惠券" @delete-data="deleteCoupon">
   </del-modal>
 </template>
 

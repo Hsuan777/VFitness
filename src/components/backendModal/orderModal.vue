@@ -110,7 +110,6 @@ export default {
   },
   watch: {
     data(value) {
-      console.log(value);
       this.order = value;
     },
   },
