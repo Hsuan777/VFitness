@@ -79,7 +79,6 @@ export default {
   },
   created() {
     this.checkLogin();
-    console.log(this.$route);
   },
 };
 </script>

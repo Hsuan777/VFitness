@@ -42,6 +42,7 @@ export default {
   },
   methods: {
     clickPage(num) {
+      window.scrollTo(0, 0);
       this.$emit('display-page', num);
     },
   },
