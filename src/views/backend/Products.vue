@@ -85,8 +85,18 @@ export default {
         imageUrl: '',
         imagesUrl: [],
         options: {
-          stars: 0,
-          calorie: 0,
+          food: {
+            calories: 0, // 卡路里
+            carbs: 0, // 碳水化合物
+            protein: 0, // 蛋白質
+            fat: 0, // 脂肪
+          },
+          course: {
+            stars: '', // 難易度，低、中、難
+            duration: 50, // 一堂50分
+            teacher: '', // 老師
+            area: '', // 上課區域
+          },
         },
       },
       tempProduct: {},

@@ -12,9 +12,10 @@
         <Form action="" v-slot="{ errors }" ref="productForm" @submit="selectSubmit">
           <div class="modal-body">
             <div class="row g-3">
+              <!-- 商品名稱  title -->
               <div class="col-12">
-                <label for="productName" class="form-label">商品名稱
-                  <span class="text-danger">*</span>
+                <label for="productName" class="form-label">
+                  商品名稱<span class="text-danger">*</span>
                 </label>
                 <Field id="productName" name="商品名稱" type="text" class="form-control"
                   :class="{ 'is-invalid': errors['商品名稱'] }" rules="required"
@@ -22,20 +23,23 @@
                 </Field>
                 <error-message name="商品名稱" class="invalid-feedback"></error-message>
               </div>
+              <!-- 描述 description -->
               <div class="col-12">
                 <label for="productDescription" class="form-label">描述</label>
                 <input type="text" id="productDescription" class="form-control" placeholder="描述"
                   v-model="tempProduct.description">
               </div>
+              <!-- 內容 content -->
               <div class="col-12">
                 <label for="productContent" class="form-label">內容</label>
                 <textarea type="text" rows="3" id="productContent" class="form-control"
                   placeholder="商品內容" v-model="tempProduct.content">
                 </textarea>
               </div>
-              <div class="col">
-                <label for="productOriginPrice" class="form-label">定價
-                  <span class="text-danger">*</span>
+              <!-- 定價 origin_price -->
+              <div class="col-3">
+                <label for="productOriginPrice" class="form-label">
+                  定價<span class="text-danger">*</span>
                 </label>
                 <Field id="productOriginPrice" name="定價" type="number" class="form-control"
                   :class="{ 'is-invalid': errors['定價'] }" rules="min_value:0|required"
@@ -43,7 +47,8 @@
                 </Field>
                 <error-message name="定價" class="invalid-feedback"></error-message>
               </div>
-              <div class="col">
+              <!-- 售價 price -->
+              <div class="col-3">
                 <label for="productPrice" class="form-label">售價
                   <span class="text-danger">*</span>
                 </label>
@@ -53,19 +58,22 @@
                 </Field>
                 <error-message name="售價" class="invalid-feedback"></error-message>
               </div>
-              <div class="col">
-                <label for="productCategory" class="form-label">類別
-                  <span class="text-danger">*</span>
+              <!-- 類別 category -->
+              <div class="col-3">
+                <label for="productCategory" class="form-label">
+                  類別<span class="text-danger">*</span>
                 </label>
                 <Field id="productCategory" name="類別" type="text" class="form-control"
                   :class="{ 'is-invalid': errors['類別'] }" rules="required"
                   v-model="tempProduct.category">
+
                 </Field>
                 <error-message name="類別" class="invalid-feedback"></error-message>
               </div>
-              <div class="col">
-                <label for="productUnit" class="form-label">單位
-                  <span class="text-danger">*</span>
+              <!-- 單位 unit -->
+              <div class="col-3">
+                <label for="productUnit" class="form-label">
+                  單位<span class="text-danger">*</span>
                 </label>
                 <Field id="productUnit" name="單位" type="text" class="form-control"
                   :class="{ 'is-invalid': errors['單位'] }" rules="required"
@@ -73,24 +81,85 @@
                 </Field>
                 <error-message name="單位" class="invalid-feedback"></error-message>
               </div>
-              <template v-if="tempProduct.category">
-                <div class="col" v-show="tempProduct.category === '課程'">
-                  <label for="productStars" class="form-label">難易度</label>
-                  <Field id="productStars" name="難易度" type="number" class="form-control"
-                    :class="{ 'is-invalid': errors['難易度'] }" rules="max_value:5|min_value:1"
-                    v-model="tempProduct.options.stars">
-                  </Field>
-                  <error-message name="難易度" class="invalid-feedback"></error-message>
-                </div>
-                <div class="col" v-show="tempProduct.category === '餐飲'">
-                  <label for="productCalorie" class="form-label">卡路里</label>
-                  <Field id="productCalorie" name="卡路里" type="number" class="form-control"
+              <template v-if="this.tempProduct.category === '餐點' ||
+                this.tempProduct.category === '飲品'">
+                <!-- 卡路里 calories -->
+                <div class="col-3">
+                  <label for="foodCalories" class="form-label">卡路里</label>
+                  <Field id="foodCalories" name="卡路里" type="number" class="form-control"
                     :class="{ 'is-invalid': errors['卡路里'] }" rules="min_value:0"
-                    v-model="tempProduct.options.calorie">
+                    v-model="tempProduct.options.food.calories">
                   </Field>
                   <error-message name="卡路里" class="invalid-feedback"></error-message>
                 </div>
+                <!-- 碳水化合物 carbs -->
+                <div class="col-3">
+                  <label for="foodCarbs" class="form-label">碳水化合物</label>
+                  <Field id="foodCarbs" name="碳水化合物" type="number" class="form-control"
+                    :class="{ 'is-invalid': errors['碳水化合物'] }" rules="min_value:0"
+                    v-model="tempProduct.options.food.carbs">
+                  </Field>
+                  <error-message name="碳水化合物" class="invalid-feedback"></error-message>
+                </div>
+                <!-- 蛋白質 protein -->
+                <div class="col-3">
+                  <label for="foodProtein" class="form-label">蛋白質</label>
+                  <Field id="foodProtein" name="蛋白質" type="number" class="form-control"
+                    :class="{ 'is-invalid': errors['蛋白質'] }" rules="min_value:0"
+                    v-model="tempProduct.options.food.protein">
+                  </Field>
+                  <error-message name="蛋白質" class="invalid-feedback"></error-message>
+                </div>
+                <!-- 脂肪 fat -->
+                <div class="col-3">
+                  <label for="foodFat" class="form-label">脂肪</label>
+                  <Field id="foodFat" name="脂肪" type="number" class="form-control"
+                    :class="{ 'is-invalid': errors['脂肪'] }" rules="min_value:0"
+                    v-model="tempProduct.options.food.fat">
+                  </Field>
+                  <error-message name="脂肪" class="invalid-feedback"></error-message>
+                </div>
               </template>
+              <template v-if="this.tempProduct.category === '有氧' ||
+                this.tempProduct.category === '阻力'">
+                <!-- 難易度 stars -->
+                <div class="col-3">
+                  <label for="courseStars" class="form-label">難易度</label>
+                  <Field id="courseStars" name="難易度" type="text" class="form-control"
+                    :class="{ 'is-invalid': errors['難易度'] }" rules="" placeholder="低、中、難"
+                    v-model="tempProduct.options.course.stars">
+                  </Field>
+                  <error-message name="難易度" class="invalid-feedback"></error-message>
+                </div>
+                <!-- 課程時間 duration -->
+                <div class="col-3">
+                  <label for="courseDuration" class="form-label">課程時間</label>
+                  <Field id="courseDuration" name="課程時間" type="number" class="form-control"
+                    :class="{ 'is-invalid': errors['課程時間'] }" rules="min_value:0"
+                    v-model="tempProduct.options.course.duration">
+                  </Field>
+                  <error-message name="課程時間" class="invalid-feedback"></error-message>
+                </div>
+                <!-- 上課區域 area -->
+                <div class="col-3">
+                  <label for="courseArea" class="form-label">上課區域</label>
+                  <Field id="courseArea" name="上課區域" type="text" class="form-control"
+                    :class="{ 'is-invalid': errors['上課區域'] }" rules=""
+                    v-model="tempProduct.options.course.area">
+                  </Field>
+                  <error-message name="上課區域" class="invalid-feedback"></error-message>
+                </div>
+                <!-- 授課教練 teacher -->
+                <div class="col-3">
+                  <label for="courseTeacher" class="form-label">授課教練</label>
+                  <Field id="courseTeacher" name="上課區域" type="text" class="form-control"
+                    :class="{ 'is-invalid': errors['上課區域'] }" rules=""
+                    v-model="tempProduct.options.course.teacher">
+                  </Field>
+                  <error-message name="上課區域" class="invalid-feedback"></error-message>
+                </div>
+              </template>
+              <!-- 主圖與額外圖片網址 imageUrl imagesUrl-->
               <div class="col-12">
                 <div class="d-flex align-items-center mb-2">
                   <label for="productImageUrl" class="form-label mb-0">主圖網址</label>
@@ -168,8 +237,18 @@ export default {
         imageUrl: '',
         imagesUrl: [],
         options: {
-          stars: 0,
-          calorie: 0,
+          food: {
+            calories: 0, // 卡路里
+            carbs: 0, // 碳水化合物
+            protein: 0, // 蛋白質
+            fat: 0, // 脂肪
+          },
+          course: {
+            stars: '', // 難易度，低、中、難
+            duration: 50, // 一堂 50 分
+            teacher: '', // 老師
+            area: '', // 上課區域
+          },
         },
       },
     };
