@@ -68,7 +68,7 @@ export default {
       this.axios.defaults.headers.common.Authorization = token;
       this.axios.post(`${process.env.VUE_APP_API}/api/user/check`).then((res) => {
         if (res.data.success) {
-          this.$router.replace({ name: 'Manage' });
+          this.$router.replace({ name: 'Products' });
         } else {
           this.$router.replace({ name: 'Signin' });
         }
