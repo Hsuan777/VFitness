@@ -61,7 +61,8 @@
       <section class="col-lg-6">
         <header class="d-flex align-items-center mb-lg-3">
           <h2 class="mb-0">購物車列表</h2>
-          <button type="button" class="btn btn-link link-secondary ms-auto" @click="deleteCartAll">
+          <button type="button" class="btn btn-link link-secondary ms-auto pe-2"
+          @click="deleteCartAll">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
             class="bi bi-cart-x" viewBox="0 0 16 16">
               <path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0
@@ -78,31 +79,29 @@
         <ul class="list-group">
           <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
             <div class="d-flex align-items-center">
-              <router-link :to="`/product/${item.product.id}`" class="me-5">
+              <router-link :to="`/product/${item.product.id}`" class="link-dark">
                 {{item.product.title}}
               </router-link>
-              <!-- <a :href="'product.html?id=' + item.product.id"
-                class="me-5">{{item.product.title}}</a> -->
               <input type="button" value="X"
               class="btn btn-link btn-sm pe-0 text-decoration-none link-secondary ms-auto"
               @click="deleteCart(item.id)">
             </div>
             <div class="d-flex justify-content-between align-items-center">
-              <p class="h6 mb-0 me-3">{{'$' + item.product.price + ' x '}}</p>
+              <p class="mb-0 me-3">{{'$' + item.product.price + ' x '}}</p>
               <!-- 數量增減 -->
               <div class="spinner-border spinner-border-sm text-danger ms-auto me-3"
                 role="status" v-if="isLoading.itemID === item.id">
                 <span class="visually-hidden">Loading...</span>
               </div>
               <div class="input-group w-50" v-else>
-                <button class="btn btn-outline-secondary" type="button"
+                <button class="btn btn-primary" type="button"
                   @click="putCart(item, item.qty -1 )" :disabled="item.qty - 1 === 0"> - </button>
-                <input type="text" class="form-control text-center text-danger"
+                <input type="text" class="form-control text-center bg-white"
                   placeholder="" :value="item.qty" disabled>
-                <button class="btn btn-outline-secondary" type="button"
+                <button class="btn btn-primary" type="button"
                   @click="putCart(item, item.qty + 1)"> + </button>
               </div>
-              <span class="text-primary">{{'$'+item.total}}</span>
+              <span class="">{{'$'+item.total}}</span>
             </div>
           </li>
           <li class="list-group-item border-0">
@@ -145,6 +144,7 @@ export default {
       },
       isSubmitOrder: false,
       couponCode: 'test777',
+      deleteList: [],
     };
   },
   emits: ['update'],
@@ -157,6 +157,7 @@ export default {
         this.isLoading.status = false;
         if (res.data.success) {
           this.cartsData = res.data.data;
+          console.log(this.cartsData);
           if (!this.cartsData.carts.length && !this.isSubmitOrder) {
             this.$router.replace('/productsList');
           }
@@ -189,13 +190,13 @@ export default {
       this.isLoading.itemID = itemID;
       this.axios.delete(apiUrl).then((res) => {
         if (res.data.success) {
-          this.isLoading.itemID = '';
           this.$emit('update');
           this.getCartsList();
           this.swal('已刪除購物車商品囉！');
         } else {
           this.swal(res.data.message);
         }
+        this.isLoading.itemID = '';
       }).catch(() => {
         this.swal('無法刪除購物車內商品喔～', 'error');
       });
