@@ -1,0 +1,46 @@
+/* 標籤類 */
+th, td {
+  vertical-align: middle;
+}
+
+img {
+  object-fit: cover;
+}
+
+/* 更改 bootstrap 現有 CSS */
+.btn-primary {
+  color: white;
+}
+
+/* custom */
+.height--vh {
+  height: 100vh;
+}
+.product {
+  &__categoryTab {
+    position: sticky;
+    top: 60px;
+    z-index: 99;
+    border-bottom: 1px #dee2e6 solid;
+    @include media-breakpoint-down(lg) {
+      position: fixed;
+      top: 93.5%;
+      .custom__select {
+        border-top: 1px #dee2e6 solid;
+        border-bottom: 0;
+      }
+    }
+  }
+  &__img {
+    height: 185px;
+    @include media-breakpoint-down(lg) {
+      height: 128px;
+    }
+  }
+  &--hover {
+    &:hover{
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+  }
+}

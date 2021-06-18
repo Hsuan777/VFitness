@@ -1,14 +1,14 @@
 <template>
   <loading :active="isLoading.status"></loading>
   <!-- 商品頁籤 -->
-  <nav class="custom__categoryTab container-fluid mb-lg-3 bg-white">
+  <nav class="product__categoryTab container-fluid mb-lg-3 bg-white">
     <div class="container">
       <ul class="nav row justify-content-around">
-        <li class="custom__select col text-center border-end py-lg-2">
+        <li class="product--hover col text-center border-end py-lg-2">
           <a class="nav-item nav-link link-dark h3 mb-0" href="#">
             <i class="fas fa-utensils text-primary me-3"></i>餐飲</a>
         </li>
-        <li class="custom__select col text-center py-lg-2">
+        <li class="product--hover col text-center py-lg-2">
           <a class="nav-item nav-link link-dark h3 mb-0" href="#">
             <i class="fas fa-dumbbell text-danger me-3"></i>課程</a>
         </li>
@@ -18,11 +18,11 @@
   <!-- 商品列表 -->
   <div class="container">
     <ul class="list-unstyled row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
-      <li class="custom__select col" v-for="item in products" :key="item.id">
+      <li class="product--hover col" v-for="item in products" :key="item.id">
         <div class="card card-body border-0">
           <router-link :to="`/product/${item.id}`" class="text-decoration-none link-dark">
             <img :src="item.imageUrl" alt="item.title"
-            class="custom__product__img mb-2 rounded-3 w-100">
+            class="product__img mb-2 rounded-3 w-100">
           </router-link>
           <h3 class="h4 mb-0">
             <router-link :to="`/product/${item.id}`" class="text-decoration-none text-dark">

@@ -19,23 +19,31 @@
     <!-- Dashboard 內容 -->
     <div class="container-fluid">
       <div class="row">
-        <div class="col-2">
-          <div class="p-2 border-end bg-light">
+        <div class="height--vh col-2">
+          <div class="p-2 bg-light h-100">
             <p class="h3">功能列</p>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <router-link to="/manage/products">商品</router-link>
-              </li>
-              <li class="list-group-item">
-                <router-link to="/manage/orders">訂單</router-link>
-              </li>
-              <li class="list-group-item">
-                <router-link to="/manage/articles">文章</router-link>
-              </li>
-              <li class="list-group-item">
-                <router-link to="/manage/coupons">優惠券</router-link>
-              </li>
-            </ul>
+            <div class="list-group list-group-flush">
+              <router-link to="/manage/products"
+                class="list-group-item list-group-item-action"
+                :class="{'active': $route.name === 'Products'}">
+                商品
+              </router-link>
+              <router-link to="/manage/orders"
+                class="list-group-item list-group-item-action"
+                :class="{'active': $route.name === 'Orders'}">
+                訂單
+              </router-link>
+              <router-link to="/manage/articles"
+                class="list-group-item list-group-item-action"
+                :class="{'active': $route.name === 'Articles'}">
+                文章
+              </router-link>
+              <router-link to="/manage/coupons"
+                class="list-group-item list-group-item-action"
+                :class="{'active': $route.name === 'Coupons'}">
+                優惠券
+              </router-link>
+            </div>
           </div>
         </div>
         <div class="col-10">
@@ -74,6 +82,7 @@ export default {
   },
   created() {
     this.checkLogin();
+    console.log(this.$route);
   },
 };
 </script>
