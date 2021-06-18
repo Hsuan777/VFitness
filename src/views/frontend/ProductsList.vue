@@ -4,12 +4,16 @@
   <nav class="product__categoryTab container-fluid mb-lg-3 bg-white">
     <div class="container">
       <ul class="nav row justify-content-around">
-        <li class="product--hover col text-center border-end py-lg-2">
-          <a class="nav-item nav-link link-dark h3 mb-0" href="#">
+        <li class="product--hover col text-center border-end py-lg-2"
+          :class="{'product__categoryTab--active': category === '餐飲'}">
+          <a class="nav-item nav-link link-dark h3 mb-0" href="#"
+            @click.prevent="category = '餐飲'">
             <i class="fas fa-utensils text-primary me-3"></i>餐飲</a>
         </li>
-        <li class="product--hover col text-center py-lg-2">
-          <a class="nav-item nav-link link-dark h3 mb-0" href="#">
+        <li class="product--hover col text-center py-lg-2"
+          :class="{'product__categoryTab--active': category === '課程'}">
+          <a class="nav-item nav-link link-dark h3 mb-0" href="#"
+            @click.prevent="category = '課程'">
             <i class="fas fa-dumbbell text-danger me-3"></i>課程</a>
         </li>
       </ul>
@@ -18,7 +22,7 @@
   <!-- 商品列表 -->
   <div class="container">
     <ul class="list-unstyled row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
-      <li class="product--hover col" v-for="item in products" :key="item.id">
+      <li class="product--hover col" v-for="item in filterCategory" :key="item.id">
         <div class="card card-body border-0">
           <router-link :to="`/product/${item.id}`" class="text-decoration-none link-dark">
             <img :src="item.imageUrl" alt="item.title"
@@ -59,7 +63,8 @@
 export default {
   data() {
     return {
-      products: {},
+      products: [],
+      category: '',
     };
   },
   // 參考 emits Option，不先定義在向外丟時，vue 會警告
@@ -100,6 +105,11 @@ export default {
   },
   created() {
     this.getProductsAll();
+  },
+  computed: {
+    filterCategory() {
+      return this.products.filter((item) => item.category.match(this.category));
+    },
   },
 };
 </script>
