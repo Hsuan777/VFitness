@@ -1,62 +1,62 @@
 <template>
   <loading :active="isLoading.status"></loading>
-  <h2 class="h3 mb-0 py-2">訂單列表</h2>
-  <div class="d-flex py-2">
-    <page :pages="totalPages" :currentPage="currentPage" @display-page="getOrders"
-     class="me-2"></page>
-    <search @filter-data="getFilterData"></search>
+  <div class="sticky-top bg-white">
+    <h2 class="h3 mb-0 py-2">訂單列表</h2>
+    <div class="d-flex py-2">
+      <page :pages="totalPages" :currentPage="currentPage" @display-page="getOrders"
+      class="me-2"></page>
+      <search @filter-data="getFilterData"></search>
+    </div>
   </div>
-  <div class="card-body p-1">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>訂購人</th>
-          <th>聯絡信箱</th>
-          <th>連絡電話</th>
-          <th>住址</th>
-          <th>商品</th>
-          <th>總金額</th>
-          <th>付款狀態</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in filterData" :key="item.id" :class="{'table-success': item.is_paid}">
-          <td>{{item.user.name}}</td>
-          <td>{{item.user.email}}</td>
-          <td>{{item.user.tel}}</td>
-          <td>{{item.user.address}}</td>
-          <td>
-            <p v-for="productItem in item.products" :key="productItem.product.id" class="mb-0">
-              {{productItem.product.title}}
-            </p>
-          </td>
-          <td>{{item.total}}</td>
-          <td width="200">
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" :id="item.id"
-              :checked="item.is_paid" @change="putOrder(item, 'isPaid')">
-              <label class="form-check-label" :for="item.id">
-                {{item.is_paid ? '已付款' : '未付款'}}
-                <span class="spinner-border spinner-border-sm me-2" role="status"
-                aria-hidden="true"
-                v-if="isLoading.itemID === item.id"></span>
-              </label>
-            </div>
-          </td>
-          <td>
-            <div class="btn-group">
-              <!-- 可以修改金額與付款狀態 -->
-              <input type="button" value="修改" class="btn btn-outline-dark border-secondary"
-                @click="openEditModal(item)">
-              <input type="button" value="刪除" class="btn btn-outline-danger border-secondary"
-              :class="{'disabled': !item.is_paid}" @click="openDeleteModal(item)">
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>訂購人</th>
+        <th>聯絡信箱</th>
+        <th>連絡電話</th>
+        <th>住址</th>
+        <th>商品</th>
+        <th>總金額</th>
+        <th>付款狀態</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="item in filterData" :key="item.id" :class="{'table-success': item.is_paid}">
+        <td>{{item.user.name}}</td>
+        <td>{{item.user.email}}</td>
+        <td>{{item.user.tel}}</td>
+        <td>{{item.user.address}}</td>
+        <td>
+          <p v-for="productItem in item.products" :key="productItem.product.id" class="mb-0">
+            {{productItem.product.title}}
+          </p>
+        </td>
+        <td>{{item.total}}</td>
+        <td width="200">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" :id="item.id"
+            :checked="item.is_paid" @change="putOrder(item, 'isPaid')">
+            <label class="form-check-label" :for="item.id">
+              {{item.is_paid ? '已付款' : '未付款'}}
+              <span class="spinner-border spinner-border-sm me-2" role="status"
+              aria-hidden="true"
+              v-if="isLoading.itemID === item.id"></span>
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="btn-group">
+            <!-- 可以修改金額與付款狀態 -->
+            <input type="button" value="修改" class="btn btn-outline-dark border-secondary"
+              @click="openEditModal(item)">
+            <input type="button" value="刪除" class="btn btn-outline-danger border-secondary"
+            :class="{'disabled': !item.is_paid}" @click="openDeleteModal(item)">
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <order-modal ref="orderModal" :data="tempOrder" @edit-total="putOrder"></order-modal>
   <del-modal ref="deleteModal" :title="tempOrder.user.name" tab="訂單"
     @delete-data="deleteOrder">

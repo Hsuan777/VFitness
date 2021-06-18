@@ -19,28 +19,25 @@
     <!-- Dashboard 內容 -->
     <div class="container-fluid">
       <div class="row">
-        <div class="height--vh col-2">
-          <div class="p-2 bg-light h-100">
+        <div class="height--vh col-2 sticky-top">
+          <div class="p-2 bg-light h-100 ">
             <p class="h3">功能列</p>
             <div class="list-group list-group-flush">
+              <!-- 路由加上 linkActiveClass: 'active'，點擊路由時會自動加上 active -->
               <router-link to="/manage/products"
-                class="list-group-item list-group-item-action"
-                :class="{'active': $route.name === 'Products'}">
+                class="list-group-item list-group-item-action">
                 商品
               </router-link>
               <router-link to="/manage/orders"
-                class="list-group-item list-group-item-action"
-                :class="{'active': $route.name === 'Orders'}">
+                class="list-group-item list-group-item-action">
                 訂單
               </router-link>
               <router-link to="/manage/articles"
-                class="list-group-item list-group-item-action"
-                :class="{'active': $route.name === 'Articles'}">
+                class="list-group-item list-group-item-action">
                 文章
               </router-link>
               <router-link to="/manage/coupons"
-                class="list-group-item list-group-item-action"
-                :class="{'active': $route.name === 'Coupons'}">
+                class="list-group-item list-group-item-action">
                 優惠券
               </router-link>
             </div>
