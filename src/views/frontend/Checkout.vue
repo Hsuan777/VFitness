@@ -53,7 +53,7 @@
             </div>
             <!-- RWD 時置底 -->
             <input type="submit" value="送出訂單" class="btn btn-primary text-white"
-            :disabled="Object.keys(errors).length !== 0">
+            :disabled="Object.keys(errors).length !== 0 || !checkData">
           </div>
         </Form>
       </section>
@@ -253,6 +253,12 @@ export default {
   },
   created() {
     this.getCartsList();
+  },
+  computed: {
+    checkData() {
+      const attrs = ['name', 'email', 'tel', 'address'];
+      return attrs.every((item) => this.order.user[item] !== '');
+    },
   },
   watch: {
     cartsUpdate(value) {
