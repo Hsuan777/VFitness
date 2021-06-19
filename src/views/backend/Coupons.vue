@@ -1,8 +1,8 @@
 <template>
   <loading :active="isLoading.status"></loading>
-  <div class="sticky-top bg-white">
-    <h2 class="h3 mb-0 py-2">優惠券列表</h2>
-    <div class="d-flex align-items-center py-2">
+  <div class="sticky-top bg-white ps-2 pt-2 mb-1">
+    <h2 class="h3">優惠券列表</h2>
+    <div class="d-flex">
       <input type="button" value="新增" class="btn btn-primary me-2"
         @click="openCouponModal">
       <page :pages="totalPages" :currentPage="currentPage" @display-page="getCoupons"
@@ -16,19 +16,19 @@
   <table class="table">
     <thead>
       <tr>
-        <th>優惠券名稱</th>
-        <th>優惠券代碼</th>
-        <th>折扣率</th>
-        <th>期限</th>
-        <th>是否啟用</th>
-        <th>操作</th>
+        <th class="text-center border-secondary">優惠券名稱</th>
+        <th class="border-secondary">優惠券代碼</th>
+        <th class="text-center border-secondary">折扣率</th>
+        <th class="border-secondary">期限</th>
+        <th class="border-secondary">是否啟用</th>
+        <th class="border-secondary">操作</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in filterData" :key="item.id" :class="{'table-success': item.is_enabled}">
-        <td>{{item.title}}</td>
+      <tr v-for="item in filterData" :key="item.id" :class="{'table-primary': item.is_enabled}">
+        <td class="text-center">{{item.title}}</td>
         <td>{{item.code}}</td>
-        <td>{{item.percent}}</td>
+        <td class="text-center">{{item.percent}}</td>
         <td>{{new Date(item.due_date).toLocaleString()}}</td>
         <td width="200">
           <div class="form-check form-switch">
@@ -43,7 +43,8 @@
         </td>
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-secondary" :class="{'disabled': item.is_enabled}"
+            <button type="button" class="btn btn-outline-dark border-secondary"
+              :class="{'disabled': item.is_enabled}"
               @click="openCouponModal(item)">修改
             </button>
             <input type="button" value="刪除" class="btn btn-outline-danger border-secondary"

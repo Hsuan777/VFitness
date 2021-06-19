@@ -1,8 +1,8 @@
 <template>
   <loading :active="isLoading.status"></loading>
-  <div class="sticky-top bg-white">
-    <h2 class="h3 mb-0 py-2">訂單列表</h2>
-    <div class="d-flex py-2">
+  <div class="sticky-top bg-white ps-2 pt-2 mb-1">
+    <h2 class="h3">訂單列表</h2>
+    <div class="d-flex">
       <page :pages="totalPages" :currentPage="currentPage" @display-page="getOrders"
       class="me-2"></page>
       <search @filter-data="getFilterData"></search>
@@ -11,19 +11,19 @@
   <table class="table">
     <thead>
       <tr>
-        <th>訂購人</th>
-        <th>聯絡信箱</th>
-        <th>連絡電話</th>
-        <th>住址</th>
-        <th>商品</th>
-        <th>總金額</th>
-        <th>付款狀態</th>
-        <th>操作</th>
+        <th width="100" class="text-center border-secondary">訂購人</th>
+        <th class="border-secondary">聯絡信箱</th>
+        <th class="border-secondary">連絡電話</th>
+        <th class="border-secondary">住址</th>
+        <th class="border-secondary">商品</th>
+        <th class="text-end border-secondary">總金額</th>
+        <th width="200" class="border-secondary">付款狀態</th>
+        <th class="border-secondary">操作</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in filterData" :key="item.id" :class="{'table-success': item.is_paid}">
-        <td>{{item.user.name}}</td>
+      <tr v-for="item in filterData" :key="item.id" :class="{'table-primary': item.is_paid}">
+        <td class="text-center">{{item.user.name}}</td>
         <td>{{item.user.email}}</td>
         <td>{{item.user.tel}}</td>
         <td>{{item.user.address}}</td>
@@ -32,8 +32,8 @@
             {{productItem.product.title}}
           </p>
         </td>
-        <td>{{item.total}}</td>
-        <td width="200">
+        <td class="text-end">{{item.total}}</td>
+        <td>
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" :id="item.id"
             :checked="item.is_paid" @change="putOrder(item, 'isPaid')">
@@ -49,7 +49,7 @@
           <div class="btn-group">
             <!-- 可以修改金額與付款狀態 -->
             <input type="button" value="修改" class="btn btn-outline-dark border-secondary"
-              @click="openEditModal(item)">
+              :class="{'disabled': item.is_paid}" @click="openEditModal(item)">
             <input type="button" value="刪除" class="btn btn-outline-danger border-secondary"
             :class="{'disabled': !item.is_paid}" @click="openDeleteModal(item)">
           </div>

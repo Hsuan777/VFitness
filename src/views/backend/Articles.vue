@@ -1,8 +1,8 @@
 <template>
   <loading :active="isLoading.status"></loading>
-  <div class="sticky-top bg-white">
-    <h2 class="h3 mb-0 py-2">文章列表</h2>
-    <div class="d-flex align-items-center py-2">
+  <div class="sticky-top bg-white ps-2 pt-2 mb-1">
+    <h2 class="h3">文章列表</h2>
+    <div class="d-flex align-items-center">
       <input type="button" value="新增" class="btn btn-primary me-2"
         @click="openArticleModal(this.article)">
       <page :pages="totalPages" :currentPage="currentPage" @display-page="getArticles"
@@ -16,24 +16,24 @@
   <table class="table">
     <thead>
       <tr>
-        <th>標題</th>
-        <th>描述</th>
-        <th>作者</th>
-        <th>是否啟用</th>
-        <th>操作</th>
+        <th class="text-center border-secondary">標題</th>
+        <th class="border-secondary">描述</th>
+        <th class="border-secondary">作者</th>
+        <th class="border-secondary">是否啟用</th>
+        <th class="border-secondary">操作</th>
       </tr>
     </thead>
     <tbody>
       <tr
         v-for="item in filterData"
         :key="item.create_at"
-        :class="{ 'table-success': item.isPublic }"
+        :class="{ 'table-primary': item.isPublic }"
       >
-        <td>{{ item.title }}</td>
-        <td class="text-start">{{ item.description }}</td>
+        <td class="text-center">{{ item.title }}</td>
+        <td>{{ item.description }}</td>
         <td>{{ item.author }}</td>
         <td>
-          <div class="form-check form-switch d-flex justify-content-center">
+          <div class="form-check form-switch">
             <input
               class="form-check-input me-2"
               type="checkbox"
@@ -56,7 +56,7 @@
           <div class="btn-group">
             <button
               type="button"
-              class="btn btn-secondary"
+              class="btn btn-outline-dark border-secondary"
               :class="{ disabled: item.isPublic }"
               @click="getArticle(item.id, 'edit')"
             >

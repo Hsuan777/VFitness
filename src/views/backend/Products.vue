@@ -1,14 +1,14 @@
 <template>
   <loading :active="isLoading.status"></loading>
-  <div class="sticky-top bg-white">
-    <h2 class="h3 mb-0 py-2">商品列表</h2>
-    <div class="d-flex align-items-center py-2">
-      <input type="button" value="新增" class="btn btn-primary me-2"
+  <div class="sticky-top bg-white ps-2 py-3 mb-1">
+    <h2 class="h3">商品列表</h2>
+    <div class="d-flex">
+      <input type="button" value="新增" class="btn btn-primary"
         @click="openProductModal(this.product)">
       <page :pages="totalPages" :currentPage="currentPage" @display-page="getProducts"
-      class="me-2"></page>
+      class="mx-2"></page>
       <div class="input-group">
-        <span class="input-group-text">搜尋商品名稱</span>
+        <span class="input-group-text">搜尋商品標題</span>
         <search @filter-data="getFilterData"></search>
       </div>
     </div>
@@ -16,26 +16,26 @@
   <table class="table">
     <thead>
       <tr>
-        <th>分類</th>
-        <th>商品縮圖</th>
-        <th>標題</th>
-        <th>描述</th>
-        <th>售價</th>
-        <th>上架</th>
-        <th>操作</th>
+        <th width="100" class="text-center border-secondary">分類</th>
+        <th width="150" class="border-secondary">商品縮圖</th>
+        <th width="150" class="border-secondary">標題</th>
+        <th width="250" class="border-secondary">描述</th>
+        <th width="100" class="text-center border-secondary">售價</th>
+        <th class="border-secondary">上架</th>
+        <th class="border-secondary">操作</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in filterData" :key="item.id" :class="{'table-success': item.is_enabled}">
-        <td>{{item.category}}</td>
+      <tr v-for="item in filterData" :key="item.id" :class="{'table-primary': item.is_enabled}">
+        <td class="text-center">{{item.category}}</td>
         <td>
           <img :src="item.imageUrl" :alt="item.title" style="width: 120px; height: 100px;"
             class="img-thumbnail">
         </td>
         <td>{{item.title}}</td>
-        <td class="text-start">{{item.description}}</td>
-        <td>{{item.price}}</td>
-        <td class="align-middle">
+        <td>{{item.description}}</td>
+        <td class="text-center">{{item.price}}</td>
+        <td>
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" :id="item.id"
               :checked="item.is_enabled" @change="putProduct(item, 'isEnabled')">
@@ -48,7 +48,8 @@
         </td>
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-secondary" :class="{'disabled': item.is_enabled}"
+            <button type="button" class="btn btn-outline-dark border-secondary"
+              :class="{'disabled': item.is_enabled}"
               @click="openProductModal(item)">修改
             </button>
             <input type="button" value="刪除" class="btn btn-outline-danger border-secondary"

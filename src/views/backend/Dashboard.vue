@@ -3,24 +3,18 @@
     <!-- 置頂導覽列 -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">V.S</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-        data-bs-target="#backEndTopNav" aria-controls="backEndTopNav"
-        aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="backEndTopNav">
-          <div class="navbar-nav ms-auto">
-            <a class="nav-link" href="#" @click.prevent="signOut">Sign out</a>
-          </div>
+          <router-link to="/" class="navbar-brand ms-2">VFitness</router-link>
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link text-primary me-2 btn btn-outline-primary text-white"
+            @click.prevent="signOut">Sign out</a>
         </div>
       </div>
     </nav>
     <!-- Dashboard 內容 -->
     <div class="container-fluid">
-      <div class="row">
+      <div class="row g-0">
         <div class="height--vh col-2 sticky-top">
-          <div class="p-2 bg-light h-100 ">
+          <div class="px-2 py-3 bg-light h-100 position-relative">
             <p class="h3">功能列</p>
             <div class="list-group list-group-flush">
               <!-- 路由加上 linkActiveClass: 'active'，點擊路由時會自動加上 active -->
@@ -41,6 +35,9 @@
                 優惠券
               </router-link>
             </div>
+            <input type="button" value="Sign out"
+              class="btn btn-primary position-absolute start-50 bottom-10 translate-middle w-50"
+              @click="signOut">
           </div>
         </div>
         <div class="col-10">

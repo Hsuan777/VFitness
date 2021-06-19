@@ -1,25 +1,16 @@
 <template>
   <!-- 置頂導覽列 -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
     <div class="container position-relative">
       <router-link to="/" class="navbar-brand">VFitness</router-link>
-      <!-- <a class="navbar-brand" href="/">V.S</a> -->
       <!-- mobile 直接進購物車頁面 -->
       <router-link to="/checkout" class="nav-link d-lg-none d-flex align-items-center ms-auto">
         <i class="fas fa-cart-plus h4 mb-0 text-dark me-2"></i>
         <p class="mb-0">
-          購物車(<span class="text-danger">{{cartsCount}}</span>)
+          購物車(<span class="text-warning">{{cartsCount}}</span>)
           TWD${{cartsData.total}}
         </p>
       </router-link>
-      <!-- <a class="nav-link d-lg-none d-flex align-items-center ms-auto" href="#carts"
-      data-bs-toggle="collapse" role="button">
-        <i class="fas fa-cart-plus h4 mb-0 text-dark me-2"></i>
-        <p class="mb-0">
-          購物車(<span class="text-danger">{{cartsData.count}}</span>)
-          TWD${{cartsData.total}}
-        </p>
-      </a> -->
       <!-- mobile 折疊按鈕 -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
       data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
@@ -29,15 +20,15 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto d-flex align-items-center">
           <router-link to="/about" class="nav-link">關於我們</router-link>
-          <span class="d-none d-lg-block pb-1">|</span>
+          <span class="d-none d-lg-block text-white pb-1">|</span>
           <router-link to="/productsList" class="nav-link">
             餐飲與課程
           </router-link>
-          <span class="d-none d-lg-block pb-1">|</span>
+          <span class="d-none d-lg-block text-white pb-1">|</span>
           <a class="nav-link btn btn-link link-dark d-none d-lg-flex align-items-center"
           href="#cartContent" data-bs-toggle="dropdown" data-bs-display="static" role="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-            class="bi bi-cart-check text-dark me-2" viewBox="0 0 16 16">
+            class="bi bi-cart-check text-white me-2" viewBox="0 0 16 16">
               <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0
                1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
               <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2
@@ -46,7 +37,7 @@
               4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2
               0 1 1 0 0 1 2 0z"/>
             </svg>
-            購物車(<span class="text-danger">{{cartsCount}}</span>) TWD${{cartsData.total}}
+            購物車(<span class="text-white">{{cartsCount}}</span>) TWD${{cartsData.total}}
           </a>
           <!-- 購物車內容 -->
           <div id="cartContent" ref="cartsComponent" class="dropdown-menu dropdown-menu-end me-2">

@@ -70,7 +70,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-warning" @click="editTotal">
+            <button type="button" class="btn btn-primary" @click="editTotal">
               修改
             </button>
           </div>

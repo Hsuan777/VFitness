@@ -1,4 +1,14 @@
-$primary: #8CACD3;
+$primary: #CF5C78;
+// $primary: #8CACD3;
 $secondary: #C2BFB5;
 $warning: #F5DF4D;
-$danger: #CF5C78;
+$danger: red;
+
+$position-values: (
+  0: 0,
+  10: 10%,
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  100: 100%
+);
