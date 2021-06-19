@@ -91,7 +91,7 @@ export default {
       article: {
         title: '',
         author: '',
-        content: '',
+        content: '請在此修改內容。',
         description: '',
         tag: [],
       },

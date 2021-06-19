@@ -8,7 +8,7 @@
     aria-labelledby="articleModalLabel"
     aria-hidden="true"
   >
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title text-primary" v-if="!tempArticle.id">新增文章</h5>
@@ -24,6 +24,7 @@
         <Form action="" v-slot="{ errors }" ref="articleForm" @submit="selectSubmit">
           <div class="modal-body">
             <div class="row g-3">
+              <!-- 標題 title -->
               <div class="col-12">
                 <label for="articleTitle" class="form-label"
                   >標題<span class="text-danger">*</span></label
@@ -42,6 +43,7 @@
                   class="invalid-feedback"
                 ></error-message>
               </div>
+              <!-- 描述 description -->
               <div class="col-12">
                 <label for="articleDescription" class="form-label">描述</label>
                 <input
@@ -52,26 +54,21 @@
                   v-model.number="tempArticle.description"
                 />
               </div>
+              <!-- 內容 content -->
               <div class="col-12">
                 <label for="articleContent" class="form-label"
                   >內容<span class="text-danger">*</span></label
                 >
-                <Field
+                <ckeditor
                   id="articleContent"
-                  rows="3"
                   name="內容"
-                  type="text"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors['內容'] }"
-                  rules="required"
+                  :editor="editor"
+                  :config="editorConfig"
                   v-model="tempArticle.content"
-                  as="textarea"
-                ></Field>
-                <error-message
-                  name="內容"
-                  class="invalid-feedback"
-                ></error-message>
+                ></ckeditor>
+                <p v-if="!tempArticle.content" class="text-danger">內容 為必填</p>
               </div>
+              <!-- Tag  -->
               <div class="col-12">
                 <div class="d-flex align-items-center mb-2">
                   <label for="articleTag" class="form-label mb-0">Tag</label>
@@ -108,6 +105,7 @@
                   </div>
                 </div>
               </template>
+              <!-- 作者 author -->
               <div class="col-12">
                 <label for="articleAuthor" class="form-label"
                   >作者<span class="text-danger">*</span></label
@@ -138,7 +136,7 @@
               Close
             </button>
             <button type="submit" class="btn btn-primary"
-              :disabled="Object.keys(errors).length !== 0">
+              :disabled="Object.keys(errors).length !== 0 || !checkData">
               <template v-if="tempArticle.id === undefined">
                 <span class="spinner-border spinner-border-sm me-2" role="status"
                   aria-hidden="true" v-if="isLoading.itemID === 'add'"></span>新增
@@ -157,6 +155,7 @@
 
 <script>
 import Modal from 'bootstrap/js/dist/modal';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export default {
   data() {
@@ -167,6 +166,11 @@ export default {
         content: '',
         description: '',
         tag: [],
+      },
+      editor: ClassicEditor,
+      editorData: '<p>請輸入內容。</p>',
+      editorConfig: {
+        toolbar: ['heading', 'bold', 'italic', '|', 'link'],
       },
     };
   },
@@ -235,6 +239,12 @@ export default {
   },
   mounted() {
     this.modal = new Modal(this.$refs.articleModal);
+  },
+  computed: {
+    checkData() {
+      const attrs = ['title', 'content', 'author'];
+      return attrs.every((item) => this.tempArticle[item] !== '');
+    },
   },
   watch: {
     articleData(item) {

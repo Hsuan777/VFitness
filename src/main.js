@@ -25,6 +25,9 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import 'bootstrap';
 import './assets/styles/main.scss'; // bootstrap 客製化
 
+// 匯入 CKEditor 文字編輯器
+import CKEditor from '@ckeditor/ckeditor5-vue';
+
 // 匯入 tools 元件
 import page from './components/tools/pagination.vue';
 import search from './components/tools/search.vue';
@@ -51,6 +54,7 @@ const app = createApp(App);
 app.use(VueAxios, axios);
 app.use(router);
 app.use(VueSweetalert2);
+app.use(CKEditor);
 
 // 註冊 vee-validate 三個元件
 app.component('Form', Form);
