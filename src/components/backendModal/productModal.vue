@@ -167,12 +167,20 @@
                   <input type="button" class="btn btn-primary btn-sm ms-2" value="Add Image"
                     @click="tempProduct.imagesUrl.push('')">
                 </div>
-                <input type="text" id="productImageUrl" class="form-control mb-3" placeholder="網址"
-                  v-model="tempProduct.imageUrl">
+                <div class="input-group">
+                  <input class="form-control" type="file" ref="mainUpload"
+                     name="main-upload"
+                     @change="imageUpload('mainUpload', 'main-upload', 'imageUrl')">
+                  <input type="text" id="productImageUrl" class="form-control" placeholder="網址"
+                    v-model="tempProduct.imageUrl">
+                </div>
                 <!-- 額外圖片輸入 -->
                 <template v-for="(item, i) in tempProduct.imagesUrl" :key="'productImageUrl' + i">
                   <label :for="'productImageUrl' + i" class="form-label">其他圖片網址 {{i + 1}}</label>
                   <div class="input-group mb-3">
+                    <input class="form-control" type="file" :ref="i + 'Upload'"
+                     :name="i + '-upload'"
+                     @change="imageUpload(`${i + 'Upload'}`, `${i + '-upload'}`, 'imagesUrl', i)">
                     <input type="text" :id="'productImageUrl' + i" class="form-control"
                       placeholder="網址" v-model="tempProduct.imagesUrl[i]">
                     <button type="button" class="btn btn-outline-secondary"
@@ -287,6 +295,25 @@ export default {
         this.isLoading.itemID = '';
       }).catch(() => {
         this.swal('無法修改資料喔～快去看什麼問題吧！', 'error');
+      });
+    },
+    imageUpload(refInput, name, url, i) {
+      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/upload`;
+      const formData = new FormData();
+      const tempImageFile = this.$refs[refInput].files[0];
+      formData.append(name, tempImageFile);
+      this.axios.post(apiUrl, formData).then((res) => {
+        if (res.data.success) {
+          if (url === 'imageUrl') {
+            this.tempProduct[url] = res.data.imageUrl;
+          } else {
+            this.tempProduct[url][i] = res.data.imageUrl;
+          }
+        } else {
+          this.swal(res.data.message, 'error');
+        }
+      }).catch(() => {
+        this.swal('無法加入上傳圖片喔～快去看什麼問題吧！', 'error');
       });
     },
     selectSubmit() {
