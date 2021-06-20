@@ -24,20 +24,22 @@ p {
 .product {
   &__categoryTab {
     position: sticky;
-    top: 60px;
+    top: 58px;
     z-index: 99;
-    border-bottom: 1px #dee2e6 solid;
+    // border-bottom: 1px #dee2e6 solid;
     @include media-breakpoint-down(lg) {
       position: fixed;
       top: 93.5%;
-      .custom__select {
-        border-top: 1px #dee2e6 solid;
-        border-bottom: 0;
-      }
     }
     &--active {
       transition: 0.3s;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    li {
+      border-right: 1px #dee2e6 solid;
+      &:last-child {
+        border: 0;
+      }
     }
   }
   &__list {

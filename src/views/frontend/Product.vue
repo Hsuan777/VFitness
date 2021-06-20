@@ -55,8 +55,7 @@
           </div>
           <!-- content 內容物、主要內容 -->
           <div class="col-6">
-            <h2 class="h3 text-center border-bottom border-secondary mb-3 pt-2 pb-3">
-              {{ product.category === '餐點' || product.category === '飲品' ? '內容物' : '主要內容' }}</h2>
+            <h2 class="h3 text-center border-bottom border-secondary mb-3 pt-2 pb-3">內容</h2>
             <p class="">{{product.content}}</p>
           </div>
           <!-- 購物車按鈕群組 -->
@@ -86,13 +85,16 @@
           </div>
           <div class="col-6">
             <p class="mt-5 pt-1">注意事項 :<br>
-              <template v-if="product.category === '餐點' || product.category === '飲品'">
+              <template v-if="product.category === '餐點'">
                 <span>餐點均為當日現做。</span><br>
                 <span>可選口味，海苔、孜然、莎莎醬，請在備註說明。</span>
               </template>
-              <template v-else>
+              <template v-else-if="product.category === '有氧' || product.category === '阻力'">
                 <span>請提早到上課地點，避免您的權益損失。</span><br>
                 <span>如需請假，請提前三小時與我們聯絡。</span>
+              </template>
+              <template v-else>
+                飲品均為現做，請儘速飲用完畢。
               </template>
             </p>
           </div>
@@ -138,7 +140,6 @@ export default {
         this.isLoading.status = false;
         if (res.data.success) {
           this.product = res.data.product;
-          console.log(this.product);
         } else {
           this.swal(res.data.message, 'error');
         }

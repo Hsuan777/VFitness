@@ -1,20 +1,21 @@
 <template>
   <loading :active="isLoading.status"></loading>
   <!-- 商品頁籤 -->
-  <nav class="product__categoryTab container-fluid mb-lg-3 bg-white">
+  <nav class="product__categoryTab container-fluid mb-lg-3 border-bottom bg-white">
     <div class="container">
       <ul class="nav row justify-content-around">
-        <li class="product--hover col text-center border-end py-lg-2"
-          :class="{'product__categoryTab--active': category === '餐飲'}">
+        <li v-for="(item, key) in categoryData" :key="key"
+          class="product--hover col text-center py-lg-1"
+          :class="{'product__categoryTab--active': category === key}">
           <a class="nav-item nav-link link-dark h3 mb-0" href="#"
-            @click.prevent="category = '餐飲'">
-            <i class="fas fa-utensils text-primary me-3"></i>餐飲</a>
-        </li>
-        <li class="product--hover col text-center py-lg-2"
-          :class="{'product__categoryTab--active': category === '課程'}">
-          <a class="nav-item nav-link link-dark h3 mb-0" href="#"
-            @click.prevent="category = '課程'">
-            <i class="fas fa-dumbbell text-danger me-3"></i>課程</a>
+            @click.prevent="category = key">
+            <p class="position-relative d-inline mb-0">
+              {{key}}
+              <span class="position-absolute top-0 start-100 translate-middle badge
+                 rounded-pill text-primary pt-3 ps-4">{{item}}
+              </span>
+            </p>
+          </a>
         </li>
       </ul>
     </div>
@@ -78,6 +79,7 @@ export default {
         this.isLoading.status = false;
         if (res.data.success) {
           this.products = res.data.products;
+          console.log(this.categoryData);
         } else {
           this.swal(res.data.message, 'error');
         }
@@ -109,6 +111,17 @@ export default {
   computed: {
     filterCategory() {
       return this.products.filter((item) => item.category.match(this.category));
+    },
+    categoryData() {
+      const category = {};
+      this.products.forEach((item) => {
+        if (category[item.category] === undefined) {
+          category[item.category] = 1;
+        } else {
+          category[item.category] += 1;
+        }
+      });
+      return category;
     },
   },
 };
