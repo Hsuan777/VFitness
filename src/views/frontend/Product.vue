@@ -2,24 +2,23 @@
   <loading :active="isLoading.status"></loading>
   <section class="container my-5">
     <div class="row">
-      <!-- 產品圖片 -->
+      <!-- 產品左半 -->
       <div class="col-lg-5">
         <span class="badge bg-primary">{{product.category}}</span>
-        <h1 class="d-flex align-items-end border-bottom
-          border-secondary border-3 py-3 mb-3">{{product.title}}
-          <span class="h3 mb-0 text-danger ms-auto">{{product.price}}</span>
+        <h1 class="border-bottom border-secondary py-3 mb-3">{{product.title}}
         </h1>
         <p class="mb-5">{{product.description}}</p>
-        <img :src="product.imageUrl" alt="" class="img-fluid rounded">
+        <img :src="product.imageUrl" :alt="product.title"
+          class="img-fluid rounded">
       </div>
-      <!-- 產品細節 -->
+      <!-- 產品右半 -->
       <div class="col-lg-7">
-        <div class="row my-5 h-100">
+        <div class="row mt-5">
           <!-- options -->
-          <div class="col-6">
+          <div class="col-6 mb-4">
             <!-- 營養標示 -->
             <template v-if="product.category === '餐點' || product.category === '飲品'">
-              <h2 class="h3 text-center border-bottom border-secondary pt-2 pb-3">營養標示</h2>
+              <h2 class="h3 text-center border-bottom border-secondary mb-3 pt-2 pb-3">營養標示</h2>
               <ul>
                 <li>
                   <p class="mb-1">卡路里：{{product.options.food.calories}} 大卡</p>
@@ -37,7 +36,7 @@
             </template>
             <!-- 課程資訊  -->
             <template v-else>
-              <h2 class="h3 text-center border-bottom border-secondary pt-2 pb-3">課程資訊</h2>
+              <h2 class="h3 text-center border-bottom border-secondary mb-3 pt-2 pb-3">課程資訊</h2>
               <ul>
                 <li>
                   <p class="mb-1">難易程度：{{product.options.course.stars}}</p>
@@ -54,14 +53,17 @@
               </ul>
             </template>
           </div>
-          <!-- content -->
+          <!-- content 內容物、主要內容 -->
           <div class="col-6">
-            <h2 class="h3 text-center border-bottom border-secondary pt-2 pb-3">
+            <h2 class="h3 text-center border-bottom border-secondary mb-3 pt-2 pb-3">
               {{ product.category === '餐點' || product.category === '飲品' ? '內容物' : '主要內容' }}</h2>
-            <p>{{product.content}}</p>
+            <p class="">{{product.content}}</p>
           </div>
           <!-- 購物車按鈕群組 -->
-          <div class="col-6 align-self-end mb-5">
+          <div class="col-6">
+            <h2 class="h3 text-center border-bottom border-secondary pt-2 pb-3">售價</h2>
+            <p class="text-end display-7 mb-5 pb-5">
+              一{{ product.unit }} $ {{product.price}}</p>
             <div class="d-flex">
               <div class="spinner-border text-primary me-auto" role="status"
                 v-if="isLoading.itemID">
@@ -71,7 +73,7 @@
                 <button class="btn btn-outline-primary border-secondary" type="button"
                 @click="cartsOfProduct[0].qty -= 1"
                 :disabled="cartsOfProduct[0].qty - 1 === 0"> - </button>
-                <input type="text" class="form-control text-center text-danger bg-white"
+                <input type="text" class="form-control text-center bg-white"
                 v-model="cartsOfProduct[0].qty" disabled>
                 <button class="btn btn-outline-primary" type="button"
                 @click="cartsOfProduct[0].qty += 1"> + </button>
@@ -82,9 +84,8 @@
               @click="addCart(product.id, cartsOfProduct[0].qty)" v-else>
             </div>
           </div>
-          <!-- 注意事項 -->
-          <div class="col-6 align-self-end mb-5">
-            <p class="mb-0">注意事項 :<br>
+          <div class="col-6">
+            <p class="mt-5 pt-1">注意事項 :<br>
               <template v-if="product.category === '餐點' || product.category === '飲品'">
                 <span>餐點均為當日現做。</span><br>
                 <span>可選口味，海苔、孜然、莎莎醬，請在備註說明。</span>
