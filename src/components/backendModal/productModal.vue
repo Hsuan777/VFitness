@@ -149,14 +149,14 @@
                   </Field>
                   <error-message name="上課區域" class="invalid-feedback"></error-message>
                 </div>
-                <!-- 授課教練 teacher -->
+                <!-- 授課老師 teacher -->
                 <div class="col-3">
-                  <label for="courseTeacher" class="form-label">授課教練</label>
-                  <Field id="courseTeacher" name="上課區域" type="text" class="form-control"
-                    :class="{ 'is-invalid': errors['上課區域'] }" rules=""
+                  <label for="courseTeacher" class="form-label">授課老師</label>
+                  <Field id="courseTeacher" name="授課老師" type="text" class="form-control"
+                    :class="{ 'is-invalid': errors['授課老師'] }" rules=""
                     v-model="tempProduct.options.course.teacher">
                   </Field>
-                  <error-message name="上課區域" class="invalid-feedback"></error-message>
+                  <error-message name="授課老師" class="invalid-feedback"></error-message>
                 </div>
               </template>
               <!-- 主圖與額外圖片網址 imageUrl imagesUrl-->
