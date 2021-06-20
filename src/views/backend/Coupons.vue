@@ -85,6 +85,8 @@ export default {
       this.axios.get(apiUrl).then((res) => {
         if (res.data.success) {
           this.coupons = res.data.coupons;
+          this.totalPages = res.data.pagination.total_pages;
+          this.currentPage = res.data.pagination.current_page;
         } else {
           this.swal(res.data.message, 'error');
         }

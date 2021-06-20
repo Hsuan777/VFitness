@@ -102,12 +102,14 @@ export default {
     };
   },
   methods: {
-    getArticles(page = 1) {
+    getArticles(page = this.currentPage) {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/articles?page=${page}`;
       this.isLoading.status = true;
       this.axios.get(apiUrl).then((res) => {
         if (res.data.success) {
           this.articles = res.data.articles;
+          this.totalPages = res.data.pagination.total_pages;
+          this.currentPage = res.data.pagination.current_page;
         } else {
           this.swal(res.data.message, 'error');
         }
