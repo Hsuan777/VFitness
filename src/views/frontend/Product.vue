@@ -1,6 +1,6 @@
 <template>
   <loading :active="isLoading.status"></loading>
-  <section class="container my-5">
+  <section class="container border-bottom my-5 pb-5">
     <div class="row">
       <!-- 產品左半 -->
       <div class="col-lg-5">
@@ -110,12 +110,29 @@
       </div>
     </div>
   </section>
+  <section class="container mb-5">
+    <p class="h3">您可能也會有興趣 :</p>
+    <ul class="list-unstyled row row-cols-4">
+      <li class="product--hover col" v-for="item in randomData" :key="item.id">
+        <div class="card card-body border-0">
+          <router-link :to="`/product/${item.id}`"
+          class="text-decoration-none link-dark stretched-link">
+              <img :src="item.imageUrl" alt="item.title"
+              class="product__list__img w-100 mb-2 rounded-3">
+          </router-link>
+          <h3 class="h4 mb-0">{{item.title}}</h3>
+        </div>
+      </li>
+    </ul>
+  </section>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      products: [],
+      randomData: [],
       product: {
         options: {
           food: {
@@ -141,6 +158,20 @@ export default {
   emits: ['update'],
   props: ['cartsUpdate'],
   methods: {
+    getProductsAll() {
+      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
+      this.axios.get(apiUrl).then((res) => {
+        this.isLoading.status = false;
+        if (res.data.success) {
+          this.products = res.data.products;
+          this.randomProduct();
+        } else {
+          this.swal(res.data.message, 'error');
+        }
+      }).catch(() => {
+        this.swal('無法取得商品全部資料喔～', 'error');
+      });
+    },
     getProduct() {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/product/${this.$route.params.id}`;
       this.isLoading.status = true;
@@ -210,14 +241,29 @@ export default {
         this.swal('無法更新購物車資料喔～', 'error');
       });
     },
+    randomNumber(max, min) {
+      return Math.floor(Math.random() * (max - min) + min);
+    },
+    randomProduct() {
+      const tempData = this.products;
+      this.randomData = [];
+      for (let x = 0; x < 4; x += 1) {
+        const y = this.randomNumber(tempData.length, 0);
+        this.randomData.push(this.products[y]);
+        tempData.splice(y, 1);
+      }
+    },
   },
   created() {
+    this.getProductsAll();
     this.getProduct();
     this.checkCartsList();
   },
   watch: {
+    // 在產品內頁點選購物車中連結時，切換產品
     $route(to) {
       if (this.product.id !== to.params.id && to.name === 'Product') {
+        this.getProductsAll();
         this.getProduct();
         this.checkCartsList();
       }
