@@ -79,7 +79,6 @@ export default {
         this.isLoading.status = false;
         if (res.data.success) {
           this.products = res.data.products;
-          console.log(this.categoryData);
         } else {
           this.swal(res.data.message, 'error');
         }
