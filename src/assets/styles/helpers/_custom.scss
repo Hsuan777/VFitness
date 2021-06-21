@@ -18,6 +18,9 @@ p {
     font-size: 0.5rem;
   }
 }
+.main {
+  min-height: calc(100vh - 136px);
+}
 
 /* 更改 bootstrap 現有 CSS */
 .btn-primary {

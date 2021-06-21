@@ -53,9 +53,12 @@
       </div>
     </div>
   </nav>
-  <section>
+  <section class="main">
     <router-view :carts-update="isUpdate" @update="getCartsList"/>
   </section>
+  <footer class="container-fluid bg-dark py-5">
+    <p class="text-center text-white">施工中...</p>
+  </footer>
 </template>
 
 <script>
