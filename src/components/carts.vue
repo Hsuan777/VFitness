@@ -3,7 +3,7 @@
     <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
       <div class="d-flex align-items-center">
         <!-- 改成 route link -->
-        <router-link :to="`/product/${item.product.id}`" class="me-5">
+        <router-link :to="`/product/${item.product.id}`" class="link-dark me-5">
           {{item.product.title}}
         </router-link>
         <button type="button"
@@ -25,12 +25,13 @@
         <span class="text-danger ms-auto">{{'$' + cartsData.total}}</span>
       </p>
       <router-link to="/checkout" class="btn btn-primary text-white w-100">
-        <i class="fas fa-list me-2"></i>檢視購物車
+        檢視購物車
       </router-link>
     </li>
   </ul>
-  <div class="card card-body" v-else>
-    <p class="mb-0">還沒有商品喔～</p>
+  <div class="px-2" v-else>
+    <p class="text-center">還沒有商品喔!</p>
+    <router-link to="/productsList" class="btn btn-primary text-white w-100">前往選購</router-link>
   </div>
 </template>
 
