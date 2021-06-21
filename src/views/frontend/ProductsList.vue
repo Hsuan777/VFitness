@@ -9,10 +9,11 @@
           :class="{'product__categoryTab--active': category === key}">
           <a class="nav-item nav-link link-dark h3 mb-0" href="#"
             @click.prevent="category = key">
-            <p class="position-relative d-inline mb-0">
+            <p class="position-relative d-flex justify-content-center align-items-center mb-0">
+              <span class="material-icons">{{item.icon}}</span>
               {{key}}
-              <span class="position-absolute top-0 start-100 translate-middle badge
-                 rounded-pill text-primary pt-3 ps-4">{{item}}
+              <span class="position-absolute top-0 start-50 translate-middle badge
+                 rounded-pill text-primary ms-5 pt-3">{{item.count}}
               </span>
             </p>
           </a>
@@ -115,9 +116,26 @@ export default {
       const category = {};
       this.products.forEach((item) => {
         if (category[item.category] === undefined) {
-          category[item.category] = 1;
+          category[item.category] = {};
+          category[item.category].count = 1;
+          switch (item.category) {
+            case '餐點':
+              category[item.category].icon = 'restaurant';
+              break;
+            case '有氧':
+              category[item.category].icon = 'accessibility_new';
+              break;
+            case '阻力':
+              category[item.category].icon = 'fitness_center';
+              break;
+            case '飲品':
+              category[item.category].icon = 'local_drink';
+              break;
+            default:
+              break;
+          }
         } else {
-          category[item.category] += 1;
+          category[item.category].count += 1;
         }
       });
       return category;
