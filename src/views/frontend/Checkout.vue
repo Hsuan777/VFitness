@@ -13,7 +13,8 @@
                 <span class="text-danger">*</span>
               </label>
               <Field id="userName" name="訂購人姓名" type="text" class="form-control"
-              :class="{ 'is-invalid': errors['訂購人姓名'] }" rules="required"
+              :class="{ 'is-invalid': errors['訂購人姓名'], 'is-valid': order.user.name }"
+              :rules="checkName"
               v-model="order.user.name"></Field>
               <error-message name="訂購人姓名" class="invalid-feedback"></error-message>
             </div>
@@ -22,7 +23,8 @@
                 <span class="text-danger">*</span>
               </label>
               <Field id="userEmail" name="聯絡信箱" type="email" class="form-control"
-              :class="{ 'is-invalid': errors['聯絡信箱'] }" rules="email|required"
+              :class="{ 'is-invalid': errors['聯絡信箱'], 'is-valid': order.user.email }"
+              rules="email|required"
               v-model="order.user.email"></Field>
               <error-message name="聯絡信箱" class="invalid-feedback"></error-message>
             </div>
@@ -31,7 +33,8 @@
                 <span class="text-danger">*</span>
               </label>
               <Field id="userTel" name="手機號碼" type="tel" class="form-control"
-              :class="{ 'is-invalid': errors['手機號碼'] }" :rules="checkPhone"
+              :class="{ 'is-invalid': errors['手機號碼'], 'is-valid': order.user.tel }"
+              :rules="checkPhone"
               v-model="order.user.tel"></Field>
               <error-message name="手機號碼" class="invalid-feedback"></error-message>
             </div>
@@ -40,14 +43,15 @@
                 <span class="text-danger">*</span>
               </label>
               <Field id="userAddress" name="聯絡地址" type="text" class="form-control"
-              :class="{ 'is-invalid': errors['聯絡地址'] }" rules="required"
+              :class="{ 'is-invalid': errors['聯絡地址'], 'is-valid': order.user.address }"
+              rules="required"
               v-model="order.user.address"></Field>
               <error-message name="聯絡地址" class="invalid-feedback"></error-message>
             </div>
             <div class="col">
               <label for="userMessage" class="form-label">備註</label>
               <Field id="userMessage" name="備註" type="text" class="form-control"
-              :class="{ 'is-invalid': errors['備註'] }" rules=""
+              :class="{ 'is-valid': order.message }"
               v-model="order.message" as="textarea" rows="3"></Field>
               <error-message name="備註" class="invalid-feedback"></error-message>
             </div>
@@ -245,6 +249,10 @@ export default {
       }).catch(() => {
         this.swal('無法送出訂單喔～', 'error');
       });
+    },
+    checkName(value) {
+      const name = /^[\u4e00-\u9fa5]+$|^[a-zA-Z\s]+$/;
+      return name.test(value) ? true : '請輸入中/英文姓名';
     },
     checkPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/;
