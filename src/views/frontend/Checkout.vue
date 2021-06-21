@@ -1,6 +1,32 @@
 <template>
   <loading :active="isLoading.status"></loading>
   <div class="container my-5">
+    <div class="row mb-5">
+      <div class="col-8 mx-auto">
+        <div class="position-relative mb-4">
+          <div class="progress" style="height: 1px;">
+            <div class="progress-bar" role="progressbar" style="width: 0%;"
+            aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <button type="button"
+          class="position-absolute top-0 start-0 translate-middle btn btn-primary rounded-pill"
+          style="width: 2rem; height:2rem;">
+          </button>
+          <p class="position-absolute top-0 start-0 translate-middle mt-4 pt-2">確認商品</p>
+          <button type="button"
+          class="position-absolute top-0 start-50 translate-middle btn btn-secondary rounded-pill"
+          style="width: 2rem; height:2rem;">
+          </button>
+          <p class="position-absolute top-0 start-50 translate-middle mt-4 pt-2">填寫資料</p>
+          <button type="button"
+          class="position-absolute top-0 start-100 translate-middle btn btn-secondary rounded-pill"
+          style="width: 2rem; height:2rem;">
+          </button>
+          <p class="position-absolute top-0 start-100 translate-middle text-nowrap mt-4
+          pt-2">完成結賬</p>
+        </div>
+      </div>
+    </div>
     <!-- mobile 反轉購物車與表單 -->
     <div class="row" v-if="cartsData.carts[0]">
       <!-- 訂購人資訊 -->
