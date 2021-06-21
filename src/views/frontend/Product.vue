@@ -9,7 +9,7 @@
         </h1>
         <p class="mb-5">{{product.description}}</p>
         <img :src="product.imageUrl" :alt="product.title"
-          class="img-fluid rounded">
+          class="product__inside__img w-100 rounded">
       </div>
       <!-- 產品右半 -->
       <div class="col-lg-7">

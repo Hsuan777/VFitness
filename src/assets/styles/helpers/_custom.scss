@@ -57,6 +57,11 @@ p {
       }
     }
   }
+  &__inside {
+    &__img {
+      height: 400px;
+    }
+  }
   &--hover {
     &:hover{
       transition: 0.3s;
