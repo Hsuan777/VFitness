@@ -2,7 +2,7 @@
   <!-- 置頂導覽列 -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
     <div class="container position-relative">
-      <router-link to="/" class="navbar-brand">VFitness</router-link>
+      <router-link to="/" class="logo navbar-brand">VFitness</router-link>
       <!-- mobile 直接進購物車頁面 -->
       <router-link to="/checkout" class="nav-link d-lg-none d-flex align-items-center ms-auto">
         <i class="fas fa-cart-plus h4 mb-0 text-dark me-2"></i>

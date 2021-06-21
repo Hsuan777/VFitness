@@ -3,7 +3,7 @@
     <!-- 置頂導覽列 -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-          <router-link to="/" class="navbar-brand ms-2">VFitness</router-link>
+          <router-link to="/" class="logo navbar-brand ms-2">VFitness</router-link>
         <div class="navbar-nav ms-auto">
           <a class="nav-link text-primary me-2 btn btn-outline-primary text-white"
             @click.prevent="signOut">Sign out</a>
