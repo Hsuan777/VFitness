@@ -1,9 +1,10 @@
 <template>
   <loading :active="isLoading.status"></loading>
   <div class="container my-5">
-    <div class="row mb-5">
-      <div class="col-8 mx-auto">
-        <div class="position-relative mb-4">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <!-- 購物流程 -->
+        <div class="position-relative mb-5 pb-5">
           <div class="progress" style="height: 1px;">
             <div class="progress-bar" role="progressbar" style="width: 0%;"
             aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -25,133 +26,83 @@
           <p class="position-absolute top-0 start-100 translate-middle text-nowrap mt-4
           pt-2">完成結賬</p>
         </div>
+        <!-- 購物車列表 -->
+        <section v-if="cartsData.carts[0]">
+          <h2 class="text-center mb-3">購物車列表</h2>
+          <ul class="list-group">
+            <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
+              <div class="d-flex align-items-center">
+                <!-- 刪除單一產品 -->
+                <input type="button" value="X"
+                class="btn btn-link btn-sm text-decoration-none link-secondary"
+                @click="deleteCart(item.id)">
+                <!-- 產品圖片 -->
+                <router-link :to="`/product/${item.product.id}`" class="link-dark mx-4">
+                  <img :src="item.product.imageUrl" :alt="item.title" class="checkout__img rounded">
+                </router-link>
+                <!-- 產品名稱 -->
+                <router-link :to="`/product/${item.product.id}`" class="link-dark">
+                  {{item.product.title}}
+                </router-link>
+                <!-- 售價 -->
+                <p class="mb-0 ms-auto">{{'$' + item.product.price + ' x '}}</p>
+                <!-- 數量增減 -->
+                <div class="spinner-border spinner-border-sm text-danger me-3 ms-auto"
+                  role="status" v-if="isLoading.itemID === item.id">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="input-group w-25 mx-4" v-else>
+                  <button class="btn btn-primary" type="button"
+                    @click="putCart(item, item.qty -1 )"
+                    :disabled="item.qty - 1 === 0"> - </button>
+                  <input type="text" class="form-control text-center bg-white"
+                    placeholder="" :value="item.qty" disabled>
+                  <button class="btn btn-primary" type="button"
+                    @click="putCart(item, item.qty + 1)"> + </button>
+                </div>
+                <span>{{'$'+item.total}}</span>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="d-flex">
+                <button type="button" class="btn btn-link link-secondary ps-0"
+                @click="deleteCartAll">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                  class="bi bi-cart-x" viewBox="0 0 16 16">
+                    <path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0
+                    .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5
+                    0 0 0-.708-.708L8.5 6.793 7.354 5.646z"/>
+                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2
+                    0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0
+                    .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915
+                    10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0
+                    1 1-2 0 1 1 0 0 1 2 0z"/>
+                  </svg>
+                </button>
+                <div class="ms-auto">
+                  <p class="text-end mb-0">商品合計：
+                    <span class="h5 fw-light text-dark ms-3 ps-1">{{'$' + cartsData.total}}</span>
+                  </p>
+                  <p class="text-end">訂單總計：
+                    <span class="h5 text-danger ms-3">
+                      {{'$' + Math.floor(cartsData.final_total)}}
+                    </span>
+                    {{cartsData.total !== cartsData.final_total ? '已套用優惠券' : ''}}
+                  </p>
+                </div>
+              </div>
+              <div class="input-group w-50 ms-auto mb-3">
+                <input type="text" class="form-control text-danger"
+                  placeholder="請輸入優惠券代碼" v-model="couponCode">
+                <button class="btn btn-outline-secondary" type="button"
+                  @click="postCoupon">套用</button>
+              </div>
+              <router-link to="/CheckoutInfo"
+                class="btn btn-primary text-white w-100">填寫資料</router-link>
+            </li>
+          </ul>
+        </section>
       </div>
-    </div>
-    <!-- mobile 反轉購物車與表單 -->
-    <div class="row" v-if="cartsData.carts[0]">
-      <!-- 訂購人資訊 -->
-      <section class="col-lg-6">
-        <h2>訂購人資訊</h2>
-        <Form action="" v-slot="{ errors }" ref="orderForm" @submit="postOrder">
-          <div class="row row-cols-1 g-3">
-            <div class="col">
-              <label for="userName" class="form-label">訂購人姓名
-                <span class="text-danger">*</span>
-              </label>
-              <Field id="userName" name="訂購人姓名" type="text" class="form-control"
-              :class="{ 'is-invalid': errors['訂購人姓名'], 'is-valid': order.user.name }"
-              :rules="checkName"
-              v-model="order.user.name"></Field>
-              <error-message name="訂購人姓名" class="invalid-feedback"></error-message>
-            </div>
-            <div class="col">
-              <label for="userEmail" class="form-label">聯絡信箱
-                <span class="text-danger">*</span>
-              </label>
-              <Field id="userEmail" name="聯絡信箱" type="email" class="form-control"
-              :class="{ 'is-invalid': errors['聯絡信箱'], 'is-valid': order.user.email }"
-              rules="email|required"
-              v-model="order.user.email"></Field>
-              <error-message name="聯絡信箱" class="invalid-feedback"></error-message>
-            </div>
-            <div class="col">
-              <label for="userTel" class="form-label">手機號碼
-                <span class="text-danger">*</span>
-              </label>
-              <Field id="userTel" name="手機號碼" type="tel" class="form-control"
-              :class="{ 'is-invalid': errors['手機號碼'], 'is-valid': order.user.tel }"
-              :rules="checkPhone"
-              v-model="order.user.tel"></Field>
-              <error-message name="手機號碼" class="invalid-feedback"></error-message>
-            </div>
-            <div class="col">
-              <label for="userAddress" class="form-label">聯絡地址(餐飲外送用)
-                <span class="text-danger">*</span>
-              </label>
-              <Field id="userAddress" name="聯絡地址" type="text" class="form-control"
-              :class="{ 'is-invalid': errors['聯絡地址'], 'is-valid': order.user.address }"
-              rules="required"
-              v-model="order.user.address"></Field>
-              <error-message name="聯絡地址" class="invalid-feedback"></error-message>
-            </div>
-            <div class="col">
-              <label for="userMessage" class="form-label">備註</label>
-              <Field id="userMessage" name="備註" type="text" class="form-control"
-              :class="{ 'is-valid': order.message }"
-              v-model="order.message" as="textarea" rows="3"></Field>
-              <error-message name="備註" class="invalid-feedback"></error-message>
-            </div>
-            <!-- RWD 時置底 -->
-            <input type="submit" value="送出訂單" class="btn btn-primary text-white"
-            :disabled="Object.keys(errors).length !== 0 || !checkData">
-          </div>
-        </Form>
-      </section>
-      <!-- 購物車列表 -->
-      <section class="col-lg-6">
-        <header class="d-flex align-items-center mb-lg-3">
-          <h2 class="mb-0">購物車列表</h2>
-          <button type="button" class="btn btn-link link-secondary ms-auto pe-2"
-          @click="deleteCartAll">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-            class="bi bi-cart-x" viewBox="0 0 16 16">
-              <path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0
-              .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5
-              0 0 0-.708-.708L8.5 6.793 7.354 5.646z"/>
-              <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2
-              0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0
-              .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102
-              4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1
-              1 0 0 1 2 0z"/>
-            </svg>
-          </button>
-        </header>
-        <ul class="list-group">
-          <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
-            <div class="d-flex align-items-center">
-              <router-link :to="`/product/${item.product.id}`" class="link-dark">
-                {{item.product.title}}
-              </router-link>
-              <input type="button" value="X"
-              class="btn btn-link btn-sm pe-0 text-decoration-none link-secondary ms-auto"
-              @click="deleteCart(item.id)">
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-              <p class="mb-0 me-3">{{'$' + item.product.price + ' x '}}</p>
-              <!-- 數量增減 -->
-              <div class="spinner-border spinner-border-sm text-danger ms-auto me-3"
-                role="status" v-if="isLoading.itemID === item.id">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-              <div class="input-group w-50" v-else>
-                <button class="btn btn-primary" type="button"
-                  @click="putCart(item, item.qty -1 )" :disabled="item.qty - 1 === 0"> - </button>
-                <input type="text" class="form-control text-center bg-white"
-                  placeholder="" :value="item.qty" disabled>
-                <button class="btn btn-primary" type="button"
-                  @click="putCart(item, item.qty + 1)"> + </button>
-              </div>
-              <span class="">{{'$'+item.total}}</span>
-            </div>
-          </li>
-          <li class="list-group-item border-0">
-            <p class="d-flex">商品合計
-              <span class="h5 text-dark ms-auto">{{'$' + cartsData.total}}</span>
-            </p>
-            <p class="d-flex">訂單總計
-              <span class="h4 text-danger ms-auto">
-                {{'$' + Math.floor(cartsData.final_total)}}
-              </span>
-            </p>
-            <div class="input-group w-50 ms-auto">
-              <input type="text" class="form-control text-danger"
-                placeholder="請輸入優惠券代碼" v-model="couponCode">
-              <button class="btn btn-outline-secondary" type="button"
-                @click="postCoupon">套用</button>
-            </div>
-          </li>
-        </ul>
-      </section>
     </div>
   </div>
 </template>
@@ -162,15 +113,6 @@ export default {
     return {
       cartsData: {
         carts: [],
-      },
-      order: {
-        user: {
-          name: '',
-          email: '',
-          tel: '',
-          address: '',
-        },
-        message: '',
       },
       isSubmitOrder: false,
       couponCode: 'test777',
@@ -187,7 +129,6 @@ export default {
         this.isLoading.status = false;
         if (res.data.success) {
           this.cartsData = res.data.data;
-          console.log(this.cartsData);
           if (!this.cartsData.carts.length && !this.isSubmitOrder) {
             this.$router.replace('/productsList');
           }
@@ -276,23 +217,9 @@ export default {
         this.swal('無法送出訂單喔～', 'error');
       });
     },
-    checkName(value) {
-      const name = /^[\u4e00-\u9fa5]+$|^[a-zA-Z\s]+$/;
-      return name.test(value) ? true : '請輸入中/英文姓名';
-    },
-    checkPhone(value) {
-      const phoneNumber = /^(09)[0-9]{8}$/;
-      return phoneNumber.test(value) ? true : '需要正確的"手機"號碼';
-    },
   },
   created() {
     this.getCartsList();
-  },
-  computed: {
-    checkData() {
-      const attrs = ['name', 'email', 'tel', 'address'];
-      return attrs.every((item) => this.order.user[item] !== '');
-    },
   },
   watch: {
     cartsUpdate(value) {

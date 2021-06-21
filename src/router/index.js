@@ -33,6 +33,11 @@ const routes = [
         component: () => import('../views/frontend/Checkout.vue'),
       },
       {
+        path: 'checkoutInfo',
+        name: 'CheckoutInfo',
+        component: () => import('../views/frontend/CheckoutInfo.vue'),
+      },
+      {
         path: 'order/:id',
         name: 'Order',
         component: () => import('../views/frontend/Order.vue'),
