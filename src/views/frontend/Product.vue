@@ -13,12 +13,20 @@
       </div>
       <!-- 產品右半 -->
       <div class="col-lg-7">
-        <div class="row mt-5">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-4 pb-1">
+            <li class="breadcrumb-item">
+              <router-link to="/productsList">餐飲與課程</router-link>
+            </li>
+            <li class="breadcrumb-item active">{{product.title}}</li>
+          </ol>
+        </nav>
+        <div class="row">
           <!-- options -->
           <div class="col-6 mb-4">
             <!-- 營養標示 -->
             <template v-if="product.category === '餐點' || product.category === '飲品'">
-              <h2 class="h3 text-center border-bottom border-secondary mb-3 pt-2 pb-3">營養標示</h2>
+              <h2 class="h4 text-center border-bottom border-secondary mb-3 pt-2 pb-3">營養標示</h2>
               <ul>
                 <li>
                   <p class="mb-1">卡路里：{{product.options.food.calories}} 大卡</p>
@@ -36,7 +44,7 @@
             </template>
             <!-- 課程資訊  -->
             <template v-else>
-              <h2 class="h3 text-center border-bottom border-secondary mb-3 pt-2 pb-3">課程資訊</h2>
+              <h2 class="h4 text-center border-bottom border-secondary mb-3 pt-2 pb-3">課程資訊</h2>
               <ul>
                 <li>
                   <p class="mb-1">難易程度：{{product.options.course.stars}}</p>
@@ -55,13 +63,13 @@
           </div>
           <!-- content 內容物、主要內容 -->
           <div class="col-6">
-            <h2 class="h3 text-center border-bottom border-secondary mb-3 pt-2 pb-3">內容</h2>
+            <h2 class="h4 text-center border-bottom border-secondary mb-3 pt-2 pb-3">內容</h2>
             <p class="">{{product.content}}</p>
           </div>
           <!-- 購物車按鈕群組 -->
           <div class="col-6">
-            <h2 class="h3 text-center border-bottom border-secondary pt-2 pb-3">售價</h2>
-            <p class="text-end display-7 mb-5 pb-5">
+            <h2 class="h4 text-center border-bottom border-secondary pt-2 pb-3">售價</h2>
+            <p class="text-end h5 fw-light mb-5 pb-5">
               一{{ product.unit }} $ {{product.price}}</p>
             <div class="d-flex">
               <div class="spinner-border text-primary me-auto" role="status"
