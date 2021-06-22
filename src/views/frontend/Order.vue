@@ -1,5 +1,32 @@
 <template>
-  <section class="container mt-5">
+  <section class="container my-5">
+    <!-- 購物流程 -->
+    <div class="row">
+      <div class="col-lg-9 mx-auto">
+        <div class="position-relative mb-5 pb-5">
+          <div class="progress" style="height: 1px;">
+            <div class="progress-bar" role="progressbar" style="width: 100%;"
+            aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <button type="button"
+          class="position-absolute top-0 start-0 translate-middle btn btn-primary rounded-pill"
+          style="width: 2rem; height:2rem;">
+          </button>
+          <p class="position-absolute top-0 start-0 translate-middle mt-4 pt-2">確認商品</p>
+          <button type="button"
+          class="position-absolute top-0 start-50 translate-middle btn btn-primary rounded-pill"
+          style="width: 2rem; height:2rem;">
+          </button>
+          <p class="position-absolute top-0 start-50 translate-middle mt-4 pt-2">填寫資料</p>
+          <button type="button"
+          class="position-absolute top-0 start-100 translate-middle btn btn-primary rounded-pill"
+          style="width: 2rem; height:2rem;">
+          </button>
+          <p class="position-absolute top-0 start-100 translate-middle text-nowrap mt-4
+          pt-2">結賬</p>
+        </div>
+      </div>
+    </div>
     <h2 class="text-center">感謝您的訂購!</h2>
     <h3 class="text-center">以下是您的訂購資訊，請確認後進行<span class="text-danger">付款</span>。</h3>
     <div class="row justify-content-center">

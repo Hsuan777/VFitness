@@ -9,10 +9,10 @@
             <div class="progress-bar" role="progressbar" style="width: 50%;"
             aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-          <button type="button"
+          <router-link to="/checkout"
           class="position-absolute top-0 start-0 translate-middle btn btn-primary rounded-pill"
           style="width: 2rem; height:2rem;">
-          </button>
+          </router-link>
           <p class="position-absolute top-0 start-0 translate-middle mt-4 pt-2">確認商品</p>
           <button type="button"
           class="position-absolute top-0 start-50 translate-middle btn btn-primary rounded-pill"
@@ -24,7 +24,7 @@
           style="width: 2rem; height:2rem;">
           </button>
           <p class="position-absolute top-0 start-100 translate-middle text-nowrap mt-4
-          pt-2">完成結賬</p>
+          pt-2">結賬</p>
         </div>
         <div class="row">
           <div class="col">
@@ -200,6 +200,13 @@ export default {
     checkData() {
       const attrs = ['name', 'email', 'tel', 'address'];
       return attrs.every((item) => this.order.user[item] !== '');
+    },
+  },
+  watch: {
+    cartsUpdate(value) {
+      if (value) {
+        this.getCartsList();
+      }
     },
   },
 };

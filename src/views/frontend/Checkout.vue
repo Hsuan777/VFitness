@@ -2,7 +2,7 @@
   <loading :active="isLoading.status"></loading>
   <div class="container my-5">
     <div class="row">
-      <div class="col-lg-8 mx-auto">
+      <div class="col-lg-9 mx-auto">
         <!-- 購物流程 -->
         <div class="position-relative mb-5 pb-5">
           <div class="progress" style="height: 1px;">
@@ -24,7 +24,7 @@
           style="width: 2rem; height:2rem;">
           </button>
           <p class="position-absolute top-0 start-100 translate-middle text-nowrap mt-4
-          pt-2">完成結賬</p>
+          pt-2">結賬</p>
         </div>
         <!-- 購物車列表 -->
         <section v-if="cartsData.carts[0]">
@@ -52,12 +52,12 @@
                   <span class="visually-hidden">Loading...</span>
                 </div>
                 <div class="input-group w-25 mx-4" v-else>
-                  <button class="btn btn-primary" type="button"
+                  <button class="btn btn-outline-primary border-secondary" type="button"
                     @click="putCart(item, item.qty -1 )"
                     :disabled="item.qty - 1 === 0"> - </button>
                   <input type="text" class="form-control text-center bg-white"
                     placeholder="" :value="item.qty" disabled>
-                  <button class="btn btn-primary" type="button"
+                  <button class="btn btn-outline-primary border-secondary" type="button"
                     @click="putCart(item, item.qty + 1)"> + </button>
                 </div>
                 <span>{{'$'+item.total}}</span>
