@@ -30,7 +30,7 @@ import CKEditor from '@ckeditor/ckeditor5-vue';
 
 // 匯入 tools 元件
 import page from './components/tools/Pagination.vue';
-import search from './components/tools/Pearch.vue';
+import search from './components/tools/Search.vue';
 import swal from './components/tools/Swal.vue'; // 作為 mixins
 
 import App from './App.vue';
