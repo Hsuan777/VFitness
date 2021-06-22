@@ -8,7 +8,7 @@
           class="product--hover col text-center py-lg-1"
           :class="{'product__categoryTab--active': category === key}">
           <a class="nav-item nav-link link-dark h3 mb-0" href="#"
-            @click.prevent="category = key">
+            @click.prevent="clickCategory(key)">
             <p class="position-relative d-flex justify-content-center align-items-center mb-0">
               <span class="material-icons">{{item.icon}}</span>
               {{key}}
@@ -103,6 +103,10 @@ export default {
       }).catch(() => {
         this.swal('無法加入購物車喔～', 'error');
       });
+    },
+    clickCategory(key) {
+      this.category = key;
+      window.scrollTo(0, 0);
     },
   },
   created() {
