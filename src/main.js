@@ -29,9 +29,9 @@ import './assets/styles/main.scss'; // bootstrap 客製化
 import CKEditor from '@ckeditor/ckeditor5-vue';
 
 // 匯入 tools 元件
-import page from './components/tools/pagination.vue';
-import search from './components/tools/search.vue';
-import swal from './components/tools/swal.vue'; // 作為 mixins
+import page from './components/tools/Pagination.vue';
+import search from './components/tools/Pearch.vue';
+import swal from './components/tools/Swal.vue'; // 作為 mixins
 
 import App from './App.vue';
 import router from './router';

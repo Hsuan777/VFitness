@@ -81,8 +81,8 @@
 </template>
 
 <script>
-import articleModal from '../../components/backendModal/articleModal.vue';
-import delModal from '../../components/backendModal/deleteModal.vue';
+import articleModal from '../../components/backendModal/ArticleModal.vue';
+import delModal from '../../components/backendModal/DeleteModal.vue';
 
 export default {
   data() {

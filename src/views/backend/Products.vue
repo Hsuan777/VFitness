@@ -67,8 +67,8 @@
 </template>
 
 <script>
-import productModal from '../../components/backendModal/productModal.vue';
-import delModal from '../../components/backendModal/deleteModal.vue';
+import productModal from '../../components/backendModal/ProductModal.vue';
+import delModal from '../../components/backendModal/DeleteModal.vue';
 
 export default {
   data() {

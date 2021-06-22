@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import carts from '../../components/carts.vue';
+import carts from '../../components/Carts.vue';
 
 export default {
   data() {

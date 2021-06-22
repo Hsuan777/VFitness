@@ -60,8 +60,8 @@
 </template>
 
 <script>
-import couponModal from '../../components/backendModal/couponModal.vue';
-import delModal from '../../components/backendModal/deleteModal.vue';
+import couponModal from '../../components/backendModal/CouponModal.vue';
+import delModal from '../../components/backendModal/DeleteModal.vue';
 
 export default {
   data() {
