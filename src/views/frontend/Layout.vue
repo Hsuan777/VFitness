@@ -12,10 +12,8 @@
       <!-- mobile 直接進購物車頁面 -->
       <router-link to="/checkout" class="nav-link d-lg-none d-flex align-items-center ms-auto">
         <i class="fas fa-cart-plus h4 mb-0 text-dark me-2"></i>
-        <p class="mb-0">
-          購物車(<span class="text-warning">{{cartsCount}}</span>)
-          TWD${{cartsData.total}}
-        </p>
+        購物車(<span class="text-white">{{cartsCount}}</span>)
+        TWD${{cartsData.total}}
       </router-link>
       <!-- mobile 折疊按鈕 -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -26,6 +24,8 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto d-flex align-items-center">
           <router-link to="/about" class="nav-link">關於我們</router-link>
+          <span class="d-none d-lg-block text-white pb-1">|</span>
+          <router-link to="/questions" class="nav-link">常見問答</router-link>
           <span class="d-none d-lg-block text-white pb-1">|</span>
           <router-link to="/productsList" class="nav-link">
             餐飲與課程
