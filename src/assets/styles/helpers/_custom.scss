@@ -1,4 +1,7 @@
 /* 標籤類 */
+body {
+  overflow-x: hidden;
+}
 th, td {
   vertical-align: middle;
 }
@@ -31,6 +34,31 @@ p {
 .height--vh {
   height: 100vh;
 }
+
+.studio {
+  &__banner {
+    width: 100%;
+    height: 450px;
+  }
+  &__goal {
+    li img {
+      height: 250px; 
+    }
+  }
+  &__productSelect {
+    img {
+      height: 400px;
+    }
+  }
+  &__team {
+    img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+    }
+  }
+}
+
 .product {
   &__categoryTab {
     position: sticky;
