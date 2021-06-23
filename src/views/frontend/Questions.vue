@@ -9,14 +9,14 @@
               <div class="card-header d-flex align-items-center bg-white border-0">
                 <span class="bg-primary text-white rounded p-1 me-3">Q{{key + 1}}</span>
                 <a :href="`#collapseA${key+1}`"
-                  class="h5 mb-0 stretched-link text-decoration-none d-inline-block"
+                  class="h5 mb-0 stretched-link text-decoration-none"
                   @click.prevent="item.isOpen = !item.isOpen">{{item.title}}
                 </a>
                 <span class="material-icons ms-auto" v-if="item.isOpen">keyboard_arrow_up</span>
                 <span class="material-icons ms-auto" v-else>keyboard_arrow_down</span>
               </div>
               <div v-if="item.isOpen" :id="`collapseA${key+1}`"
-                class="transition card-body border-top d-flex">
+                class="transition card-body border-top">
                 <p class="mb-0">{{item.description}}</p>
               </div>
             </div>
@@ -54,7 +54,7 @@ export default {
         },
         {
           title: '你們有甚麼器材可以訓練?',
-          description: '再請您與我們協調可上課的時間，我們會想辦法讓每個想運動的人都能排除萬難的來上課。',
+          description: '我們有不同重量的啞鈴，龍門架兩座，握推椅兩張，槓子兩根，不同重量的槓片，另外還有軟墊區可以做不同的訓練。我們屬於小型工作室，若空間許可會再進不同訓練器材。',
           isOpen: true,
         },
         {
