@@ -11,7 +11,7 @@
   </figure>
   <!-- 工作室目標 -->
   <section class="container mb-5">
-    <h2 class="text-center mb-5">工作室目標</h2>
+    <h2 class="text-center mb-4">工作室目標</h2>
     <ul class="studio__goal list-unstyled">
       <!-- 吃得健康 -->
       <li class="row align-items-center mb-5">
@@ -56,11 +56,11 @@
   <!-- 專業團隊 -->
   <section class="container-fluid bg-dark mb-5 pt-5 pb-3">
     <div class="container">
-      <h2 class="text-center text-white mb-5">專業團隊</h2>
-      <ul class="studio__team list-unstyled row row-cols-2 row-cols-lg-4">
+      <h2 class="text-center text-white mb-4">專業團隊</h2>
+      <ul class="list-unstyled row row-cols-2 row-cols-lg-4">
         <li class="col" v-for="(item, key) in team" :key="item.name + key">
           <div class="card d-flex align-items-center bg-dark">
-            <img :src="item.imageUrl" class="card-img-top" :alt="item.name">
+            <img :src="item.imageUrl" class="studio__avatar card-img-top" :alt="item.name">
             <div class="card-body text-center">
               <p class="card-text fw-bold mb-0 text-white">{{item.name}}</p>
               <p class="card-text text-white">{{item.job}}</p>
@@ -70,9 +70,24 @@
       </ul>
     </div>
   </section>
+  <!-- 學員心得 -->
+  <section class="container mb-5">
+    <h2 class="text-center mb-4">學員心得</h2>
+    <div class="row row-cols-2 row-cols-lg-4">
+      <div class="col mb-3 mb-lg-0" v-for="(item, key) in experience" :key="item.name + key">
+        <div class="studio__experience h-100 px-4 py-3">
+          <div class="d-flex flex-column justify-content-center align-items-center ps-4">
+            <img :src="item.imageUrl" :alt="item.name" class="studio__avatar mb-3">
+            <p class="fw-bold mb-2">{{item.name}}</p>
+          </div>
+          <p class="pe-3 mb-0">{{item.description}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- 商品選擇 -->
   <section class="studio__productSelect mb-5">
-    <h2 class="text-center mb-3">今天想選擇甚麼?</h2>
+    <h2 class="text-center mb-4">今天想選擇甚麼?</h2>
     <div class="row justify-content-center">
       <div class="product--hover col-5" v-for="item in randomData" :key="item.id">
         <div class="card card-body border-0">
@@ -114,6 +129,28 @@ export default {
           name: 'Nick',
           imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80',
           job: '專業廚師',
+        },
+      ],
+      experience: [
+        {
+          name: 'Andy',
+          imageUrl: 'https://images.unsplash.com/photo-1601455763557-db1bea8a9a5a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=786&q=80',
+          description: '上班太忙沒時間運動，好在工作室的教練願意花時間幫我規劃時間，好讓我擠出時間又不會讓自己的生活過於緊湊。順帶一提，運動完後來一杯乳清真的很棒！',
+        },
+        {
+          name: 'Vivian',
+          imageUrl: 'https://images.unsplash.com/photo-1545912453-db258ca9b7b7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
+          description: '住附近剛好路過看到有這麼近的運動場所，上班壓力大，跟著瑜伽老師做運動讓身體輕鬆不少。運動完後，晚餐剛好拿一份減脂餐走，真是太便利了！',
+        },
+        {
+          name: 'Abbie',
+          imageUrl: 'https://images.unsplash.com/photo-1514626585111-9aa86183ac98?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80',
+          description: '每天都要來一杯手搖飲料的我，自從某次某體驗課後，讓我下定決心要戒飲料，跟教練溝通後，一週安排兩堂課，加上飲食配合餐點控制，順利瘦身也沒復胖。',
+        },
+        {
+          name: 'John',
+          imageUrl: 'https://images.unsplash.com/photo-1520409364224-63400afe26e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=358&q=80',
+          description: '以前我對於外表很沒有自信，自從報名教學班後，逐漸對健身越來越有興趣，現在我不再對自己沒有信心，反而更願意嘗試新事物，健身可以說是改變我一生的興趣。',
         },
       ],
     };
