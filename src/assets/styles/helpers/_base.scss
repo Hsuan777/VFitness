@@ -1,0 +1,36 @@
+body {
+  overflow-x: hidden;
+}
+
+th, td {
+  vertical-align: middle;
+}
+
+img {
+  object-fit: cover;
+}
+ 
+p {
+  color: #363B48;
+  line-height: 1.5;
+}
+
+.logo {
+  font-family: 'Kenia', cursive;
+  &__icon {
+    font-size: 0.5rem;
+  }
+}
+
+.main {
+  min-height: calc(100vh - 136px);
+}
+
+.height--vh {
+  height: 100vh;
+}
+
+/* 更改 bootstrap 現有 CSS */
+.btn-primary {
+  color: white;
+}
