@@ -15,6 +15,10 @@ p {
   line-height: 1.5;
 }
 
+input:disabled {
+  cursor: not-allowed;
+}
+
 .logo {
   font-family: 'Kenia', cursive;
   &__icon {
