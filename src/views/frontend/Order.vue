@@ -78,8 +78,11 @@
           </tbody>
         </table>
         <!-- 無串接金流，故按下後自動付款 -->
-        <input type="button" value="由此付款"
+        <input v-if="order.total" type="button" value="由此付款"
           class="btn btn-primary text-white d-block w-50 mx-auto" @click="payOrder">
+        <input v-else type="button" value="無須付款，點擊確定"
+          class="btn btn-primary text-white d-block w-50 mx-auto"
+          @click="this.$router.replace('/productsList');">
       </div>
     </div>
   </section>
