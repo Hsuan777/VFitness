@@ -30,4 +30,15 @@
       </div>
     </div>
   </section>
+  <subscribe></subscribe>
 </template>
+
+<script>
+import subscribe from '../../components/frontend/Subscribe.vue';
+
+export default {
+  components: {
+    subscribe,
+  },
+};
+</script>

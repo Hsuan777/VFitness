@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import carts from '../../components/Carts.vue';
+import carts from '../../components/frontend/Carts.vue';
 
 export default {
   data() {
