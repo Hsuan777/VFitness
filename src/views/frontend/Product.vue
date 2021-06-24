@@ -154,7 +154,6 @@ export default {
           },
         },
       },
-      productUrl: '',
       cartsOfProduct: [{
         qty: 1,
       }],
