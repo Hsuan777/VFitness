@@ -1,8 +1,8 @@
 <template>
-  <div class="container my-5">
+  <section class="container my-5">
     <div class="row">
       <div class="col">
-        <h2 class="mb-3">常見問答</h2>
+        <h2 class="text-center mb-5">常見問答</h2>
         <ul class="list-unstyled">
           <li class="mb-3" v-for="(item, key) in questions" :key="item.title + key">
             <div class="card">
@@ -24,7 +24,7 @@
         </ul>
       </div>
     </div>
-  </div>
+  </section>
   <subscribe></subscribe>
 </template>
 

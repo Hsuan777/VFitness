@@ -28,7 +28,7 @@
         </div>
         <!-- 購物車列表 -->
         <section v-if="cartsData.carts[0]">
-          <h2 class="text-center mb-3">購物車列表</h2>
+          <h2 class="text-center mb-5">購物車列表</h2>
           <ul class="list-group">
             <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
               <div class="d-flex align-items-center">

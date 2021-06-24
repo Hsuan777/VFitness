@@ -22,7 +22,7 @@
     </div>
   </nav>
   <!-- 商品列表 -->
-  <div class="container">
+  <section class="container">
     <ul class="list-unstyled row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
       <li class="product--hover col" v-for="item in filterCategory" :key="item.id">
         <div class="card card-body border-0">
@@ -58,7 +58,7 @@
         </div>
       </li>
     </ul>
-  </div>
+  </section>
 </template>
 
 <script>

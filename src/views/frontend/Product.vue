@@ -1,5 +1,6 @@
 <template>
   <loading :active="isLoading.status"></loading>
+  <!-- 產品區 -->
   <section class="container border-bottom my-5 pb-5">
     <div class="row">
       <!-- 產品左半 -->
@@ -110,6 +111,7 @@
       </div>
     </div>
   </section>
+  <!-- 額外產品 -->
   <section class="container mb-5">
     <p class="h3">您可能也會有興趣 :</p>
     <ul class="list-unstyled row row-cols-4">

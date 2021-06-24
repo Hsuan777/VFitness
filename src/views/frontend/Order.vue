@@ -1,5 +1,5 @@
 <template>
-  <section class="container my-5">
+  <div class="container my-5">
     <!-- 購物流程 -->
     <div class="row">
       <div class="col-lg-9 mx-auto">
@@ -28,7 +28,7 @@
       </div>
     </div>
     <h2 class="text-center">感謝您的訂購!</h2>
-    <h3 class="text-center">以下是您的訂購資訊，請確認後進行<span class="text-danger">付款</span>。</h3>
+    <p class="h3 text-center">以下是您的訂購資訊，請確認後進行<span class="text-danger">付款</span>。</p>
     <div class="row justify-content-center">
       <div class="col-lg-6">
         <table class="table table-bordered border-secondary">
@@ -85,7 +85,7 @@
           @click="this.$router.replace('/productsList');">
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
