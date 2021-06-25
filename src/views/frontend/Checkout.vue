@@ -30,7 +30,7 @@
       <!-- 購物車列表 -->
       <div class="col-lg-9 mx-auto">
         <section class="studio__checkout" v-if="cartsData.carts[0]">
-          <h2 class="text-center fw-bolder mb-5">購物車列表</h2>
+          <h2 class="text-center fw-bolder mb-3 mb-md-4 mb-lg-5">購物車列表</h2>
           <ul class="list-group">
             <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
               <div class="d-flex align-items-center">
@@ -57,7 +57,7 @@
                     <span class="visually-hidden">Loading...</span>
                   </div>
                   <!-- 數量增減 -->
-                  <div class="input-group ms-auto" v-else>
+                  <div class="input-group" v-else>
                     <button class="btn btn-outline-primary border-secondary" type="button"
                       @click="putCart(item, item.qty -1 )"
                       :disabled="item.qty - 1 === 0"> - </button>

@@ -1,9 +1,9 @@
 <template>
   <loading :active="isLoading.status"></loading>
   <div class="container my-5">
-    <div class="row mb-5">
+    <div class="row">
+      <!-- 購物流程 -->
       <div class="col-9 mx-auto">
-        <!-- 購物流程 -->
         <div class="position-relative mb-5 pb-5">
           <div class="progress" style="height: 1px;">
             <div class="progress-bar" role="progressbar" style="width: 50%;"
@@ -26,11 +26,58 @@
           <p class="position-absolute top-0 start-100 translate-middle text-nowrap mt-4
           pt-2">結賬</p>
         </div>
-        <div class="row">
+      </div>
+      <!-- 填寫資料與檢視商品 -->
+      <div class="col-lg-9 mx-auto">
+        <div class="row flex-md-row-reverse row-cols-1 row-cols-md-2">
+          <!-- 您的訂購 -->
+          <div class="col mb-5 mb-md-0">
+            <section class="studio__checkout">
+              <h2 class="text-center fw-bolder mb-3 mb-md-5">您的訂購</h2>
+              <ul class="list-group">
+                <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
+                  <div class="d-flex align-items-center">
+                    <!-- 產品圖片 -->
+                    <router-link :to="`/product/${item.product.id}`" class="link-dark">
+                      <img :src="item.product.imageUrl" :alt="item.title" class="rounded me-3">
+                    </router-link>
+                    <!-- 數量增減群組與小計 -->
+                    <div class="w-100">
+                      <!-- 產品名稱 -->
+                      <router-link :to="`/product/${item.product.id}`" class="link-dark">
+                        {{item.product.title}}
+                      </router-link>
+                      <!-- 單價 -->
+                      <p class="mb-0">單價：{{'$' + item.product.price}}</p>
+                      <!-- 小計 -->
+                      <p class="text-end mb-0">小計：{{'$'+item.total}}</p>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="d-flex">
+                    <div class="ms-auto">
+                      <p class="mb-0 d-flex">商品合計：
+                        <span class="ms-auto">{{'$' + cartsData.total}}</span>
+                      </p>
+                      <p class="mb-0 d-flex">訂單總計：
+                        <span class="ms-auto text-danger">
+                          {{'$' + Math.floor(cartsData.final_total)}}
+                        </span>
+                      </p>
+                      <p>
+                        {{cartsData.total !== cartsData.final_total ? '已套用優惠券' : '未使用優惠券'}}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </section>
+          </div>
+          <!-- 訂購人資訊 -->
           <div class="col">
-            <!-- 訂購人資訊 -->
-            <div class="" v-if="cartsData.carts[0]">
-              <h2 class="text-center mb-3">訂購人資訊</h2>
+            <section v-if="cartsData.carts[0]">
+              <h2 class="text-center fw-bolder mb-3">訂購人資訊</h2>
               <Form action="" v-slot="{ errors }" ref="orderForm" @submit="postOrder">
                 <div class="row row-cols-1 g-3">
                   <div class="col">
@@ -85,41 +132,7 @@
                   :disabled="Object.keys(errors).length !== 0 || !checkData">
                 </div>
               </Form>
-            </div>
-          </div>
-          <div class="col">
-            <h2 class="text-center mb-5">您的訂購</h2>
-            <ul class="list-group">
-              <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
-                <div class="d-flex align-items-center">
-                  <!-- 產品圖片 -->
-                  <img :src="item.product.imageUrl" :alt="item.title"
-                    class="checkout__img rounded me-3">
-                  <!-- 產品名稱 -->
-                  {{item.product.title}}
-                  <!-- 售價 -->
-                  <p class="mb-0 ms-auto">{{'$' + item.product.price + ' x '}}
-                    <span>{{item.qty}} = </span>
-                    <span>{{'$'+item.total}}</span>
-                  </p>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="d-flex">
-                  <div class="ms-auto">
-                    <p class="text-end mb-0">商品合計：
-                      <span class="h5 fw-light text-dark ms-3 ps-1">{{'$' + cartsData.total}}</span>
-                    </p>
-                    <p class="text-end">訂單總計：
-                      <span class="h5 text-danger ms-3">
-                        {{'$' + Math.floor(cartsData.final_total)}}
-                      </span>
-                      {{cartsData.total !== cartsData.final_total ? '已套用優惠券' : ''}}
-                    </p>
-                  </div>
-                </div>
-              </li>
-            </ul>
+            </section>
           </div>
         </div>
       </div>
