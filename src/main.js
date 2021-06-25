@@ -31,7 +31,10 @@ import CKEditor from '@ckeditor/ckeditor5-vue';
 // 匯入 tools 元件
 import page from './components/tools/Pagination.vue';
 import search from './components/tools/Search.vue';
-import swal from './components/tools/Swal.vue'; // 作為 mixins
+import swal from './components/tools/Swal.vue'; // 通知回饋，匯入 mixins
+
+// 匯入 methods
+import currency from './methods/filters'; // 千分號
 
 import App from './App.vue';
 import router from './router';
@@ -51,6 +54,10 @@ configure({
 setLocale('zh_TW');
 
 const app = createApp(App);
+// 在 Vue 全域加入此方法，$filters 為自訂名稱，$ 是方便辨識從全域來的
+app.config.globalProperties.$filters = {
+  currency,
+};
 app.use(VueAxios, axios);
 app.use(router);
 app.use(VueSweetalert2);

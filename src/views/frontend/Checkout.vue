@@ -52,9 +52,9 @@
                       {{item.product.title}}
                     </router-link>
                     <!-- 單價 -->
-                    <p class="mb-0">單價：{{'$ ' + item.product.price}}</p>
+                    <p class="mb-0">單價：{{'$ ' + $filters.currency(item.product.price)}}</p>
                     <!-- 小計 -->
-                    <p class="text-end mb-0">小計：{{'$ ' + item.total}}</p>
+                    <p class="text-end mb-0">小計：{{'$ ' + $filters.currency(item.total)}}</p>
                     <div class="spinner-border spinner-border-sm text-danger me-3 ms-auto"
                       role="status" v-if="isLoading.itemID === item.id">
                       <span class="visually-hidden">Loading...</span>
@@ -91,12 +91,12 @@
                   <div class="ms-auto">
                     <p class="mb-0 d-flex">商品合計：
                       <span class="ms-auto">
-                        {{'TWD$ ' + cartsData.total}}
+                        {{'TWD$ ' + $filters.currency(cartsData.total)}}
                         </span>
                     </p>
                     <p class="mb-0 d-flex">訂單總計：
                       <span class="ms-auto text-danger">
-                        {{'TWD$ ' + Math.floor(cartsData.final_total)}}
+                        {{'TWD$ ' + $filters.currency(Math.floor(cartsData.final_total))}}
                       </span>
                     </p>
                     <p>

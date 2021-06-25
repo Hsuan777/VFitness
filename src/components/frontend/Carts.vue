@@ -16,13 +16,13 @@
           <span v-else>X</span>
         </button>
       </div>
-      <p class="d-flex mb-0">{{'$' + item.product.price + ' x ' + item.qty}}
-        <span class="ms-auto">{{'$'+ item.total}}</span>
+      <p class="d-flex mb-0">{{'$' + $filters.currency(item.product.price) + ' x ' + item.qty}}
+        <span class="ms-auto">{{'$'+ $filters.currency(item.total)}}</span>
       </p>
     </li>
     <li class="list-group-item">
       <p class="d-flex">商品合計
-        <span class="text-danger ms-auto">{{'TWD$ ' + cartsData.total}}</span>
+        <span class="text-danger ms-auto">{{'TWD$ ' + $filters.currency(cartsData.total)}}</span>
       </p>
       <router-link to="/checkout" class="btn btn-primary text-white w-100">
         檢視購物車

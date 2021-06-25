@@ -62,9 +62,11 @@
               <td>
                 <p class="d-flex mb-0" v-for="item in order.products" :key="item.product.id">
                   {{item.product.title}} x {{item.qty}} {{item.product.unit}} =
-                  <span class="ms-auto">$ {{Math.floor(item.final_total)}}</span>
+                  <span class="ms-auto">$ {{$filters.currency(Math.floor(item.final_total))}}</span>
                 </p>
-                <p class="text-end mb-0 border-top pt-1">合計 : TWD$ {{Math.floor(order.total)}}</p>
+                <p class="text-end mb-0 border-top pt-1">
+                  合計 : TWD$ {{$filters.currency(Math.floor(order.total))}}
+                </p>
               </td>
             </tr>
             <tr>

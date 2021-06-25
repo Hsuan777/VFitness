@@ -34,7 +34,7 @@
         </td>
         <td>{{item.title}}</td>
         <td>{{item.description}}</td>
-        <td class="text-center">{{item.price}}</td>
+        <td class="text-center">{{$filters.currency(item.price)}}</td>
         <td>
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" :id="item.id"

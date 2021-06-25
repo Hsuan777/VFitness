@@ -40,7 +40,7 @@
             </h3>
             <!-- 價格與購物車 -->
             <div class="d-flex align-items-center my-2 pb-2 border-bottom">
-              <p class="display-7 mb-0">{{item.price}}</p>
+              <p class="display-7 mb-0">{{$filters.currency(item.price)}}</p>
               <div class="spinner-border spinner-border-sm text-danger ms-auto me-3"
               role="status" v-if="isLoading.itemID === item.id">
                 <span class="visually-hidden">Loading...</span>

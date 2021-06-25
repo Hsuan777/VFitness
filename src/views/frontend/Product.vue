@@ -72,7 +72,7 @@
               <h2 class="h4 text-center border-bottom border-secondary pt-2 pb-3">售價</h2>
               <p class="h5 fw-normal text-center h-50
                 d-flex justify-content-center align-items-center">
-                <span>一{{ product.unit }} $ {{product.price}}</span>
+                <span>一{{ product.unit }} $ {{$filters.currency(product.price)}}</span>
               </p>
             </div>
             <!-- 注意事項 -->
