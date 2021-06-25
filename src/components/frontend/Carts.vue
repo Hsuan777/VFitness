@@ -1,5 +1,5 @@
 <template>
-  <ul class="list-group list-group-flush" v-if="cartsData.carts[0]">
+  <ul class="list-group list-group-flush px-3" v-if="cartsData.carts[0]">
     <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
       <div class="d-flex align-items-center">
         <!-- 改成 route link -->
@@ -22,7 +22,7 @@
     </li>
     <li class="list-group-item">
       <p class="d-flex">商品合計
-        <span class="text-danger ms-auto">{{'$' + cartsData.total}}</span>
+        <span class="text-danger ms-auto">{{'TWD$ ' + cartsData.total}}</span>
       </p>
       <router-link to="/checkout" class="btn btn-primary text-white w-100">
         檢視購物車

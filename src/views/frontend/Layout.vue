@@ -54,7 +54,7 @@
               4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2
               0 1 1 0 0 1 2 0z"/>
             </svg>
-            購物車(<span class="text-white">{{cartsCount}}</span>) TWD${{cartsData.total}}
+            購物車(<span class="text-white">{{cartsCount}}</span>) TWD$ {{cartsData.total}}
           </a>
           <!-- 購物車內容 -->
           <div id="cartContent" ref="cartsComponent" class="dropdown-menu dropdown-menu-end me-2">

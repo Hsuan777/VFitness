@@ -61,10 +61,10 @@
               <th>商品清單</th>
               <td>
                 <p class="d-flex mb-0" v-for="item in order.products" :key="item.product.id">
-                  {{item.product.title}} x {{item.qty}} {{item.product.unit}}=
-                  <span class="ms-auto">${{Math.floor(item.final_total)}}</span>
+                  {{item.product.title}} x {{item.qty}} {{item.product.unit}} =
+                  <span class="ms-auto">$ {{Math.floor(item.final_total)}}</span>
                 </p>
-                <p class="text-end mb-0 border-top pt-1">合計 : ${{Math.floor(order.total)}}</p>
+                <p class="text-end mb-0 border-top pt-1">合計 : TWD$ {{Math.floor(order.total)}}</p>
               </td>
             </tr>
             <tr>
@@ -131,7 +131,7 @@ export default {
           this.swal(res.data.message);
           setTimeout(() => {
             this.$router.replace('/productsList');
-          }, 3000);
+          }, 1500);
         } else {
           this.swal(res.data.message, 'error');
         }
