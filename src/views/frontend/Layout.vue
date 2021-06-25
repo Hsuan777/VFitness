@@ -24,7 +24,6 @@
             0 1 1 0 0 1 2 0z"/>
           </svg>
           購物車(<span class="text-white">{{cartsCount}}</span>)
-          TWD${{cartsData.total}}
         </router-link>
       </div>
       <!-- mobile 折疊按鈕 -->

@@ -5,16 +5,19 @@
     height: 450px;
     background-image: url('https://images.unsplash.com/photo-1558611848-73f7eb4001a1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=1080');
     background-position: center;
+    background-repeat: no-repeat;
+    @include media-breakpoint-down(lg) {
+      background-position: 20% center;
+      height: 350px;
+    }
+    @include media-breakpoint-down(md) {
+      background-position: 10% center;
+      height: 250px;
+    }
   }
   &__goal {
     li img {
       height: 300px; 
-    }
-  }
-  // 首頁產品選擇
-  &__productSelect {
-    img {
-      height: 400px;
     }
   }
   // 人物頭像
@@ -34,9 +37,33 @@
       bottom: 0; 
       left: 0;
       border: 1px map-get($theme-colors, 'dark' ) solid;
-      transform: skew(-15deg);
+      transform: skew(-10deg);
       z-index: -1;
+      @include media-breakpoint-down(lg) {
+        transform: skew(-8deg);
+      }
+      @include media-breakpoint-down(md) {
+        border: 0;
+        border-bottom: 1px map-get($theme-colors, 'secondary' ) solid;
+        transform: skew(0deg);
+      }
     }
+  }
+  // 首頁產品選擇
+  &__productSelect {
+    img {
+      height: 400px;
+      @include media-breakpoint-down(lg) {
+        height: 274px;
+      }
+      @include media-breakpoint-down(md) {
+        height: 220px;
+      }
+      @include media-breakpoint-down(sm) {
+        height: 155px;
+      }
+    }
+    
   }
   // 訂閱區塊
   &__subscribe {

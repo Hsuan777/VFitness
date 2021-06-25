@@ -11,59 +11,54 @@
   </figure>
   <!-- 工作室目標 -->
   <section class="container mb-5">
-    <h2 class="text-center fw-bolder mb-5">工作室目標</h2>
+    <h2 class="text-center fw-bolder mb-3 mb-md-4 mb-lg-5">工作室目標</h2>
     <ul class="studio__goal list-unstyled">
-      <!-- 吃得健康 -->
-      <li class="row align-items-center mb-5">
-        <div class="col-lg-7 d-flex">
-          <img src="https://images.unsplash.com/photo-1564464392342-54692a5d59a0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80" alt="減脂餐(豬肉)" class="w-100 rounded">
+        <!-- 吃得健康 -->
+      <li class="row flex-row-reverse align-items-center mb-5">
+        <div class="col-md-6 col-lg-5 d-flex flex-column justify-content-center align-items-center">
+          <h3>吃得健康</h3>
+          <p>三分練，七分吃，增肌減脂都適合</p>
         </div>
-        <div class="col-lg-5 d-flex">
-          <div class="text-center ms-5 ps-5">
-            <h3 class="fw-bolder">吃得健康</h3>
-            <p class="mb-0 display-7">三分練，七分吃</p>
-            <p class="px-3 display-7">增肌減脂都適合</p>
-          </div>
+        <div class="col-md-6 col-lg-7">
+          <img src="https://images.unsplash.com/photo-1564464392342-54692a5d59a0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80" alt="減脂餐(豬肉)" class="w-100 rounded">
         </div>
       </li>
       <!-- 一對一訓練 -->
-      <li class="row d-flex flex-row-lg-reverse align-items-center mb-5">
-        <div class="col-lg-5 d-flex justify-content-center justify-content-lg-end">
-          <div class="text-center me-lg-5 pe-lg-5">
-            <h3 class="fw-bolder">一對一訓練</h3>
-            <p class="display-7">讓專業教練打造更好的自己</p>
-          </div>
+      <li class="row align-items-center mb-5">
+        <div class="col-md-6 col-lg-5 d-flex flex-column justify-content-center align-items-center">
+          <h3>一對一訓練</h3>
+          <p>讓專業教練打造更好的自己</p>
         </div>
-        <div class="col-lg-7">
-          <img src="https://images.unsplash.com/flagged/photo-1566064336477-864e4f308992?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="減脂餐(豬肉)" class="w-100 rounded">
+        <div class="col-md-6 col-lg-7">
+          <img src="https://images.unsplash.com/flagged/photo-1566064336477-864e4f308992?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="一對一訓練" class="w-100 rounded">
         </div>
       </li>
-      <!-- 吃得健康 -->
-      <li class="row align-items-center mb-5">
-        <div class="col-lg-7 d-flex">
-          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="減脂餐(豬肉)" class="w-100 rounded">
+      <!-- 團課訓練 -->
+      <li class="row flex-row-reverse align-items-center mb-5">
+        <div class="col-md-6 col-lg-5 d-flex flex-column justify-content-center align-items-center">
+          <h3>團課訓練</h3>
+          <p class="mb-0">動作教學、有氧活動</p>
+          <p>找到有共同興趣的同伴</p>
         </div>
-        <div class="col-lg-5 d-flex">
-          <div class="text-center ms-5 ps-5">
-            <h3 class="fw-bolder">團課訓練</h3>
-            <p class="mb-0 display-7">動作教學、有氧活動</p>
-            <p class="display-7">找到有共同興趣的同伴</p>
-          </div>
+        <div class="col-md-6 col-lg-7">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="團課訓練" class="w-100 rounded">
         </div>
       </li>
     </ul>
   </section>
   <!-- 專業團隊 -->
-  <section class="container-fluid bg-dark mb-5 pt-5 pb-3">
+  <section class="container-fluid bg-dark mb-5 py-3 py-md-5">
     <div class="container">
-      <h2 class="text-center text-white fw-bolder mb-5">專業團隊</h2>
-      <ul class="list-unstyled row row-cols-2 row-cols-lg-4">
-        <li class="col" v-for="(item, key) in team" :key="item.name + key">
-          <div class="card d-flex align-items-center bg-dark">
-            <img :src="item.imageUrl" class="studio__avatar card-img-top" :alt="item.name">
-            <div class="card-body text-center">
-              <p class="h3 mb-0 text-white">{{item.name}}</p>
-              <p class="display-7 text-white">{{item.job}}</p>
+      <h2 class="text-center text-white fw-bolder mb-3 mb-md-4 mb-lg-5">專業團隊</h2>
+      <ul class="list-unstyled row g-4 row-cols-2 row-cols-lg-4 mb-0">
+        <li class="col"
+          v-for="(item, key) in team" :key="item.name + key">
+          <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center">
+            <img :src="item.imageUrl"
+              class="studio__avatar me-lg-3 mb-2 mb-lg-0" :alt="item.name">
+            <div class="text-center text-lg-start">
+              <p class="h4 mb-0 text-white">{{item.name}}</p>
+              <p class="mb-0 text-white">{{item.job}}</p>
             </div>
           </div>
         </li>
@@ -72,15 +67,15 @@
   </section>
   <!-- 學員心得 -->
   <section class="container mb-5">
-    <h2 class="text-center fw-bolder mb-5">學員心得</h2>
-    <div class="row row-cols-2 row-cols-lg-4">
+    <h2 class="text-center fw-bolder mb-3 mb-md-4 mb-lg-5">學員心得</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
       <div class="col mb-3 mb-lg-0" v-for="(item, key) in experience" :key="item.name + key">
         <div class="studio__experience h-100 px-4 py-3">
-          <div class="d-flex flex-column justify-content-center align-items-center ps-4">
+          <div class="d-flex flex-column justify-content-center align-items-center ps-md-4">
             <img :src="item.imageUrl" :alt="item.name" class="studio__avatar mb-3">
             <p class="h3 mb-3">{{item.name}}</p>
           </div>
-          <p class="pe-3 mb-0">{{item.description}}</p>
+          <p class="pe-md-3 mb-0">{{item.description}}</p>
         </div>
       </div>
     </div>
@@ -88,8 +83,8 @@
   <!-- 商品選擇 -->
   <section class="studio__productSelect mb-5">
     <h2 class="text-center fw-bolder mb-5">今天想選擇甚麼?</h2>
-    <div class="row justify-content-center">
-      <div class="product--hover col-5" v-for="item in randomData" :key="item.id">
+    <div class="row g-1 justify-content-center">
+      <div class="product--hover col-6 col-lg-5" v-for="item in randomData" :key="item.id">
         <div class="card card-body border-0">
           <router-link :to="`/product/${item.id}`"
           class="text-decoration-none link-dark stretched-link">
@@ -115,8 +110,8 @@ export default {
       team: [
         {
           name: 'Vic',
-          imageUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
-          job: '工作室創立人',
+          imageUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+          job: '創立人。教練',
         },
         {
           name: 'Jaron',
