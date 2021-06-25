@@ -92,7 +92,7 @@
   }
   &__stickyTop {
     position: sticky;
-    top: 63.6px;
+    top: 63px;
     z-index: 99;
     @include media-breakpoint-down(lg) {
       top: 60.4px;

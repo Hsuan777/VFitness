@@ -24,7 +24,7 @@
     </nav>
     <!-- 商品列表 -->
     <section class="product__list container">
-      <ul class="list-unstyled row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
+      <ul class="list-unstyled row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4">
         <li class="product--hover col" v-for="item in filterCategory" :key="item.id">
           <div class="card card-body border-0">
             <!-- 產品圖片 -->
