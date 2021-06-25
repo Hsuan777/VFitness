@@ -2,7 +2,7 @@
   <div class="container my-5">
     <!-- 購物流程 -->
     <div class="row">
-      <div class="col-lg-9 mx-auto">
+      <div class="col-9 mx-auto">
         <div class="position-relative mb-5 pb-5">
           <div class="progress" style="height: 1px;">
             <div class="progress-bar" role="progressbar" style="width: 100%;"
@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <h2 class="text-center">感謝您的訂購!</h2>
+    <h2 class="text-center fw-bolder mb-5">感謝您的訂購!</h2>
     <p class="h3 text-center">以下是您的訂購資訊，請確認後進行<span class="text-danger">付款</span>。</p>
     <div class="row justify-content-center">
       <div class="col-lg-6">
@@ -38,7 +38,7 @@
               <td>{{new Date().toLocaleString(order.create_at)}}</td>
             </tr>
             <tr>
-              <th>訂購 ID (請記下可再查詢)</th>
+              <th>訂購 ID<br>(請記下可再查詢)</th>
               <td>{{order.id}}</td>
             </tr>
             <tr>
