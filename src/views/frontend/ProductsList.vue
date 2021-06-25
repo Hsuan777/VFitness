@@ -1,21 +1,21 @@
 <template>
   <loading :active="isLoading.status"></loading>
   <!-- 商品頁籤 -->
-  <nav class="product__categoryTab container-fluid mb-lg-3 border-bottom bg-white">
+  <nav class="product__categoryTab container-fluid mb-3 bg-white">
     <div class="container">
-      <ul class="nav row justify-content-around">
+      <ul class="nav row row-cols-2 row-cols-md-4 justify-content-around">
         <li v-for="(item, key) in categoryData" :key="key"
           class="product--hover col text-center py-lg-1"
           :class="{'product__categoryTab--active': category === key}">
           <a class="nav-item nav-link link-dark h3 mb-0" href="#"
             @click.prevent="clickCategory(key)">
-            <p class="position-relative d-flex justify-content-center align-items-center mb-0">
+            <div class="position-relative d-flex justify-content-center align-items-center">
               <span class="material-icons">{{item.icon}}</span>
               {{key}}
               <span class="position-absolute top-0 start-50 translate-middle badge
                  rounded-pill text-primary ms-5 pt-3">{{item.count}}
               </span>
-            </p>
+            </div>
           </a>
         </li>
       </ul>
@@ -26,15 +26,18 @@
     <ul class="list-unstyled row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
       <li class="product--hover col" v-for="item in filterCategory" :key="item.id">
         <div class="card card-body border-0">
+          <!-- 產品圖片 -->
           <router-link :to="`/product/${item.id}`" class="text-decoration-none link-dark">
             <img :src="item.imageUrl" alt="item.title"
             class="product__list__img w-100 mb-2 rounded-3">
           </router-link>
+           <!-- 產品標題 -->
           <h3 class="h4 mb-0">
             <router-link :to="`/product/${item.id}`" class="text-decoration-none text-dark">
               {{item.title}}
             </router-link>
           </h3>
+          <!-- 價格與購物車 -->
           <div class="d-flex align-items-center my-2 pb-2 border-bottom">
             <p class="display-7 mb-0">{{item.price}}</p>
             <div class="spinner-border spinner-border-sm text-danger ms-auto me-3"
@@ -54,7 +57,8 @@
               </svg>
             </button>
           </div>
-          <p>{{item.description}}</p>
+          <!-- 商品描述 -->
+          <p class="mb-0">{{item.description}}</p>
         </div>
       </li>
     </ul>
