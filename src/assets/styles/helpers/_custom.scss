@@ -118,7 +118,7 @@
     }
   }
   &__list {
-    &__img {
+    img {
       height: 210px;
       @include media-breakpoint-down(lg) {
         height: 128px;
@@ -126,8 +126,11 @@
     }
   }
   &__inside {
-    &__img {
+    img {
       height: 400px;
+      @include media-breakpoint-down(md) {
+        height: 220px;
+      }
     }
   }
   &--hover {

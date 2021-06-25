@@ -22,14 +22,14 @@
     </div>
   </nav>
   <!-- 商品列表 -->
-  <section class="container">
+  <section class="product__list container">
     <ul class="list-unstyled row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
       <li class="product--hover col" v-for="item in filterCategory" :key="item.id">
         <div class="card card-body border-0">
           <!-- 產品圖片 -->
           <router-link :to="`/product/${item.id}`" class="text-decoration-none link-dark">
             <img :src="item.imageUrl" alt="item.title"
-            class="product__list__img w-100 mb-2 rounded-3">
+            class="mb-2 rounded-3">
           </router-link>
            <!-- 產品標題 -->
           <h3 class="h4 mb-0">
