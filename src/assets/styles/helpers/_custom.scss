@@ -83,6 +83,13 @@
       }
     }
   }
+  // 檢視購物車
+  &__checkout {
+    img {
+      width: 120px;
+      height: 110px;
+    }
+  }
 }
 
 .product {
@@ -138,12 +145,5 @@
       transition: 0.3s;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
-  }
-}
-
-.checkout {
-  &__img {
-    width: 100px;
-    height: 80px;
   }
 }
