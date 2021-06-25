@@ -90,10 +90,7 @@
       height: 110px;
     }
   }
-}
-
-.product {
-  &__categoryTab {
+  &__stickyTop {
     position: sticky;
     top: 63.6px;
     z-index: 99;
@@ -103,6 +100,11 @@
     @include media-breakpoint-down(md) {
       top: 57.2px;
     }
+  }
+}
+
+.product {
+  &__categoryTab {
     &--active {
       transition: 0.3s;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);

@@ -1,7 +1,7 @@
 <template>
   <loading :active="isLoading.status"></loading>
   <!-- 商品頁籤 -->
-  <nav class="product__categoryTab container-fluid mb-3 bg-white">
+  <nav class="studio__stickyTop product__categoryTab container-fluid mb-3 bg-white">
     <div class="container">
       <ul class="nav row row-cols-2 row-cols-md-4 justify-content-around">
         <li v-for="(item, key) in categoryData" :key="key"
