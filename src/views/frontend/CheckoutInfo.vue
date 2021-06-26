@@ -71,9 +71,7 @@
                             {{'TWD$ ' + $filters.currency(Math.floor(cartsData.final_total))}}
                           </span>
                         </p>
-                        <p>
-                          {{cartsData.total !== cartsData.final_total ? '已套用優惠券' : '未使用優惠券'}}
-                        </p>
+                        <p> {{percent}}</p>
                       </div>
                     </div>
                   </li>
@@ -164,6 +162,7 @@ export default {
         message: '',
       },
       isSubmitOrder: false,
+      percent: 0,
     };
   },
   emits: ['update'],
@@ -178,6 +177,9 @@ export default {
           this.cartsData = res.data.data;
           if (!this.cartsData.carts.length && !this.isSubmitOrder) {
             this.$router.replace('/productsList');
+          }
+          if (this.cartsData.carts[0]) {
+            this.percent = this.cartsData.carts[0].coupon ? `已打 ${this.cartsData.carts[0].coupon.percent} 折` : '未使用優惠券';
           }
         } else {
           this.swal(res.data.message, 'error');
