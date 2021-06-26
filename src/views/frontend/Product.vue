@@ -94,10 +94,12 @@
             <!-- 購物車按鈕群組 -->
             <div class="col-md-6">
               <div class="d-flex">
+                <!-- 讀取效果  -->
                 <div class="spinner-border text-primary me-auto" role="status"
                   v-if="isLoading.itemID">
                   <span class="visually-hidden">Loading...</span>
                 </div>
+                <!-- 購物車按鈕購物 -->
                 <div class="input-group me-3" v-else>
                   <button class="btn btn-outline-primary border-secondary" type="button"
                   @click="cartsOfProduct[0].qty -= 1"
@@ -111,6 +113,15 @@
                 @click="putCart(cartsOfProduct[0])" v-if="cartsOfProduct[0].id">
                 <input type="button" value="加入購物車" class="btn btn-primary"
                 @click="addCart(product.id, cartsOfProduct[0].qty)" v-else>
+                <!-- 我的最愛按鈕 -->
+                <button type="button"
+                  class="btn btn-link link-primary text-decoration-none d-flex align-items-center"
+                  @click="setLocalStorage(product)">
+                  <span class="material-icons">
+                    {{this.localStorageData.some((obj) => obj.id === product.id)
+                    ? 'bookmark' : 'bookmark_border'}}
+                  </span>
+                </button>
               </div>
             </div>
           </div>
@@ -164,6 +175,7 @@ export default {
       cartsOfProduct: [{
         qty: 1,
       }],
+      localStorageData: [],
     };
   },
   emits: ['update'],
@@ -264,8 +276,31 @@ export default {
         tempData.splice(y, 1);
       }
     },
-    clickSubscribe() {
-      this.swal('感謝您的訂閱');
+    setLocalStorage(item) {
+      if (this.localStorageData[0]) {
+        let dataIndex = null;
+        this.localStorageData.forEach((element, index) => {
+          if (element.id === item.id) {
+            dataIndex = index;
+          }
+        });
+        if (dataIndex === null) {
+          this.localStorageData.push(item);
+          localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
+          this.$emit('update');
+          this.swal('已加到我的最愛囉！');
+        } else {
+          this.localStorageData.splice(dataIndex, 1);
+          localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
+          this.$emit('update');
+          this.swal('已從我的最愛移除囉！');
+        }
+      } else {
+        this.localStorageData.push(item);
+        localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
+        this.$emit('update');
+        this.swal('已加到我的最愛囉！');
+      }
     },
   },
   components: {
@@ -275,6 +310,9 @@ export default {
     this.getProductsAll();
     this.getProduct();
     this.checkCartsList();
+  },
+  mounted() {
+    this.localStorageData = JSON.parse(localStorage.getItem('myFavorite')) || [];
   },
   watch: {
     // 在產品內頁點選購物車中連結時，切換產品
