@@ -35,14 +35,22 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto d-flex align-items-center">
+          <!-- 關於我們 -->
           <router-link to="/about" class="nav-link">關於我們</router-link>
           <span class="d-none d-lg-block text-white pb-1">|</span>
+          <!-- 常見問答 -->
           <router-link to="/questions" class="nav-link">常見問答</router-link>
           <span class="d-none d-lg-block text-white pb-1">|</span>
+          <!-- 餐飲與課程 -->
           <router-link to="/productsList" class="nav-link">
             餐飲與課程
           </router-link>
           <span class="d-none d-lg-block text-white pb-1">|</span>
+          <router-link to="/bookMark" class="nav-link">
+            我的最愛(<span class="text-white">{{localStorageData.length}}</span>)
+          </router-link>
+          <span class="d-none d-lg-block text-white pb-1">|</span>
+          <!-- 購物車內容 -->
           <a class="nav-link btn btn-link link-dark d-none d-lg-flex align-items-center"
           href="#cartContent" data-bs-toggle="dropdown" data-bs-display="static" role="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -67,7 +75,7 @@
     </div>
   </nav>
   <!-- router-view  -->
-  <router-view class="main" :carts-update="isUpdate" @update="getCartsList"/>
+  <router-view class="main" :carts-update="isUpdate" @update="updateData"/>
   <!-- footer -->
   <footer class="container-fluid bg-primary py-3">
     <div class="container">
@@ -137,6 +145,7 @@ export default {
         carts: [],
       },
       isUpdate: '',
+      localStorageData: [],
     };
   },
   methods: {
@@ -154,6 +163,10 @@ export default {
         this.swal('無法取得購物車清單喔～', 'error');
       });
     },
+    updateData() {
+      this.getCartsList();
+      this.localStorageData = JSON.parse(localStorage.getItem('myFavorite')) || [];
+    },
   },
   components: {
     carts,
@@ -169,7 +182,7 @@ export default {
     },
   },
   created() {
-    this.getCartsList();
+    this.updateData();
   },
 };
 </script>

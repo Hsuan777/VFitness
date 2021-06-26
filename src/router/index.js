@@ -28,6 +28,11 @@ const routes = [
         component: () => import('../views/frontend/Product.vue'),
       },
       {
+        path: 'bookMark',
+        name: 'BookMark',
+        component: () => import('../views/frontend/BookMarkInfo.vue'),
+      },
+      {
         path: 'questions',
         name: 'Questions',
         component: () => import('../views/frontend/Questions.vue'),
