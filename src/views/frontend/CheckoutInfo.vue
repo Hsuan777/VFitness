@@ -50,7 +50,9 @@
                           {{item.product.title}}
                         </router-link>
                         <!-- 單價 -->
-                        <p class="mb-0">單價：{{'$ ' + $filters.currency(item.product.price)}}</p>
+                        <p class="mb-0">
+                          單價：{{'$ ' + $filters.currency(item.product.price)}} x {{item.product.num}}
+                          </p>
                         <!-- 小計 -->
                         <p class="text-end mb-0">小計：{{'$ ' + $filters.currency(item.total)}}</p>
                       </div>
