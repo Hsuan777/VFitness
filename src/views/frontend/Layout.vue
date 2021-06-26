@@ -1,5 +1,6 @@
 <template>
   <!-- 置頂導覽列 -->
+  <scorll-top></scorll-top>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
     <div class="container position-relative">
       <router-link to="/" class="logo navbar-brand d-flex align-items-center">
@@ -65,7 +66,9 @@
       </div>
     </div>
   </nav>
+  <!-- router-view  -->
   <router-view class="main" :carts-update="isUpdate" @update="getCartsList"/>
+  <!-- footer -->
   <footer class="container-fluid bg-primary py-3">
     <div class="container">
       <div class="row">
@@ -125,6 +128,7 @@
 
 <script>
 import carts from '../../components/frontend/Carts.vue';
+import scorllTop from '../../components/tools/ScorllTop.vue';
 
 export default {
   data() {
@@ -153,6 +157,7 @@ export default {
   },
   components: {
     carts,
+    scorllTop,
   },
   computed: {
     cartsCount() {
