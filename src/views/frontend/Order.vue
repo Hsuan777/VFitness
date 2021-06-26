@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <h2 class="text-center fw-bolder mb-5">感謝您的訂購!</h2>
+    <h2 class="text-center fw-bolder mb-3 mb-lg-5">感謝您的訂購!</h2>
     <p class="h3 text-center">以下是您的訂購資訊，請確認後進行<span class="text-danger">付款</span>。</p>
     <div class="row justify-content-center">
       <div class="col-lg-6">
@@ -60,14 +60,20 @@
             <tr>
               <th>商品清單</th>
               <td>
-                <p class="d-flex mb-0" v-for="item in order.products" :key="item.product.id">
-                  {{item.product.title}} x {{item.qty}} {{item.product.unit}} =
+                <p class="d-flex align-items-end border-bottom mb-0" v-for="item in order.products"
+                  :key="item.product.id">
+                  {{item.product.title}}<br>
+                  $ {{item.product.price}} x {{item.qty}} {{item.product.unit}} =
                   <span class="ms-auto">$ {{$filters.currency(Math.floor(item.final_total))}}</span>
                 </p>
-                <p class="text-end mb-0 border-top pt-1">
+                <p class="text-end mb-0 pt-1">
                   合計 : TWD$ {{$filters.currency(Math.floor(order.total))}}
                 </p>
               </td>
+            </tr>
+            <tr>
+              <th>折價券</th>
+              <td>{{percent}}折</td>
             </tr>
             <tr>
               <th>您的備註</th>
@@ -103,6 +109,7 @@ export default {
         },
         message: '',
       },
+      percent: 0,
     };
   },
   props: ['cartsUpdate'],
@@ -113,6 +120,8 @@ export default {
         // 沒有 ID 也會過...
         if (res.data.success) {
           this.order = res.data.order;
+          const firstProduct = Object.keys(this.order.products)[0];
+          this.percent = this.order.products[firstProduct].coupon ? `${this.order.products[firstProduct].coupon.percent} ` : '未打';
           if (!this.order) {
             this.swal('查無此訂單喔！', 'warning');
             setTimeout(() => {
