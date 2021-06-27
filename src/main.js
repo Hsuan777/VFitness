@@ -47,7 +47,7 @@ Object.keys(AllRules).forEach((rule) => {
 // 設定 vee-validate 全域規則，，vee-validate 已匯入使用 configure
 configure({
   generateMessage: localize({ zh_TW: zhTW }), // 載入繁體中文語系
-  validateOnInput: false, // true，當輸入任何內容直接進行驗證
+  validateOnInput: true, // true，當輸入任何內容直接進行驗證
 });
 
 // 設定預設語系，vee-validate/i18n 已匯入使用 setLocale

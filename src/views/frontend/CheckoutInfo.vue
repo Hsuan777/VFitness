@@ -92,6 +92,7 @@
                       <Field id="userName" name="訂購人姓名" type="text" class="form-control"
                       :class="{ 'is-invalid': errors['訂購人姓名'], 'is-valid': order.user.name }"
                       :rules="checkName"
+                      placeholder="請輸入姓名"
                       v-model="order.user.name"></Field>
                       <error-message name="訂購人姓名" class="invalid-feedback"></error-message>
                     </div>
@@ -101,6 +102,7 @@
                       </label>
                       <Field id="userEmail" name="聯絡信箱" type="email" class="form-control"
                       :class="{ 'is-invalid': errors['聯絡信箱'], 'is-valid': order.user.email }"
+                      placeholder="請輸入電子信箱"
                       rules="email|required"
                       v-model="order.user.email"></Field>
                       <error-message name="聯絡信箱" class="invalid-feedback"></error-message>
@@ -112,16 +114,18 @@
                       <Field id="userTel" name="手機號碼" type="tel" class="form-control"
                       :class="{ 'is-invalid': errors['手機號碼'], 'is-valid': order.user.tel }"
                       :rules="checkPhone"
+                      placeholder="請輸入手機號碼"
                       v-model="order.user.tel"></Field>
                       <error-message name="手機號碼" class="invalid-feedback"></error-message>
                     </div>
                     <div class="col">
-                      <label for="userAddress" class="form-label">聯絡地址(餐飲外送用)
+                      <label for="userAddress" class="form-label">聯絡地址
                         <span class="text-danger">*</span>
                       </label>
                       <Field id="userAddress" name="聯絡地址" type="text" class="form-control"
                       :class="{ 'is-invalid': errors['聯絡地址'], 'is-valid': order.user.address }"
                       rules="required"
+                      placeholder="請輸入聯絡地址"
                       v-model="order.user.address"></Field>
                       <error-message name="聯絡地址" class="invalid-feedback"></error-message>
                     </div>
@@ -129,6 +133,7 @@
                       <label for="userMessage" class="form-label">備註</label>
                       <Field id="userMessage" name="備註" type="text" class="form-control"
                       :class="{ 'is-valid': order.message }"
+                      placeholder="餐點口味(海苔、孜然、莎莎醬)"
                       v-model="order.message" as="textarea" rows="3"></Field>
                       <error-message name="備註" class="invalid-feedback"></error-message>
                     </div>
