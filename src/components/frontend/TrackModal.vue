@@ -25,75 +25,77 @@
             <tbody>
               <tr>
                 <th>訂購時間</th>
-                <td>{{new Date().toLocaleString(tempOrder.create_at)}}</td>
+                <td>{{ new Date().toLocaleString(tempOrder.create_at) }}</td>
               </tr>
               <tr>
-                <th>訂購 ID<br>(請記下可再查詢)</th>
-                <td>{{tempOrder.id}}</td>
+                <th>訂購 ID<br />(請記下可再查詢)</th>
+                <td>{{ tempOrder.id }}</td>
               </tr>
               <tr>
                 <th>訂購人</th>
-                <td>{{tempOrder.user.name}}</td>
+                <td>{{ tempOrder.user.name }}</td>
               </tr>
               <tr>
                 <th>聯絡信箱</th>
-                <td>{{tempOrder.user.email}}</td>
+                <td>{{ tempOrder.user.email }}</td>
               </tr>
               <tr>
                 <th>聯絡電話</th>
-                <td>{{tempOrder.user.tel}}</td>
+                <td>{{ tempOrder.user.tel }}</td>
               </tr>
               <tr>
                 <th>地址</th>
-                <td>{{tempOrder.user.address}}</td>
+                <td>{{ tempOrder.user.address }}</td>
               </tr>
               <tr>
                 <th>商品清單</th>
                 <td>
-                  <p class="d-flex align-items-end border-bottom mb-0"
+                  <p
+                    class="d-flex align-items-end border-bottom mb-0"
                     v-for="item in tempOrder.products"
-                    :key="item.product.id">
-                    {{item.product.title}}<br>
-                    $ {{item.product.price}} x {{item.qty}} {{item.product.unit}} =
+                    :key="item.product.id"
+                  >
+                    {{ item.product.title }}<br />
+                    $ {{ item.product.price }} x {{ item.qty }} {{ item.product.unit }} =
                     <span class="ms-auto">
-                      $ {{$filters.currency(Math.floor(item.final_total))}}
+                      $ {{ $filters.currency(Math.floor(item.final_total)) }}
                     </span>
                   </p>
                   <p class="text-end mb-0 pt-1">
-                    合計 : TWD$ {{$filters.currency(Math.floor(order.total))}}
+                    合計 : TWD$ {{ $filters.currency(Math.floor(order.total)) }}
                   </p>
                 </td>
               </tr>
               <tr>
                 <th>折價券</th>
-                <td>{{percent}}折</td>
+                <td>{{ percent }}折</td>
               </tr>
               <tr>
                 <th>您的備註</th>
-                <td>{{tempOrder.message}}</td>
+                <td>{{ tempOrder.message }}</td>
               </tr>
               <tr>
                 <th>付款狀態</th>
-                <td>{{tempOrder.is_paid ? '已付款' : '商家確認中'}}</td>
+                <td>{{ tempOrder.is_paid ? '已付款' : '商家確認中' }}</td>
               </tr>
             </tbody>
           </table>
           <div class="input-group" v-else>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="請輸入訂單序號"
-            v-model="orderID"
-          />
-          <button
-            class="btn btn-outline-dark"
-            :disabled="!orderID"
-            type="button"
-            @click="getOrder"
-          >
-            查詢
-          </button>
-        </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="請輸入訂單序號"
+              v-model="orderID"
+            />
+            <button
+              class="btn btn-outline-dark"
+              :disabled="!orderID"
+              type="button"
+              @click="getOrder"
+            >
+              查詢
+            </button>
+          </div>
         </div>
         <div class="modal-footer">
           <button
@@ -144,20 +146,25 @@ export default {
   methods: {
     getOrder() {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order/${this.orderID}`;
-      this.axios.get(apiUrl).then((res) => {
-        if (res.data.success && res.data.order) {
-          this.tempOrder = res.data.order;
-          const firstProduct = Object.keys(this.tempOrder.products)[0];
-          this.percent = this.tempOrder.products[firstProduct].coupon ? `${this.tempOrder.products[firstProduct].coupon.percent} ` : '未打';
-          this.swal('感謝您的訂購，以下是您的訂購資訊');
-        } else {
-          this.resetData();
-          this.swal('查無此訂單喔！', 'error');
-        }
-      }).catch((res) => {
-        console.log(res);
-        this.swal('無法取得資料喔～', 'error');
-      });
+      this.axios
+        .get(apiUrl)
+        .then((res) => {
+          if (res.data.success && res.data.order) {
+            this.tempOrder = res.data.order;
+            const firstProduct = Object.keys(this.tempOrder.products)[0];
+            this.percent = this.tempOrder.products[firstProduct].coupon
+              ? `${this.tempOrder.products[firstProduct].coupon.percent} `
+              : '未打';
+            this.swal('感謝您的訂購，以下是您的訂購資訊');
+          } else {
+            this.resetData();
+            this.swal('查無此訂單喔！', 'error');
+          }
+        })
+        .catch((res) => {
+          console.log(res);
+          this.swal('無法取得資料喔～', 'error');
+        });
     },
     resetData() {
       this.orderID = '';

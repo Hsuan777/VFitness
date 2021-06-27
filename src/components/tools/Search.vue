@@ -1,6 +1,11 @@
 <template>
-  <input class="form-control" list="datalistOptions" id="searchData"
-    placeholder="To search..." v-model="cacheSearch">
+  <input
+    class="form-control"
+    list="datalistOptions"
+    id="searchData"
+    placeholder="To search..."
+    v-model="cacheSearch"
+  />
   <datalist id="datalistOptions">
     <option v-for="(item, key) in recordSearch" :value="item" :key="item + key"></option>
   </datalist>

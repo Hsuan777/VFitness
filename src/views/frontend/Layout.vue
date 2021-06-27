@@ -12,17 +12,26 @@
       </router-link>
       <!-- mobile 直接進購物車頁面 -->
       <div class="navbar-nav ms-auto me-3">
-        <router-link to="/checkout"
-          class="nav-link d-lg-none d-flex align-items-center">
-          <img src="../../assets/images/bi-cart-check-white.svg" alt="addCart"
-              class="studio__icon__nav me-2">
-          購物車(<span class="text-white">{{cartsCount}}</span>)
+        <router-link to="/checkout" class="nav-link d-lg-none d-flex align-items-center">
+          <img
+            src="../../assets/images/bi-cart-check-white.svg"
+            alt="addCart"
+            class="studio__icon__nav me-2"
+          />
+          購物車(<span class="text-white">{{ cartsCount }}</span
+          >)
         </router-link>
       </div>
       <!-- mobile 折疊按鈕 -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-      data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-      aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -34,7 +43,12 @@
           <router-link to="/questions" class="nav-link">常見問答</router-link>
           <span class="d-none d-lg-block text-white pb-1">|</span>
           <!-- 訂單查詢 -->
-          <input type="button" value="訂單查詢" class="nav-link btn btn-link" @click="openTrackModal">
+          <input
+            type="button"
+            value="訂單查詢"
+            class="nav-link btn btn-link"
+            @click="openTrackModal"
+          />
           <span class="d-none d-lg-block text-white pb-1">|</span>
           <!-- 餐飲與課程 -->
           <router-link to="/productsList" class="nav-link">
@@ -43,17 +57,24 @@
           <span class="d-none d-lg-block text-white pb-1">|</span>
           <!-- 我的最愛 -->
           <router-link to="/bookMark" class="nav-link">
-            我的最愛(<span class="text-white">{{localStorageData.length}}</span>)
+            我的最愛(<span class="text-white">{{ localStorageData.length }}</span
+            >)
           </router-link>
           <span class="d-none d-lg-block text-white pb-1">|</span>
           <!-- 購物車內容 -->
           <a
             class="nav-link link-dark d-none d-lg-flex align-items-center"
-            href="#cartContent" data-bs-toggle="dropdown" data-bs-display="static">
-            <img src="../../assets/images/bi-cart-check-white.svg" alt="addCart"
-              class="studio__icon__nav me-2">
-            購物車(<span class="text-white">{{cartsCount}}</span>)
-              TWD$ {{$filters.currency(cartsData.total)}}
+            href="#cartContent"
+            data-bs-toggle="dropdown"
+            data-bs-display="static"
+          >
+            <img
+              src="../../assets/images/bi-cart-check-white.svg"
+              alt="addCart"
+              class="studio__icon__nav me-2"
+            />
+            購物車(<span class="text-white">{{ cartsCount }}</span
+            >) TWD$ {{ $filters.currency(cartsData.total) }}
           </a>
           <!-- 購物車內容 -->
           <div id="cartContent" ref="cartsComponent" class="dropdown-menu dropdown-menu-end me-2">
@@ -64,7 +85,7 @@
     </div>
   </nav>
   <!-- router-view  -->
-  <router-view class="main" :carts-update="isUpdate" @update="updateData"/>
+  <router-view class="main" :carts-update="isUpdate" @update="updateData" />
   <!-- footer -->
   <footer class="container-fluid bg-primary py-3">
     <div class="container">
@@ -87,13 +108,13 @@
         <div class="col-lg-6 mb-2 mb-lg-0">
           <div class="d-flex justify-content-lg-end">
             <a href="https://www.facebook.com/" target="_block">
-              <img src="../../assets/images/ic_social_fb.svg" alt="FB">
+              <img src="../../assets/images/ic_social_fb.svg" alt="FB" />
             </a>
             <a href="https://www.instagram.com/" target="_block" class="mx-3">
-              <img src="../../assets/images/ic_social_ig.svg" alt="IG">
+              <img src="../../assets/images/ic_social_ig.svg" alt="IG" />
             </a>
             <a href="https://line.me/zh-hant/" target="_block">
-              <img src="../../assets/images/ic_social_line.svg" alt="LINE">
+              <img src="../../assets/images/ic_social_line.svg" alt="LINE" />
             </a>
           </div>
         </div>
@@ -102,14 +123,21 @@
           <nav class="navbar-dark">
             <div class="navbar-nav">
               <a href="tel:0800-080-000" class="nav-link py-0">電話：0800-080-000</a>
-              <a href="https://www.google.com.tw/maps/search/%E6%A1%83%E5%9C%92%E5%B8%82%E6%A1%83%E5%9C%92%E5%8D%80%E5%A4%A7%E6%9C%89%E4%B8%83%E8%A1%97333%E8%99%9F/@25.0155502,121.2992199,15z/data=!3m1!4b1?hl=zh-TW" class="nav-link py-0" target="_block">地址：桃園市桃園區大有七街333號</a>
+              <a
+                href="https://www.google.com.tw/maps/search/%E6%A1%83%E5%9C%92%E5%B8%82%E6%A1%83%E5%9C%92%E5%8D%80%E5%A4%A7%E6%9C%89%E4%B8%83%E8%A1%97333%E8%99%9F/@25.0155502,121.2992199,15z/data=!3m1!4b1?hl=zh-TW"
+                class="nav-link py-0"
+                target="_block"
+                >地址：桃園市桃園區大有七街333號</a
+              >
             </div>
           </nav>
         </div>
         <!-- LOGO -->
         <div class="col-12">
-          <router-link to="/"
-            class="logo d-flex align-items-center text-white text-decoration-none">
+          <router-link
+            to="/"
+            class="logo d-flex align-items-center text-white text-decoration-none"
+          >
             <span class="h3 mb-0 pt-1">VFitness</span>
             <div class="flex-column ms-1">
               <span class="logo__icon material-icons d-block">fitness_center</span>
@@ -141,18 +169,21 @@ export default {
   },
   methods: {
     getCartsList() {
-      this.isUpdate = '1';
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
-      this.axios.get(apiUrl).then((res) => {
-        this.isUpdate = '';
-        if (res.data.success) {
-          this.cartsData = res.data.data;
-        } else {
-          this.swal(res.data.message, 'error');
-        }
-      }).catch(() => {
-        this.swal('無法取得購物車清單喔～', 'error');
-      });
+      this.isUpdate = '1';
+      this.axios
+        .get(apiUrl)
+        .then((res) => {
+          this.isUpdate = '';
+          if (res.data.success) {
+            this.cartsData = res.data.data;
+          } else {
+            this.swal(res.data.message, 'error');
+          }
+        })
+        .catch(() => {
+          this.swal('無法取得購物車清單喔～', 'error');
+        });
     },
     updateData() {
       this.getCartsList();
