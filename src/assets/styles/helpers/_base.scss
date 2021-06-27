@@ -36,6 +36,14 @@ input:disabled {
 }
 
 /* 更改 bootstrap 現有 CSS */
-.btn-primary {
-  color: white;
+.btn {
+  &-primary {
+    color: white;
+  }
+  &:disabled {
+    pointer-events: auto;
+    cursor: not-allowed;
+  }
 }
+
+

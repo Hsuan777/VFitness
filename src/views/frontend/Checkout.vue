@@ -119,7 +119,6 @@ export default {
       cartsData: {
         carts: [],
       },
-      isSubmitOrder: false,
       couponCode: 'test777',
       percent: 0,
     };
@@ -205,24 +204,6 @@ export default {
         }
       }).catch(() => {
         this.swal('無法套用優惠券喔～', 'error');
-      });
-    },
-    postOrder() {
-      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order`;
-      this.axios.post(apiUrl, { data: this.order }).then((res) => {
-        if (res.data.success) {
-          this.isSubmitOrder = true;
-          this.swal('感謝您的選購，還請確認付款資訊，謝謝。');
-          this.$refs.orderForm.resetForm();
-          this.$emit('update');
-          setTimeout(() => {
-            this.$router.replace(`/order/${res.data.orderId}`);
-          }, 2000);
-        } else {
-          this.swal(res.data.message, 'error');
-        }
-      }).catch(() => {
-        this.swal('無法送出訂單喔～', 'error');
       });
     },
   },
