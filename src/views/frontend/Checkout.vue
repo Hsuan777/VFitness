@@ -159,6 +159,7 @@
         </div>
       </div>
     </div>
+    <toast ref="toast"></toast>
   </div>
 </template>
 
@@ -182,7 +183,6 @@ export default {
       this.axios
         .get(apiUrl)
         .then((res) => {
-          this.isLoading.status = false;
           if (res.data.success) {
             this.cartsData = res.data.data;
             if (!this.cartsData.carts.length && !this.isSubmitOrder) {
@@ -194,11 +194,12 @@ export default {
                 : '未使用優惠券';
             }
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
+          this.isLoading.status = false;
         })
         .catch(() => {
-          this.swal('取得購物車清單有問題喔～快去看什麼問題吧！', 'error');
+          this.$refs.toast.showToast('取得購物車清單有問題喔～', 'error');
         });
     },
     putCart(item, num) {
@@ -212,13 +213,13 @@ export default {
             this.isLoading.itemID = '';
             this.$emit('update');
             this.getCartsList();
-            this.swal(res.data.message);
+            this.$refs.toast.showToast(res.data.message);
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.swal('無法更新資料喔～', 'error');
+          this.$refs.toast.showToast('無法更新資料喔～', 'error');
         });
     },
     deleteCart(itemID) {
@@ -230,14 +231,14 @@ export default {
           if (res.data.success) {
             this.$emit('update');
             this.getCartsList();
-            this.swal('已刪除購物車商品囉！');
+            this.$refs.toast.showToast('已刪除購物車商品囉！');
           } else {
-            this.swal(res.data.message);
+            this.$refs.toast.showToast(res.data.message);
           }
           this.isLoading.itemID = '';
         })
         .catch(() => {
-          this.swal('無法刪除購物車內商品喔～', 'error');
+          this.$refs.toast.showToast('無法刪除購物車內商品喔～', 'error');
         });
     },
     deleteCartAll() {
@@ -246,15 +247,15 @@ export default {
         .delete(apiUrl)
         .then((res) => {
           if (res.data.success) {
-            this.swal('已無商品囉！');
+            this.$refs.toast.showToast('已無商品囉！');
             this.$emit('update');
             this.getCartsList();
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.swal('無法刪除購物車內商品喔～', 'error');
+          this.$refs.toast.showToast('無法刪除購物車內商品喔～', 'error');
         });
     },
     postCoupon() {
@@ -263,14 +264,14 @@ export default {
         .post(apiUrl, { data: { code: this.couponCode } })
         .then((res) => {
           if (res.data.success) {
-            this.swal(res.data.message);
+            this.$refs.toast.showToast(res.data.message);
             this.getCartsList();
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.swal('無法套用優惠券喔～', 'error');
+          this.$refs.toast.showToast('無法套用優惠券喔～', 'error');
         });
     },
   },

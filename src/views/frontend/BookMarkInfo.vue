@@ -68,6 +68,7 @@
         </div>
       </li>
     </ul>
+    <toast ref="toast"></toast>
   </section>
 </template>
 
@@ -96,18 +97,18 @@ export default {
           localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
           // 更新 Layout nav 資料
           this.$emit('update');
-          this.swal('已加到我的最愛囉！');
+          this.$refs.toast.showToast('已加到我的最愛囉！');
         } else {
           this.localStorageData.splice(dataIndex, 1);
           localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
           this.$emit('update');
-          this.swal('已從我的最愛移除囉！');
+          this.$refs.toast.showToast('已從我的最愛移除囉！');
         }
       } else {
         this.localStorageData.push(item);
         localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
         this.$emit('update');
-        this.swal('已加到我的最愛囉！');
+        this.$refs.toast.showToast('已加到我的最愛囉！');
       }
     },
     getCartsList() {
@@ -118,11 +119,11 @@ export default {
           if (res.data.success) {
             this.cartsData = res.data.data.carts;
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast('無法取得購物車清單喔', 'error');
           }
         })
         .catch(() => {
-          this.swal('無法取得購物車清單喔～', 'error');
+          this.$refs.toast.showToast('無法取得購物車清單喔', 'error');
         });
     },
     addCart(itemID) {
@@ -137,13 +138,13 @@ export default {
             // 觸發父層元件之函式，但在這得先定義 emits
             this.$emit('update');
             this.getCartsList();
-            this.swal(res.data.message);
+            this.$refs.toast.showToast(res.data.message);
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.swal('無法加入購物車喔～', 'error');
+          this.$refs.toast.showToast('無法加入購物車喔～', 'error');
         });
     },
     checkCartsData(id) {

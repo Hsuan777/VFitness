@@ -208,6 +208,7 @@
         </div>
       </div>
     </div>
+    <toast ref="toast"></toast>
   </div>
 </template>
 
@@ -252,11 +253,11 @@ export default {
                 : '未使用優惠券';
             }
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.swal('取得購物車清單有問題喔～快去看什麼問題吧！', 'error');
+          this.$refs.toast.showToast('取得購物車清單有問題喔～快去看什麼問題吧！', 'error');
         });
     },
     postOrder() {
@@ -266,18 +267,18 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.isSubmitOrder = true;
-            this.swal('感謝您的選購，還請確認付款資訊，謝謝。');
+            this.$refs.toast.showToast('感謝您的選購，還請確認付款資訊，謝謝。');
             this.$refs.orderForm.resetForm();
             this.$emit('update');
             setTimeout(() => {
               this.$router.replace(`/order/${res.data.orderId}`);
             }, 2000);
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.swal('無法送出訂單喔～', 'error');
+          this.$refs.toast.showToast('無法送出訂單喔～', 'error');
         });
     },
     checkName(value) {

@@ -155,15 +155,15 @@ export default {
             this.percent = this.tempOrder.products[firstProduct].coupon
               ? `${this.tempOrder.products[firstProduct].coupon.percent} `
               : '未打';
-            this.swal('感謝您的訂購，以下是您的訂購資訊');
+            this.$refs.toast.showToast('感謝您的訂購。');
           } else {
             this.resetData();
-            this.swal('查無此訂單喔！', 'error');
+            this.$refs.toast.showToast('查無此訂單喔！', 'error');
           }
         })
         .catch((res) => {
           console.log(res);
-          this.swal('無法取得資料喔～', 'error');
+          this.$refs.toast.showToast('無法取得資料喔～', 'error');
         });
     },
     resetData() {

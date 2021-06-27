@@ -150,6 +150,7 @@
     </div>
   </footer>
   <track-modal ref="trackModal"></track-modal>
+  <toast ref="toast"></toast>
 </template>
 
 <script>
@@ -178,11 +179,11 @@ export default {
           if (res.data.success) {
             this.cartsData = res.data.data;
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast('無法取得購物車清單喔', 'error');
           }
         })
         .catch(() => {
-          this.swal('無法取得購物車清單喔～', 'error');
+          this.$refs.toast.showToast('請重新整理頁面，謝謝。', 'error');
         });
     },
     updateData() {

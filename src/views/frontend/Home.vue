@@ -125,6 +125,7 @@
       </div>
     </section>
     <subscribe></subscribe>
+    <toast ref="toast"></toast>
   </div>
 </template>
 
@@ -206,11 +207,11 @@ export default {
             this.products = res.data.products;
             this.randomProduct();
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.swal('無法取得商品全部資料喔～', 'error');
+          this.$refs.toast.showToast('無法取得商品全部資料喔～', 'error');
         });
     },
     addCart(itemID, num) {
@@ -224,14 +225,14 @@ export default {
             this.isLoading.itemID = '';
             // 觸發父層元件之函式，但在這得先定義 emits
             this.$emit('update');
-            this.swal('感謝您的預約，再請您填寫資料');
+            this.$refs.toast.showToast('感謝您的預約，再請您填寫資料');
             this.$router.push('/checkoutInfo');
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.swal('無法加入購物車喔～', 'error');
+          this.$refs.toast.showToast('無法加入購物車喔～', 'error');
         });
     },
     randomNumber(max, min) {
@@ -250,9 +251,6 @@ export default {
       });
       this.randomData.push(food[this.randomNumber(food.length, 0)]);
       this.randomData.push(course[this.randomNumber(course.length, 0)]);
-    },
-    clickSubscribe() {
-      this.swal('感謝您的訂閱');
     },
   },
   components: {

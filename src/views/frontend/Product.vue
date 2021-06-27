@@ -188,6 +188,7 @@
       </ul>
     </section>
     <subscribe></subscribe>
+    <toast ref="toast"></toast>
   </div>
 </template>
 
@@ -236,11 +237,11 @@ export default {
             this.products = res.data.products;
             this.randomProduct();
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.swal('無法取得商品全部資料喔～', 'error');
+          this.$refs.toast.showToast('無法取得商品全部資料喔～', 'error');
         });
     },
     getProduct() {
@@ -253,11 +254,11 @@ export default {
           if (res.data.success) {
             this.product = res.data.product;
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.swal('無法取得產品資料喔～', 'error');
+          this.$refs.toast.showToast('無法取得產品資料喔～', 'error');
         });
     },
     checkCartsList() {
@@ -276,12 +277,12 @@ export default {
               this.cartsOfProduct = [...cartsOfProduct];
             }
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch((res) => {
           console.log(res);
-          this.swal('無法取得購物車資料喔～', 'error');
+          this.$refs.toast.showToast('無法取得購物車資料喔～', 'error');
         });
     },
     addCart(itemID, num) {
@@ -295,14 +296,14 @@ export default {
             this.isLoading.itemID = '';
             // 觸發父層元件之函式，但在這得先定義 emits
             this.$emit('update');
-            this.swal(res.data.message);
+            this.$refs.toast.showToast(res.data.message);
             this.checkCartsList();
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.swal('無法加入購物車喔～', 'error');
+          this.$refs.toast.showToast('無法加入購物車喔～', 'error');
         });
     },
     putCart(item) {
@@ -315,14 +316,14 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.$emit('update');
-            this.swal(res.data.message);
+            this.$refs.toast.showToast(res.data.message);
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
           this.isLoading.itemID = '';
         })
         .catch(() => {
-          this.swal('無法更新購物車資料喔～', 'error');
+          this.$refs.toast.showToast('無法更新購物車資料喔～', 'error');
         });
     },
     randomNumber(max, min) {
@@ -349,18 +350,18 @@ export default {
           this.localStorageData.push(item);
           localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
           this.$emit('update');
-          this.swal('已加到我的最愛囉！');
+          this.$refs.toast.showToast('已加到我的最愛囉！');
         } else {
           this.localStorageData.splice(dataIndex, 1);
           localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
           this.$emit('update');
-          this.swal('已從我的最愛移除囉！');
+          this.$refs.toast.showToast('已從我的最愛移除囉！');
         }
       } else {
         this.localStorageData.push(item);
         localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
         this.$emit('update');
-        this.swal('已加到我的最愛囉！');
+        this.$refs.toast.showToast('已加到我的最愛囉！');
       }
     },
   },

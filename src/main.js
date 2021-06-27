@@ -31,7 +31,8 @@ import CKEditor from '@ckeditor/ckeditor5-vue';
 // 匯入 tools 元件
 import page from './components/tools/Pagination.vue';
 import search from './components/tools/Search.vue';
-import swal from './components/tools/Swal.vue'; // 通知回饋，匯入 mixins
+import swal from './components/tools/Swal.vue'; // sweetalert2 通知回饋，匯入 mixins
+import toast from './components/tools/Toast.vue'; // toast 通知回饋
 
 // 匯入 methods
 import currency from './methods/filters'; // 千分號
@@ -76,6 +77,9 @@ app.component('page', page);
 
 // 註冊 搜尋輸入框元件
 app.component('search', search);
+
+// 註冊 toast 通知回饋
+app.component('toast', toast);
 
 app.mount('#app');
 

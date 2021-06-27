@@ -124,6 +124,7 @@
         </div>
       </div>
     </section>
+    <toast ref="toast"></toast>
   </div>
 </template>
 
@@ -156,14 +157,14 @@ export default {
               ? `${this.order.products[firstProduct].coupon.percent} `
               : '未打';
           } else {
-            this.swal('查無此訂單喔！', 'error');
+            this.$refs.toast.showToast('查無此訂單喔！', 'error');
             setTimeout(() => {
               this.$router.replace('/productsList');
             }, 3000);
           }
         })
         .catch(() => {
-          this.swal('無法取得資料喔～', 'error');
+          this.$refs.toast.showToast('無法取得資料喔～', 'error');
         });
     },
     payOrder() {
@@ -172,17 +173,17 @@ export default {
         .post(apiUrl)
         .then((res) => {
           if (res.data.success) {
-            this.swal(res.data.message);
+            this.$refs.toast.showToast(res.data.message);
             this.getOrder();
             setTimeout(() => {
               this.$router.replace('/productsList');
             }, 1500);
           } else {
-            this.swal(res.data.message, 'error');
+            this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.swal('付款未完成喔，請稍後再試～', 'error');
+          this.$refs.toast.showToast('付款未完成喔，請稍後再試～', 'error');
         });
     },
   },
