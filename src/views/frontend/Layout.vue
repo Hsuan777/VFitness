@@ -33,11 +33,15 @@
           <!-- 常見問答 -->
           <router-link to="/questions" class="nav-link">常見問答</router-link>
           <span class="d-none d-lg-block text-white pb-1">|</span>
+          <!-- 訂單查詢 -->
+          <input type="button" value="訂單查詢" class="nav-link btn btn-link" @click="openTrackModal">
+          <span class="d-none d-lg-block text-white pb-1">|</span>
           <!-- 餐飲與課程 -->
           <router-link to="/productsList" class="nav-link">
             餐飲與課程
           </router-link>
           <span class="d-none d-lg-block text-white pb-1">|</span>
+          <!-- 我的最愛 -->
           <router-link to="/bookMark" class="nav-link">
             我的最愛(<span class="text-white">{{localStorageData.length}}</span>)
           </router-link>
@@ -117,10 +121,12 @@
       </div>
     </div>
   </footer>
+  <track-modal ref="trackModal"></track-modal>
 </template>
 
 <script>
 import carts from '../../components/frontend/Carts.vue';
+import trackModal from '../../components/frontend/TrackModal.vue';
 import scorllTop from '../../components/tools/ScorllTop.vue';
 
 export default {
@@ -152,9 +158,13 @@ export default {
       this.getCartsList();
       this.localStorageData = JSON.parse(localStorage.getItem('myFavorite')) || [];
     },
+    openTrackModal() {
+      this.$refs.trackModal.showModal();
+    },
   },
   components: {
     carts,
+    trackModal,
     scorllTop,
   },
   computed: {

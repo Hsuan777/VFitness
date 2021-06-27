@@ -27,72 +27,77 @@
         </div>
       </div>
     </div>
-    <h2 class="text-center fw-bolder mb-3 mb-lg-5">感謝您的訂購!</h2>
-    <p class="h3 text-center">以下是您的訂購資訊，請確認後進行<span class="text-danger">付款</span>。</p>
-    <div class="row justify-content-center">
-      <div class="col-lg-6">
-        <table class="table table-bordered border-secondary">
-          <tbody>
-            <tr>
-              <th>訂購時間</th>
-              <td>{{new Date().toLocaleString(order.create_at)}}</td>
-            </tr>
-            <tr>
-              <th>訂購 ID<br>(請記下可再查詢)</th>
-              <td>{{order.id}}</td>
-            </tr>
-            <tr>
-              <th>訂購人</th>
-              <td>{{order.user.name}}</td>
-            </tr>
-            <tr>
-              <th>聯絡信箱</th>
-              <td>{{order.user.email}}</td>
-            </tr>
-            <tr>
-              <th>聯絡電話</th>
-              <td>{{order.user.tel}}</td>
-            </tr>
-            <tr>
-              <th>地址</th>
-              <td>{{order.user.address}}</td>
-            </tr>
-            <tr>
-              <th>商品清單</th>
-              <td>
-                <p class="d-flex align-items-end border-bottom mb-0" v-for="item in order.products"
-                  :key="item.product.id">
-                  {{item.product.title}}<br>
-                  $ {{item.product.price}} x {{item.qty}} {{item.product.unit}} =
-                  <span class="ms-auto">$ {{$filters.currency(Math.floor(item.final_total))}}</span>
-                </p>
-                <p class="text-end mb-0 pt-1">
-                  合計 : TWD$ {{$filters.currency(Math.floor(order.total))}}
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <th>折價券</th>
-              <td>{{percent}}折</td>
-            </tr>
-            <tr>
-              <th>您的備註</th>
-              <td>{{order.message}}</td>
-            </tr>
-            <tr>
-              <th>付款狀態</th>
-              <td>{{order.is_paid ? '已付款' : '未付款'}}</td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- 無串接金流，故按下後自動付款 -->
-        <input v-if="order.total" type="button" value="由此付款"
-          class="btn btn-primary text-white d-block w-50 mx-auto" @click="payOrder">
-        <input v-else type="button" value="無須付款，點擊確定"
-          class="btn btn-primary text-white d-block w-50 mx-auto"
-          @click="this.$router.replace('/productsList');">
+    <section>
+      <h2 class="text-center fw-bolder mb-3 mb-lg-5">感謝您的訂購!</h2>
+      <p class="h3 text-center">以下是您的訂購資訊，請確認後進行<span class="text-danger">付款</span>。</p>
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <table class="table table-bordered border-secondary">
+            <tbody>
+              <tr>
+                <th>訂購時間</th>
+                <td>{{new Date().toLocaleString(order.create_at)}}</td>
+              </tr>
+              <tr>
+                <th>訂購 ID<br>(請記下可再查詢)</th>
+                <td>{{order.id}}</td>
+              </tr>
+              <tr>
+                <th>訂購人</th>
+                <td>{{order.user.name}}</td>
+              </tr>
+              <tr>
+                <th>聯絡信箱</th>
+                <td>{{order.user.email}}</td>
+              </tr>
+              <tr>
+                <th>聯絡電話</th>
+                <td>{{order.user.tel}}</td>
+              </tr>
+              <tr>
+                <th>地址</th>
+                <td>{{order.user.address}}</td>
+              </tr>
+              <tr>
+                <th>商品清單</th>
+                <td>
+                  <p class="d-flex align-items-end border-bottom mb-0"
+                    v-for="item in order.products"
+                    :key="item.product.id">
+                    {{item.product.title}}<br>
+                    $ {{item.product.price}} x {{item.qty}} {{item.product.unit}} =
+                    <span class="ms-auto">
+                      $ {{$filters.currency(Math.floor(item.final_total))}}
+                    </span>
+                  </p>
+                  <p class="text-end mb-0 pt-1">
+                    合計 : TWD$ {{$filters.currency(Math.floor(order.total))}}
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <th>折價券</th>
+                <td>{{percent}}折</td>
+              </tr>
+              <tr>
+                <th>您的備註</th>
+                <td>{{order.message}}</td>
+              </tr>
+              <tr>
+                <th>付款狀態</th>
+                <td>{{order.is_paid ? '已付款' : '商家確認中'}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- 無串接金流，故按下後自動付款 -->
+          <input v-if="order.total" type="button" value="由此付款"
+            class="btn btn-primary text-white d-block w-50 mx-auto" @click="payOrder">
+          <input v-else type="button" value="無須付款，點擊確定"
+            class="btn btn-primary text-white d-block w-50 mx-auto"
+            @click="this.$router.replace('/productsList');">
+        </div>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -112,24 +117,19 @@ export default {
       percent: 0,
     };
   },
-  props: ['cartsUpdate'],
   methods: {
     getOrder() {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order/${this.$route.params.id}`;
       this.axios.get(apiUrl).then((res) => {
-        // 沒有 ID 也會過...
-        if (res.data.success) {
+        if (res.data.success && res.data.order) {
           this.order = res.data.order;
           const firstProduct = Object.keys(this.order.products)[0];
           this.percent = this.order.products[firstProduct].coupon ? `${this.order.products[firstProduct].coupon.percent} ` : '未打';
-          if (!this.order) {
-            this.swal('查無此訂單喔！', 'warning');
-            setTimeout(() => {
-              this.$router.replace('/productsList');
-            }, 3000);
-          }
         } else {
-          this.swal(res.data.message, 'error');
+          this.swal('查無此訂單喔！', 'error');
+          setTimeout(() => {
+            this.$router.replace('/productsList');
+          }, 3000);
         }
       }).catch(() => {
         this.swal('無法取得資料喔～', 'error');
@@ -140,6 +140,7 @@ export default {
       this.axios.post(apiUrl).then((res) => {
         if (res.data.success) {
           this.swal(res.data.message);
+          this.getOrder();
           setTimeout(() => {
             this.$router.replace('/productsList');
           }, 1500);
