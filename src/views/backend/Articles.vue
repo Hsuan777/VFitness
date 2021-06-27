@@ -3,10 +3,18 @@
   <div class="sticky-top bg-white ps-2 pt-2 mb-1">
     <h2 class="h3">文章列表</h2>
     <div class="d-flex align-items-center">
-      <input type="button" value="新增" class="btn btn-primary me-2"
-        @click="openArticleModal(this.article)">
-      <page :pages="totalPages" :currentPage="currentPage" @display-page="getArticles"
-      class="me-2"></page>
+      <input
+        type="button"
+        value="新增"
+        class="btn btn-primary me-2"
+        @click="openArticleModal(this.article)"
+      />
+      <page
+        :pages="totalPages"
+        :currentPage="currentPage"
+        @display-page="getArticles"
+        class="me-2"
+      ></page>
       <div class="input-group">
         <span class="input-group-text">搜尋文章標題</span>
         <search @filter-data="getFilterData"></search>
@@ -42,7 +50,7 @@
               @change="getArticle(item.id, 'isPublic')"
             />
             <label class="form-check-label" :for="item.id">
-              {{ item.isPublic ? "已啟用" : "未啟用" }}
+              {{ item.isPublic ? '已啟用' : '未啟用' }}
               <span
                 class="spinner-border spinner-border-sm me-2"
                 role="status"
@@ -74,8 +82,11 @@
       </tr>
     </tbody>
   </table>
-  <article-modal ref="articleModal" :article-data="tempArticle"
-    @update="getArticles"></article-modal>
+  <article-modal
+    ref="articleModal"
+    :article-data="tempArticle"
+    @update="getArticles"
+  ></article-modal>
   <del-modal ref="deleteModal" :title="tempArticle.title" tab="文章" @delete-data="deleteArticle">
   </del-modal>
 </template>
@@ -105,35 +116,41 @@ export default {
     getArticles(page = this.currentPage) {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/articles?page=${page}`;
       this.isLoading.status = true;
-      this.axios.get(apiUrl).then((res) => {
-        if (res.data.success) {
-          this.articles = res.data.articles;
-          this.totalPages = res.data.pagination.total_pages;
-          this.currentPage = res.data.pagination.current_page;
-        } else {
-          this.swal(res.data.message, 'error');
-        }
-        this.isLoading.status = false;
-      }).catch(() => {
-        this.swal('無法取得資料喔～快去看什麼問題吧！', 'error');
-      });
+      this.axios
+        .get(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.articles = res.data.articles;
+            this.totalPages = res.data.pagination.total_pages;
+            this.currentPage = res.data.pagination.current_page;
+          } else {
+            this.swal(res.data.message, 'error');
+          }
+          this.isLoading.status = false;
+        })
+        .catch(() => {
+          this.swal('無法取得資料喔～快去看什麼問題吧！', 'error');
+        });
     },
     // 修改與啟用先取得資料
     getArticle(itemId, action) {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article/${itemId}`;
-      this.axios.get(apiUrl).then((res) => {
-        if (res.data.success) {
-          if (action === 'isPublic') {
-            this.putArticle(res.data.article, action);
-          } else if (action === 'edit') {
-            this.openArticleModal(res.data.article);
+      this.axios
+        .get(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            if (action === 'isPublic') {
+              this.putArticle(res.data.article, action);
+            } else if (action === 'edit') {
+              this.openArticleModal(res.data.article);
+            }
+          } else {
+            this.swal(res.data.message, 'error');
           }
-        } else {
-          this.swal(res.data.message, 'error');
-        }
-      }).catch(() => {
-        this.swal('無法取得資料喔～快去看什麼問題吧！', 'error');
-      });
+        })
+        .catch(() => {
+          this.swal('無法取得資料喔～快去看什麼問題吧！', 'error');
+        });
     },
     // 更新是否啟用
     putArticle(item, action) {
@@ -143,33 +160,39 @@ export default {
       if (action === 'isPublic') {
         articleObj.data.isPublic = !articleObj.data.isPublic;
       }
-      this.axios.put(apiUrl, articleObj).then((res) => {
-        if (res.data.success) {
-          this.getArticles();
-          this.swal(res.data.message);
-        } else {
-          this.swal(res.data.message, 'error');
-        }
-        this.isLoading.itemID = '';
-      }).catch(() => {
-        this.swal('無法修改資料喔～快去看什麼問題吧！', 'error');
-      });
+      this.axios
+        .put(apiUrl, articleObj)
+        .then((res) => {
+          if (res.data.success) {
+            this.getArticles();
+            this.swal(res.data.message);
+          } else {
+            this.swal(res.data.message, 'error');
+          }
+          this.isLoading.itemID = '';
+        })
+        .catch(() => {
+          this.swal('無法修改資料喔～快去看什麼問題吧！', 'error');
+        });
     },
     deleteArticle() {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article/${this.tempArticle.id}`;
       this.isLoading.itemID = this.tempArticle.id;
-      this.axios.delete(apiUrl).then((res) => {
-        if (res.data.success) {
-          this.$refs.deleteModal.hideModal();
-          this.getArticles();
-          this.swal(res.data.message);
-        } else {
-          this.swal(res.data.message, 'error');
-        }
-        this.isLoading.itemID = '';
-      }).catch(() => {
-        this.swal('無法刪除資料喔～快去看什麼問題吧！', 'error');
-      });
+      this.axios
+        .delete(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.$refs.deleteModal.hideModal();
+            this.getArticles();
+            this.swal(res.data.message);
+          } else {
+            this.swal(res.data.message, 'error');
+          }
+          this.isLoading.itemID = '';
+        })
+        .catch(() => {
+          this.swal('無法刪除資料喔～快去看什麼問題吧！', 'error');
+        });
     },
     openArticleModal(item) {
       this.tempArticle = JSON.parse(JSON.stringify(item));

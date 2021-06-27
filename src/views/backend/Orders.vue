@@ -3,8 +3,12 @@
   <div class="sticky-top bg-white ps-2 pt-2 mb-1">
     <h2 class="h3">訂單列表</h2>
     <div class="d-flex">
-      <page :pages="totalPages" :currentPage="currentPage" @display-page="getOrders"
-      class="me-2"></page>
+      <page
+        :pages="totalPages"
+        :currentPage="currentPage"
+        @display-page="getOrders"
+        class="me-2"
+      ></page>
       <search @filter-data="getFilterData"></search>
     </div>
   </div>
@@ -22,44 +26,61 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in filterData" :key="item.id" :class="{'table-primary': item.is_paid}">
-        <td class="text-center">{{item.user.name}}</td>
-        <td>{{item.user.email}}</td>
-        <td>{{item.user.tel}}</td>
-        <td>{{item.user.address}}</td>
+      <tr v-for="item in filterData" :key="item.id" :class="{ 'table-primary': item.is_paid }">
+        <td class="text-center">{{ item.user.name }}</td>
+        <td>{{ item.user.email }}</td>
+        <td>{{ item.user.tel }}</td>
+        <td>{{ item.user.address }}</td>
         <td>
           <p v-for="productItem in item.products" :key="productItem.product.id" class="mb-0">
-            {{productItem.product.title}}
+            {{ productItem.product.title }}
           </p>
         </td>
-        <td class="text-end">{{item.total}}</td>
+        <td class="text-end">{{ item.total }}</td>
         <td>
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" :id="item.id"
-            :checked="item.is_paid" @change="putOrder(item, 'isPaid')">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              :id="item.id"
+              :checked="item.is_paid"
+              @change="putOrder(item, 'isPaid')"
+            />
             <label class="form-check-label" :for="item.id">
-              {{item.is_paid ? '已付款' : '未付款'}}
-              <span class="spinner-border spinner-border-sm me-2" role="status"
-              aria-hidden="true"
-              v-if="isLoading.itemID === item.id"></span>
+              {{ item.is_paid ? '已付款' : '未付款' }}
+              <span
+                class="spinner-border spinner-border-sm me-2"
+                role="status"
+                aria-hidden="true"
+                v-if="isLoading.itemID === item.id"
+              ></span>
             </label>
           </div>
         </td>
         <td>
           <div class="btn-group">
             <!-- 可以修改金額與付款狀態 -->
-            <input type="button" value="修改" class="btn btn-outline-dark border-secondary"
-              :class="{'disabled': item.is_paid}" @click="openEditModal(item)">
-            <input type="button" value="刪除" class="btn btn-outline-danger border-secondary"
-            :class="{'disabled': !item.is_paid}" @click="openDeleteModal(item)">
+            <input
+              type="button"
+              value="修改"
+              class="btn btn-outline-dark border-secondary"
+              :class="{ disabled: item.is_paid }"
+              @click="openEditModal(item)"
+            />
+            <input
+              type="button"
+              value="刪除"
+              class="btn btn-outline-danger border-secondary"
+              :class="{ disabled: !item.is_paid }"
+              @click="openDeleteModal(item)"
+            />
           </div>
         </td>
       </tr>
     </tbody>
   </table>
   <order-modal ref="orderModal" :data="tempOrder" @edit-total="putOrder"></order-modal>
-  <del-modal ref="deleteModal" :title="tempOrder.user.name" tab="訂單"
-    @delete-data="deleteOrder">
+  <del-modal ref="deleteModal" :title="tempOrder.user.name" tab="訂單" @delete-data="deleteOrder">
   </del-modal>
 </template>
 
@@ -85,18 +106,21 @@ export default {
     getOrders(page = this.currentPage) {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/orders?page=${page}`;
       this.isLoading.status = true;
-      this.axios.get(apiUrl).then((res) => {
-        if (res.data.success) {
-          this.orders = res.data.orders;
-          this.totalPages = res.data.pagination.total_pages;
-          this.currentPage = res.data.pagination.current_page;
-        } else {
-          this.swal(res.data.message, 'error');
-        }
-        this.isLoading.status = false;
-      }).catch(() => {
-        this.swal('無法取得資料喔～快去看什麼問題吧！', 'error');
-      });
+      this.axios
+        .get(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.orders = res.data.orders;
+            this.totalPages = res.data.pagination.total_pages;
+            this.currentPage = res.data.pagination.current_page;
+          } else {
+            this.swal(res.data.message, 'error');
+          }
+          this.isLoading.status = false;
+        })
+        .catch(() => {
+          this.swal('無法取得資料喔～快去看什麼問題吧！', 'error');
+        });
     },
     getFilterData(data) {
       this.searchData = data;
@@ -108,33 +132,39 @@ export default {
       if (action === 'isPaid') {
         orderObj.data.is_paid = !orderObj.data.is_paid;
       }
-      this.axios.put(apiUrl, orderObj).then((res) => {
-        this.isLoading.itemID = '';
-        if (res.data.success) {
-          this.swal(res.data.message);
-          this.getOrders();
-        } else {
-          this.swal(res.data.message, 'error');
-        }
-      }).catch(() => {
-        this.swal('無法修改資料喔～快去看什麼問題吧！', 'error');
-      });
+      this.axios
+        .put(apiUrl, orderObj)
+        .then((res) => {
+          this.isLoading.itemID = '';
+          if (res.data.success) {
+            this.swal(res.data.message);
+            this.getOrders();
+          } else {
+            this.swal(res.data.message, 'error');
+          }
+        })
+        .catch(() => {
+          this.swal('無法修改資料喔～快去看什麼問題吧！', 'error');
+        });
     },
     deleteOrder() {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/order/${this.tempOrder.id}`;
       this.isLoading.itemID = this.tempOrder.id;
-      this.axios.delete(apiUrl).then((res) => {
-        if (res.data.success) {
-          this.isLoading.itemID = '';
-          this.$refs.deleteModal.hideModal();
-          this.getOrders();
-          this.swal(res.data.message);
-        } else {
-          this.swal(res.data.message, 'error');
-        }
-      }).catch(() => {
-        this.swal('無法刪除資料喔～快去看什麼問題吧！', 'error');
-      });
+      this.axios
+        .delete(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading.itemID = '';
+            this.$refs.deleteModal.hideModal();
+            this.getOrders();
+            this.swal(res.data.message);
+          } else {
+            this.swal(res.data.message, 'error');
+          }
+        })
+        .catch(() => {
+          this.swal('無法刪除資料喔～快去看什麼問題吧！', 'error');
+        });
     },
     openDeleteModal(item) {
       this.tempOrder = { ...item };

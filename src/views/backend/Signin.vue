@@ -14,21 +14,33 @@
           <!-- errors['對應 name 的名稱'] -->
           <Form action="" v-slot="{ errors }" @submit="signIn" ref="signForm">
             <div class="form-floating mb-3">
-              <Field id="userName" name="Email" type="email" class="form-control"
-              :class="{ 'is-invalid': errors['Email'] }"
-              rules="email|required" v-model="userInfo.username"></Field>
+              <Field
+                id="userName"
+                name="Email"
+                type="email"
+                class="form-control"
+                :class="{ 'is-invalid': errors['Email'] }"
+                rules="email|required"
+                v-model="userInfo.username"
+              ></Field>
               <error-message name="Email" class="invalid-feedback"></error-message>
               <label for="userName">Email address</label>
             </div>
             <div class="form-floating mb-3">
-              <Field id="userPw" name="Password" type="password" class="form-control"
-              :class="{ 'is-invalid': errors['Password'] }"
-              rules="required" v-model="userInfo.password"></Field>
+              <Field
+                id="userPw"
+                name="Password"
+                type="password"
+                class="form-control"
+                :class="{ 'is-invalid': errors['Password'] }"
+                rules="required"
+                v-model="userInfo.password"
+              ></Field>
               <error-message name="Password" class="invalid-feedback"></error-message>
               <label for="userPw">Password</label>
             </div>
             <div class="d-flex justify-content-around">
-              <input type="submit" value="Sign in" class="btn btn-primary">
+              <input type="submit" value="Sign in" class="btn btn-primary" />
             </div>
           </Form>
         </div>
@@ -47,21 +59,24 @@ export default {
   methods: {
     signIn() {
       this.isLoading.status = true;
-      this.axios.post(`${process.env.VUE_APP_API}/admin/signin`, this.userInfo).then((res) => {
-        const { token, expired } = res.data;
-        // 登入與登出屬性必須一致，才能更新。
-        document.cookie = `hexToken=${token}; expires=${new Date(expired)}; path=/`;
-        this.$refs.signForm.resetForm();
-        if (res.data.success) {
-          this.swal(res.data.message);
-          this.$router.replace({ name: 'Products' });
-        } else {
-          this.swal(res.data.message, 'error');
-        }
-        this.isLoading.status = false;
-      }).catch(() => {
-        this.swal('登入失敗!', 'error');
-      });
+      this.axios
+        .post(`${process.env.VUE_APP_API}/admin/signin`, this.userInfo)
+        .then((res) => {
+          const { token, expired } = res.data;
+          // 登入與登出屬性必須一致，才能更新。
+          document.cookie = `hexToken=${token}; expires=${new Date(expired)}; path=/`;
+          this.$refs.signForm.resetForm();
+          if (res.data.success) {
+            this.swal(res.data.message);
+            this.$router.replace({ name: 'Products' });
+          } else {
+            this.swal(res.data.message, 'error');
+          }
+          this.isLoading.status = false;
+        })
+        .catch(() => {
+          this.swal('登入失敗!', 'error');
+        });
     },
     checkLogin() {
       const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');

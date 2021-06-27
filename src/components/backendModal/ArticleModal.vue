@@ -5,14 +5,12 @@
     data-bs-backdrop="static"
     data-bs-keyboard="false"
     tabindex="-1"
-    aria-labelledby="articleModalLabel"
-    aria-hidden="true"
   >
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title text-primary" v-if="!tempArticle.id">新增文章</h5>
-          <h5 class="modal-title" v-else>修改文章</h5>
+          <p class="modal-title h5 text-primary" v-if="!tempArticle.id">新增文章</p>
+          <p class="modal-title h5" v-else>修改文章</p>
           <button
             type="button"
             class="btn-close"
@@ -26,9 +24,9 @@
             <div class="row g-3">
               <!-- 標題 title -->
               <div class="col-12">
-                <label for="articleTitle" class="form-label"
-                  >標題<span class="text-danger">*</span></label
-                >
+                <label for="articleTitle" class="form-label">
+                  標題<span class="text-danger">*</span>
+                </label>
                 <Field
                   id="articleTitle"
                   name="標題"
@@ -38,10 +36,7 @@
                   rules="required"
                   v-model="tempArticle.title"
                 ></Field>
-                <error-message
-                  name="標題"
-                  class="invalid-feedback"
-                ></error-message>
+                <error-message name="標題" class="invalid-feedback"></error-message>
               </div>
               <!-- 描述 description -->
               <div class="col-12">
@@ -56,9 +51,9 @@
               </div>
               <!-- 內容 content -->
               <div class="col-12">
-                <label for="articleContent" class="form-label"
-                  >內容<span class="text-danger">*</span></label
-                >
+                <label for="articleContent" class="form-label">
+                  內容<span class="text-danger">*</span>
+                </label>
                 <ckeditor
                   id="articleContent"
                   name="內容"
@@ -66,7 +61,9 @@
                   :config="editorConfig"
                   v-model="tempArticle.content"
                 ></ckeditor>
-                <p v-if="!tempArticle.content" class="text-danger">內容 為必填</p>
+                <p v-if="!tempArticle.content" class="text-danger">
+                  內容 為必填
+                </p>
               </div>
               <!-- Tag  -->
               <div class="col-12">
@@ -82,11 +79,7 @@
                 </div>
               </div>
               <template v-if="tempArticle.tag">
-                <div
-                  class="col-4"
-                  v-for="(item, i) in tempArticle.tag"
-                  :key="item + i"
-                >
+                <div class="col-4" v-for="(item, i) in tempArticle.tag" :key="item + i">
                   <div class="input-group mb-3">
                     <input
                       type="text"
@@ -107,9 +100,9 @@
               </template>
               <!-- 作者 author -->
               <div class="col-12">
-                <label for="articleAuthor" class="form-label"
-                  >作者<span class="text-danger">*</span></label
-                >
+                <label for="articleAuthor" class="form-label">
+                  作者<span class="text-danger">*</span>
+                </label>
                 <Field
                   id="articleAuthor"
                   name="作者"
@@ -119,10 +112,7 @@
                   rules="required"
                   v-model="tempArticle.author"
                 ></Field>
-                <error-message
-                  name="作者"
-                  class="invalid-feedback"
-                ></error-message>
+                <error-message name="作者" class="invalid-feedback"></error-message>
               </div>
             </div>
           </div>
@@ -135,15 +125,28 @@
             >
               Close
             </button>
-            <button type="submit" class="btn btn-primary"
-              :disabled="Object.keys(errors).length !== 0 || !checkData">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              :disabled="Object.keys(errors).length !== 0 || !checkData"
+            >
               <template v-if="tempArticle.id === undefined">
-                <span class="spinner-border spinner-border-sm me-2" role="status"
-                  aria-hidden="true" v-if="isLoading.itemID === 'add'"></span>新增
+                <span
+                  class="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                  v-if="isLoading.itemID === 'add'"
+                ></span
+                >新增
               </template>
               <template v-else>
-                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"
-                  v-if="isLoading.itemID"></span>修改
+                <span
+                  class="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                  v-if="isLoading.itemID"
+                ></span
+                >修改
               </template>
             </button>
           </div>
