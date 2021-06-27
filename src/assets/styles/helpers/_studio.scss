@@ -1,5 +1,6 @@
 /* 專案區塊 */
 .studio {
+  // 首頁 banner 區塊
   &__banner {
     width: 100%;
     height: 450px;
@@ -15,16 +16,11 @@
       height: 250px;
     }
   }
+  // 工作室目標區塊
   &__goal {
     li img {
       height: 300px; 
     }
-  }
-  // 人物頭像
-  &__avatar {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
   }
   // 學員心得區塊
   &__experience {
@@ -49,7 +45,7 @@
       }
     }
   }
-  // 首頁產品選擇
+  // 首頁產品選擇區塊
   &__productSelect {
     img {
       height: 400px;
@@ -74,7 +70,7 @@
       height: 200px;
     }
   }
-  // 關於我們
+  // 關於我們區塊
   &__about {
     img {
       height: 500px;
@@ -83,13 +79,14 @@
       }
     }
   }
-  // 檢視購物車
+  // 檢視購物車區塊
   &__checkout {
-    img {
+    &__img {
       width: 120px;
       height: 110px;
     }
   }
+  // 區塊置頂
   &__stickyTop {
     position: sticky;
     top: 63px;
@@ -101,51 +98,19 @@
       top: 57.2px;
     }
   }
-}
-
-.product {
-  &__categoryTab {
-    &--active {
-      transition: 0.3s;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    }
-    li {
-      border-right: 1px #dee2e6 solid;
-      border-bottom: 1px #dee2e6 solid;
-      &:last-child {
-        border-right: 0;
-      }
-      @include media-breakpoint-down(md) {
-        border: 0;
-        &:nth-child(2), &:first-child  {
-          border-bottom: 1px #dee2e6 solid;
-        };
-        &:nth-child(2n+1)  {
-          border-right: 1px #dee2e6 solid;
-        };
-      }
-    }
+  // 人物頭像
+  &__avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
   }
-  &__list {
-    img {
-      height: 210px;
-      @include media-breakpoint-down(lg) {
-        height: 128px;
-      }
-    }
-  }
-  &__inside {
-    img {
-      height: 400px;
-      @include media-breakpoint-down(md) {
-        height: 220px;
-      }
-    }
-  }
-  &--hover {
-    &:hover{
-      transition: 0.3s;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  // iconBtn
+  &__icon {
+    width: 32px;
+    height: 32px;
+    &__nav{
+      width: 24px;
+      height: 24px;
     }
   }
 }

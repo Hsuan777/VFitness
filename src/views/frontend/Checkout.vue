@@ -32,7 +32,7 @@
         </div>
         <!-- 購物車列表 -->
         <div class="col-lg-9 mx-auto">
-          <section class="studio__checkout" v-if="cartsData.carts[0]">
+          <section v-if="cartsData.carts[0]">
             <h2 class="text-center fw-bolder mb-3 mb-md-4 mb-lg-5">購物車列表</h2>
             <ul class="list-group">
               <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
@@ -43,7 +43,8 @@
                   @click="deleteCart(item.id)">
                   <!-- 產品圖片 -->
                   <router-link :to="`/product/${item.product.id}`" class="link-dark">
-                    <img :src="item.product.imageUrl" :alt="item.title" class="rounded me-3">
+                    <img :src="item.product.imageUrl"
+                      :alt="item.title" class="studio__checkout__img rounded me-3">
                   </router-link>
                   <!-- 數量增減群組與小計 -->
                   <div class="ms-auto">
@@ -74,19 +75,11 @@
               </li>
               <li class="list-group-item">
                 <div class="d-flex">
-                  <button type="button" class="btn btn-link link-secondary ps-0"
+                  <button type="button"
+                  class="btn btn-link link-secondary ps-0"
                   @click="deleteCartAll">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                    class="bi bi-cart-x" viewBox="0 0 16 16">
-                      <path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0
-                      .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5
-                      0 0 0-.708-.708L8.5 6.793 7.354 5.646z"/>
-                      <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2
-                      2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0
-                      .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915
-                      10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0
-                      1 1-2 0 1 1 0 0 1 2 0z"/>
-                    </svg>
+                    <img src="../../assets/images/bi-cart-x.svg" alt="deleteCartAll"
+                      class="studio__icon">
                   </button>
                   <div class="ms-auto">
                     <p class="mb-0 d-flex">商品合計：

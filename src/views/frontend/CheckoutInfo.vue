@@ -34,14 +34,15 @@
           <div class="row flex-md-row-reverse row-cols-1 row-cols-md-2">
             <!-- 您的訂購 -->
             <div class="col mb-5 mb-md-0">
-              <section class="studio__checkout">
+              <section>
                 <h2 class="text-center fw-bolder mb-3 mb-md-5">您的訂購</h2>
                 <ul class="list-group">
                   <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
                     <div class="d-flex align-items-center">
                       <!-- 產品圖片 -->
                       <router-link :to="`/product/${item.product.id}`" class="link-dark">
-                        <img :src="item.product.imageUrl" :alt="item.title" class="rounded me-3">
+                        <img :src="item.product.imageUrl" :alt="item.title"
+                          class="studio__checkout__img rounded me-3">
                       </router-link>
                       <!-- 數量增減群組與小計 -->
                       <div class="w-100">

@@ -2,7 +2,7 @@
   <div>
     <loading :active="isLoading.status"></loading>
     <!-- 產品區 -->
-    <section class="product__inside container border-bottom my-5 pb-5">
+    <section class="container border-bottom my-5 pb-5">
       <div class="row">
         <!-- 產品左半 -->
         <div class="col-lg-5 mb-5">
@@ -10,7 +10,7 @@
           <h1 class="border-bottom border-secondary py-3 mb-3">{{product.title}}
           </h1>
           <p class="mb-3">{{product.description}}</p>
-          <img :src="product.imageUrl" :alt="product.title" class="rounded">
+          <img :src="product.imageUrl" :alt="product.title" class="product__inside__img rounded">
         </div>
         <!-- 產品右半 -->
         <div class="col-lg-7">
@@ -129,7 +129,7 @@
       </div>
     </section>
     <!-- 額外產品 -->
-    <section class="product__list container mb-5">
+    <section class="container mb-5">
       <p class="h3">您可能也會有興趣 :</p>
       <ul class="list-unstyled row g-1 row-cols-2 row-cols-md-4">
         <li class="product--hover col" v-for="item in randomData" :key="item.id">
