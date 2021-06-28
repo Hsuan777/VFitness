@@ -43,7 +43,7 @@
     <section>
       <h2 class="text-center fw-bolder mb-3 mb-lg-5">感謝您的訂購!</h2>
       <p class="h3 text-center">
-        以下是您的訂購資訊，請確認後進行<span class="text-danger">付款</span>。
+        以下是您的訂購資訊，<span class="d-md-none"><br/></span> 請確認後進行<span class="text-danger">付款</span>。
       </p>
       <div class="row justify-content-center">
         <div class="col-lg-6">
@@ -54,17 +54,15 @@
                 <td>{{ new Date().toLocaleString(order.create_at) }}</td>
               </tr>
               <tr>
-                <th>
-                  訂購 ID<br />
+                <th>訂購 ID</th>
+                <td>
+                  <input ref="orderID" type="text" :value="order.id" class="form-control mb-2" />
                   <input
                     type="button"
                     value="點我複製以便查詢"
                     @click.prevent="copyOrderID"
                     class="btn btn-outline-primary"
                   />
-                </th>
-                <td>
-                  <input ref="orderID" type="text" :value="order.id" class="form-control" />
                 </td>
               </tr>
               <tr>

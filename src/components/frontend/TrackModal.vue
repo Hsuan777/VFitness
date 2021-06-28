@@ -62,7 +62,7 @@
                     </span>
                   </p>
                   <p class="text-end mb-0 pt-1">
-                    合計 : TWD$ {{ $filters.currency(Math.floor(order.total)) }}
+                    合計 : TWD$ {{ $filters.currency(Math.floor(tempOrder.total)) }}
                   </p>
                 </td>
               </tr>
