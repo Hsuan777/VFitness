@@ -1,5 +1,14 @@
 /* 專案區塊 */
 .studio {
+  // topNavbar
+  &__topNavbar {
+    &__link {
+      @include media-breakpoint-down(lg) {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
   // 首頁 banner 區塊
   &__banner {
     width: 100%;

@@ -36,12 +36,18 @@
       <div ref="collapseNavbar" class="collapse navbar-collapse">
         <div class="navbar-nav ms-auto d-flex align-items-center">
           <!-- 關於我們 -->
-          <router-link to="/about" class="nav-link" @click="closeCollapseNavbar"
+          <router-link
+            to="/about"
+            class="studio__topNavbar__link nav-link"
+            @click="closeCollapseNavbar"
             >關於我們</router-link
           >
           <span class="d-none d-lg-block text-white pb-1">|</span>
           <!-- 常見問答 -->
-          <router-link to="/questions" class="nav-link" @click="closeCollapseNavbar"
+          <router-link
+            to="/questions"
+            class="studio__topNavbar__link nav-link"
+            @click="closeCollapseNavbar"
             >常見問答</router-link
           >
           <span class="d-none d-lg-block text-white pb-1">|</span>
@@ -49,17 +55,25 @@
           <input
             type="button"
             value="訂單查詢"
-            class="nav-link btn btn-link"
+            class="studio__topNavbar__link nav-link btn btn-link"
             @click="openTrackModal"
           />
           <span class="d-none d-lg-block text-white pb-1">|</span>
           <!-- 餐飲與課程 -->
-          <router-link to="/productsList" class="nav-link" @click="closeCollapseNavbar">
+          <router-link
+            to="/productsList"
+            class="studio__topNavbar__link nav-link"
+            @click="closeCollapseNavbar"
+          >
             餐飲與課程
           </router-link>
           <span class="d-none d-lg-block text-white pb-1">|</span>
           <!-- 我的最愛 -->
-          <router-link to="/bookMark" class="nav-link" @click="closeCollapseNavbar">
+          <router-link
+            to="/bookMark"
+            class="studio__topNavbar__link nav-link"
+            @click="closeCollapseNavbar"
+          >
             我的最愛(<span class="text-white">{{ localStorageData.length }}</span
             >)
           </router-link>
@@ -88,7 +102,12 @@
     </div>
   </nav>
   <!-- router-view  -->
-  <router-view class="main" :carts-update="isUpdate" @update="updateData" />
+  <router-view
+    class="main"
+    :carts-update="isUpdate"
+    @update="updateData"
+    @click="closeCollapseNavbar"
+  />
   <!-- footer -->
   <footer class="container-fluid bg-primary py-3">
     <div class="container">
@@ -97,12 +116,20 @@
         <div class="col-lg-6">
           <nav class="navbar-dark">
             <div class="navbar-nav flex-row align-items-center">
-              <router-link to="/about" class="nav-link">關於我們</router-link>
-              <span class="text-white pb-1 mx-2">|</span>
-              <router-link to="/questions" class="nav-link">常見問答</router-link>
-              <span class="text-white pb-1 mx-2">|</span>
-              <router-link to="/productsList" class="nav-link">
+              <router-link to="/about" class="nav-link" @click="closeCollapseNavbar">
+                關於我們
+              </router-link>
+              <span class="text-white pb-1 mx-1 mx-sm-2">|</span>
+              <router-link to="/questions" class="nav-link" @click="closeCollapseNavbar">
+                常見問答
+              </router-link>
+              <span class="text-white pb-1 mx-1 mx-sm-2">|</span>
+              <router-link to="/productsList" class="nav-link" @click="closeCollapseNavbar">
                 餐飲與課程
+              </router-link>
+              <span class="text-white pb-1 mx-1 mx-sm-2">|</span>
+              <router-link to="/bookMark" class="nav-link" @click="closeCollapseNavbar">
+                我的最愛
               </router-link>
             </div>
           </nav>
