@@ -117,6 +117,7 @@
         </div>
       </div>
     </div>
+    <toast ref="toast"></toast>
   </div>
 </template>
 
