@@ -10,7 +10,13 @@ img {
   width: 100%;
   object-fit: cover;
 }
- 
+
+h4 {
+  @include media-breakpoint-down(md) {
+    font-size: 1.25rem;
+  }
+}
+
 p {
   color: #363B48;
   line-height: 1.5;
