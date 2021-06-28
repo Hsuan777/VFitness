@@ -1,7 +1,12 @@
 <template>
   <div>
-    <section class="studio__about container-fluid px-lg-0 my-5">
-      <h2 class="text-center fw-bolder mb-5">關於工作室</h2>
+    <section class="studio__about container-fluid px-lg-0 mb-5">
+      <figure
+        class="studio__banner studio__banner__about
+          d-flex justify-content-center align-items-center mb-5"
+      >
+        <h2 class="studio__banner__title text-white fw-bolder p-4 rounded">關於工作室</h2>
+      </figure>
       <div class="row g-0 flex-column flex-md-row">
         <div class="col">
           <img

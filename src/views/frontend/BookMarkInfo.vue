@@ -1,77 +1,94 @@
 <template>
-  <section class="container my-5">
-    <h2 class="text-center fw-bolder mb-5">我的最愛</h2>
-    <div class="row">
-      <div class="col-lg-4 mx-auto">
-        <router-link
-          v-if="!localStorageData[0]"
-          to="/productsList"
-          class="btn btn-primary text-white d-block mx-auto"
-          >還沒有最愛喔！前往選購～</router-link
-        >
-      </div>
+  <figure
+    class="studio__banner studio__banner__bookMark
+        d-flex justify-content-center align-items-center mb-5"
+  >
+    <div class="container">
+      <h2 class="studio__banner__title text-white fw-bolder p-4 rounded d-inline">我的最愛</h2>
     </div>
-    <ul class="list-unstyled row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4">
-      <li class="product--hover col" v-for="item in localStorageData" :key="item.id">
-        <div class="card card-body border-0">
-          <!-- 產品圖片 -->
-          <router-link :to="`/product/${item.id}`" class="text-decoration-none link-dark">
-            <img :src="item.imageUrl" alt="item.title" class="product__list__img mb-2 rounded-3" />
-          </router-link>
-          <!-- 產品標題 -->
-          <h3 class="h4 mb-0">
-            <router-link :to="`/product/${item.id}`" class="text-decoration-none text-dark">
-              {{ item.title }}
-            </router-link>
-          </h3>
-          <!-- 價格與購物車 -->
-          <div class="d-flex justify-content-between align-items-center my-2 pb-2 border-bottom">
-            <!-- 我的最愛按鈕 -->
-            <button
-              type="button"
-              class="btn btn-link link-primary text-decoration-none d-flex align-items-center"
-              @click="setLocalStorage(item)"
-            >
-              <span class="material-icons">
-                {{
-                  this.localStorageData.some((obj) => obj.id === item.id)
-                    ? 'bookmark'
-                    : 'bookmark_border'
-                }}
-              </span>
-            </button>
-            <!-- 價格 -->
-            <p class="display-7 mb-0">{{ $filters.currency(item.price) }}</p>
-            <!-- 讀取效果 -->
-            <div
-              class="spinner-border spinner-border-sm text-danger me-3"
-              role="status"
-              v-if="isLoading.itemID === item.id"
-            >
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <!-- 購物車按鈕 -->
-            <button
-              type="button"
-              class="btn btn-link p-0"
-              @click="addCart(item)"
-              v-else-if="!checkCartsData(item.id)"
-            >
-              <img src="../../assets/images/bi-cart-plus.svg" alt="addCart" class="studio__icon" />
-            </button>
-            <router-link :to="`/product/${item.id}`" class="btn btn-link link-dark p-0" v-else>
+  </figure>
+  <section class="container mb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mx-auto">
+          <router-link
+            v-if="!localStorageData[0]"
+            to="/productsList"
+            class="btn btn-primary text-white d-block mx-auto"
+            >還沒有最愛喔！前往選購～</router-link
+          >
+        </div>
+      </div>
+      <ul class="list-unstyled row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4">
+        <li class="product--hover col" v-for="item in localStorageData" :key="item.id">
+          <div class="card card-body border-0">
+            <!-- 產品圖片 -->
+            <router-link :to="`/product/${item.id}`" class="text-decoration-none link-dark">
               <img
-                src="../../assets/images/bi-cart-check.svg"
-                alt="checkCart"
-                class="studio__icon"
+                :src="item.imageUrl"
+                alt="item.title"
+                class="product__list__img mb-2 rounded-3"
               />
             </router-link>
+            <!-- 產品標題 -->
+            <h3 class="h4 mb-0">
+              <router-link :to="`/product/${item.id}`" class="text-decoration-none text-dark">
+                {{ item.title }}
+              </router-link>
+            </h3>
+            <!-- 價格與購物車 -->
+            <div class="d-flex justify-content-between align-items-center my-2 pb-2 border-bottom">
+              <!-- 我的最愛按鈕 -->
+              <button
+                type="button"
+                class="btn btn-link link-primary text-decoration-none d-flex align-items-center"
+                @click="setLocalStorage(item)"
+              >
+                <span class="material-icons">
+                  {{
+                    this.localStorageData.some((obj) => obj.id === item.id)
+                      ? 'bookmark'
+                      : 'bookmark_border'
+                  }}
+                </span>
+              </button>
+              <!-- 價格 -->
+              <p class="display-7 mb-0">{{ $filters.currency(item.price) }}</p>
+              <!-- 讀取效果 -->
+              <div
+                class="spinner-border spinner-border-sm text-danger me-3"
+                role="status"
+                v-if="isLoading.itemID === item.id"
+              >
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <!-- 購物車按鈕 -->
+              <button
+                type="button"
+                class="btn btn-link p-0"
+                @click="addCart(item)"
+                v-else-if="!checkCartsData(item.id)"
+              >
+                <img
+                  src="../../assets/images/bi-cart-plus.svg"
+                  alt="addCart"
+                  class="studio__icon"
+                />
+              </button>
+              <router-link :to="`/product/${item.id}`" class="btn btn-link link-dark p-0" v-else>
+                <img
+                  src="../../assets/images/bi-cart-check.svg"
+                  alt="checkCart"
+                  class="studio__icon"
+                />
+              </router-link>
+            </div>
+            <!-- 商品描述 -->
+            <p class="mb-0">{{ item.description }}</p>
           </div>
-          <!-- 商品描述 -->
-          <p class="mb-0">{{ item.description }}</p>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
     <toast ref="toast"></toast>
   </section>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- banner -->
-    <figure class="studio__banner d-flex align-items-center mb-5">
+    <figure class="studio__banner studio__banner__home d-flex align-items-center mb-5">
       <div class="container mt-5">
         <h1 class="text-white display-3 fw-bolder mb-3">維克健身餐飲<br />複合工作室</h1>
         <button type="button" class="btn btn-primary">

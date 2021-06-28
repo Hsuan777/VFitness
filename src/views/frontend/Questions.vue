@@ -1,33 +1,40 @@
 <template>
   <div>
-    <section class="container my-5">
-      <div class="row">
-        <div class="col">
-          <h2 class="text-center fw-bolder mb-3 mb-md-4 mb-lg-5">常見問答</h2>
-          <ul class="list-unstyled">
-            <li class="mb-3" v-for="(item, key) in questions" :key="item.title + key">
-              <div class="card">
-                <div class="card-header d-flex align-items-center bg-white border-0">
-                  <span class="bg-primary text-white rounded p-1 me-3">Q{{ key + 1 }}</span>
-                  <a
-                    :href="`#collapseA${key + 1}`"
-                    class="h5 mb-0 stretched-link text-decoration-none"
-                    @click.prevent="item.isOpen = !item.isOpen"
-                    >{{ item.title }}
-                  </a>
-                  <span class="material-icons ms-auto" v-if="item.isOpen">keyboard_arrow_up</span>
-                  <span class="material-icons ms-auto" v-else>keyboard_arrow_down</span>
+    <section class="container-fluid px-lg-0 mb-5">
+      <figure
+        class="studio__banner studio__banner__questions
+          d-flex align-items-center mb-5"
+      >
+        <h2 class="studio__banner__title text-white fw-bolder p-4 rounded">常見問答</h2>
+      </figure>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <ul class="list-unstyled">
+              <li class="mb-3" v-for="(item, key) in questions" :key="item.title + key">
+                <div class="card">
+                  <div class="card-header d-flex align-items-center bg-white border-0">
+                    <span class="bg-primary text-white rounded p-1 me-3">Q{{ key + 1 }}</span>
+                    <a
+                      :href="`#collapseA${key + 1}`"
+                      class="h5 mb-0 stretched-link text-decoration-none"
+                      @click.prevent="item.isOpen = !item.isOpen"
+                      >{{ item.title }}
+                    </a>
+                    <span class="material-icons ms-auto" v-if="item.isOpen">keyboard_arrow_up</span>
+                    <span class="material-icons ms-auto" v-else>keyboard_arrow_down</span>
+                  </div>
+                  <div
+                    v-if="item.isOpen"
+                    :id="`collapseA${key + 1}`"
+                    class="transition card-body border-top"
+                  >
+                    <p class="mb-0">{{ item.description }}</p>
+                  </div>
                 </div>
-                <div
-                  v-if="item.isOpen"
-                  :id="`collapseA${key + 1}`"
-                  class="transition card-body border-top"
-                >
-                  <p class="mb-0">{{ item.description }}</p>
-                </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
