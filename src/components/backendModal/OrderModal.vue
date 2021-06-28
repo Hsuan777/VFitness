@@ -58,6 +58,10 @@
                   </td>
                 </tr>
                 <tr>
+                  <th>折價券</th>
+                  <td>{{ percent }}折</td>
+                </tr>
+                <tr>
                   <th>備註</th>
                   <td>{{ order.message }}</td>
                 </tr>
@@ -106,6 +110,7 @@ export default {
       order: {
         user: {},
       },
+      percent: 0,
     };
   },
   props: ['data'],
@@ -120,6 +125,12 @@ export default {
     hideModal() {
       this.modal.hide();
     },
+    getPercent() {
+      const firstProduct = Object.keys(this.order.products)[0];
+      this.percent = this.order.products[firstProduct].coupon
+        ? `${this.order.products[firstProduct].coupon.percent} `
+        : '未打';
+    },
   },
   mounted() {
     this.modal = new Modal(this.$refs.orderModal);
@@ -127,6 +138,7 @@ export default {
   watch: {
     data(value) {
       this.order = value;
+      this.getPercent();
     },
   },
 };
