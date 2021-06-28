@@ -113,4 +113,14 @@
       height: 24px;
     }
   }
+  &__toast {
+    &__position {
+      bottom: 10%;
+      right: 5%;
+      @include media-breakpoint-down(md) {
+        right: 50%;
+        transform: translateX(50%);
+      }
+    } 
+  }
 }

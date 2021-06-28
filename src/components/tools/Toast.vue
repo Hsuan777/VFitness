@@ -1,19 +1,21 @@
 <template>
-  <div class="position-fixed bottom-10 end-5 pb-4" style="z-index: 999">
+  <div class="studio__toast__position toast-container position-fixed pb-4" style="z-index: 999">
     <div
-      ref="liveToast"
-      class="bg-white rounded toast hide"
+      v-for="item in tempMessage"
+      :key="item"
+      :ref="`liveToast${item}`"
+      class="toast hide bg-white border border-secondary rounded"
       role="alert"
       aria-live="assertive"
       aria-atomic="true"
     >
       <div class="toast-header">
-        <strong class="me-3">通知訊息</strong>
+        <strong class="h4 mb-0 me-3">通知訊息</strong>
         <small class="ms-auto">{{date}}</small>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div
-        class="toast-body text-center"
+        class="toast-body text-center h6 mb-0"
         :class="status === 'error' ? 'text-danger' : 'text-success'"
       >
         {{ msg }}
@@ -32,6 +34,7 @@ export default {
       msg: '',
       status: '',
       date: '',
+      tempMessage: 1,
     };
   },
   methods: {
@@ -39,14 +42,13 @@ export default {
       this.msg = message;
       this.status = status;
       this.date = new Date().toLocaleString();
+      this.toast = new Toast(this.$refs[`liveToast${this.tempMessage}`]);
+      this.tempMessage += 1;
       this.toast.show();
     },
     hideToast() {
       this.toast.hide();
     },
-  },
-  mounted() {
-    this.toast = new Toast(this.$refs.liveToast);
   },
 };
 </script>
