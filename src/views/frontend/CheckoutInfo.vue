@@ -70,7 +70,7 @@
                         <!-- 單價 -->
                         <p class="mb-0">
                           單價：{{ '$ ' + $filters.currency(item.product.price) }} x
-                          {{ item.product.num }}
+                          {{ item.product.num }} {{item.product.unit}}
                         </p>
                         <!-- 小計 -->
                         <p class="text-end mb-0">
@@ -232,7 +232,6 @@ export default {
       percent: 0,
     };
   },
-  emits: ['update'],
   props: ['cartsUpdate'],
   methods: {
     getCartsList() {
@@ -257,7 +256,7 @@ export default {
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('取得購物車清單有問題喔～快去看什麼問題吧！', 'error');
+          this.$refs.toast.showToast('取得購物車清單有問題喔!', 'error');
         });
     },
     postOrder() {
@@ -267,18 +266,18 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.isSubmitOrder = true;
-            this.$refs.toast.showToast('感謝您的選購，還請確認付款資訊，謝謝。');
+            this.$refs.toast.showToast('感謝您的選購! 畫面跳轉後請確認付款資訊，謝謝。');
             this.$refs.orderForm.resetForm();
             this.$emit('update');
             setTimeout(() => {
               this.$router.replace(`/order/${res.data.orderId}`);
-            }, 2000);
+            }, 3000);
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('無法送出訂單喔～', 'error');
+          this.$refs.toast.showToast('無法送出訂單喔!', 'error');
         });
     },
     checkName(value) {

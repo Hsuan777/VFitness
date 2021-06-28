@@ -143,7 +143,7 @@
                   type="button"
                   value="加入購物車"
                   class="btn btn-primary"
-                  @click="addCart(product.id, cartsOfProduct[0].qty)"
+                  @click="addCart(product, cartsOfProduct[0].qty)"
                   v-else
                 />
                 <!-- 我的最愛按鈕 -->
@@ -221,10 +221,10 @@ export default {
           qty: 1,
         },
       ],
+      tempQty: 0,
       localStorageData: [],
     };
   },
-  emits: ['update'],
   props: ['cartsUpdate'],
   methods: {
     getProductsAll() {
@@ -241,7 +241,7 @@ export default {
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('無法取得商品全部資料喔～', 'error');
+          this.$refs.toast.showToast('無法取得商品全部資料喔!', 'error');
         });
     },
     getProduct() {
@@ -258,7 +258,7 @@ export default {
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('無法取得產品資料喔～', 'error');
+          this.$refs.toast.showToast('無法取得產品資料喔!', 'error');
         });
     },
     checkCartsList() {
@@ -275,6 +275,7 @@ export default {
             );
             if (cartsOfProduct[0]) {
               this.cartsOfProduct = [...cartsOfProduct];
+              this.tempQty = cartsOfProduct[0].qty;
             }
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
@@ -282,28 +283,27 @@ export default {
         })
         .catch((res) => {
           console.log(res);
-          this.$refs.toast.showToast('無法取得購物車資料喔～', 'error');
+          this.$refs.toast.showToast('無法取得購物車資料喔!', 'error');
         });
     },
-    addCart(itemID, num) {
+    addCart(item, num) {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
-      const productData = { data: { product_id: itemID, qty: num } };
-      this.isLoading.itemID = itemID;
+      const productData = { data: { product_id: item.id, qty: num } };
+      this.isLoading.itemID = item.id;
       this.axios
         .post(apiUrl, productData)
         .then((res) => {
           if (res.data.success) {
             this.isLoading.itemID = '';
-            // 觸發父層元件之函式，但在這得先定義 emits
             this.$emit('update');
-            this.$refs.toast.showToast(res.data.message);
+            this.$refs.toast.showToast(`『${item.title}』${res.data.message}`);
             this.checkCartsList();
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('無法加入購物車喔～', 'error');
+          this.$refs.toast.showToast('無法加入購物車喔!', 'error');
         });
     },
     putCart(item) {
@@ -316,14 +316,20 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.$emit('update');
-            this.$refs.toast.showToast(res.data.message);
+            if (this.tempQty < item.qty) {
+              this.$refs.toast.showToast(`已增加『${this.product.title}』數量囉!`);
+            } else if (this.tempQty > item.qty) {
+              this.$refs.toast.showToast(`已減少『${this.product.title}』數量囉!`, 'error');
+            } else {
+              this.$refs.toast.showToast(`『${this.product.title}』數量不變喔!`);
+            }
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
           this.isLoading.itemID = '';
         })
         .catch(() => {
-          this.$refs.toast.showToast('無法更新購物車資料喔～', 'error');
+          this.$refs.toast.showToast('無法更新購物車資料喔!', 'error');
         });
     },
     randomNumber(max, min) {
@@ -350,18 +356,18 @@ export default {
           this.localStorageData.push(item);
           localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
           this.$emit('update');
-          this.$refs.toast.showToast('已加到我的最愛囉！');
+          this.$refs.toast.showToast(`已將『${item.title}』加到我的最愛囉!`);
         } else {
           this.localStorageData.splice(dataIndex, 1);
           localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
           this.$emit('update');
-          this.$refs.toast.showToast('已從我的最愛移除囉！');
+          this.$refs.toast.showToast(`『${item.title}』，已從我的最愛移除囉!`, 'error');
         }
       } else {
         this.localStorageData.push(item);
         localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
         this.$emit('update');
-        this.$refs.toast.showToast('已加到我的最愛囉！');
+        this.$refs.toast.showToast(`已將『${item.title}』加到我的最愛囉!`);
       }
     },
   },

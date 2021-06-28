@@ -157,14 +157,14 @@ export default {
               ? `${this.order.products[firstProduct].coupon.percent} `
               : '未打';
           } else {
-            this.$refs.toast.showToast('查無此訂單喔！', 'error');
+            this.$refs.toast.showToast('查無此訂單喔!', 'error');
             setTimeout(() => {
               this.$router.replace('/productsList');
             }, 3000);
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('無法取得資料喔～', 'error');
+          this.$refs.toast.showToast('無法取得資料喔!', 'error');
         });
     },
     payOrder() {
@@ -173,17 +173,17 @@ export default {
         .post(apiUrl)
         .then((res) => {
           if (res.data.success) {
-            this.$refs.toast.showToast(res.data.message);
+            this.$refs.toast.showToast('已通知商家付款資訊囉!');
             this.getOrder();
             setTimeout(() => {
               this.$router.replace('/productsList');
-            }, 1500);
+            }, 3000);
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('付款未完成喔，請稍後再試～', 'error');
+          this.$refs.toast.showToast('未通知商家付款資訊，請稍後再試。', 'error');
         });
     },
   },

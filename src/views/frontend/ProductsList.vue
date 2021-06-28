@@ -80,7 +80,7 @@
               <button
                 type="button"
                 class="btn btn-link p-0"
-                @click="addCart(item.id)"
+                @click="addCart(item)"
                 v-else-if="!checkCartsData(item.id)"
               >
                 <img
@@ -117,13 +117,11 @@ export default {
       localStorageData: [],
     };
   },
-  // 參考 emits Option，不先定義在向外丟時，vue 會警告
-  emits: ['update'],
   props: ['cartsUpdate'],
   methods: {
     getProductsAll() {
-      this.isLoading.status = true;
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
+      this.isLoading.status = true;
       this.axios
         .get(apiUrl)
         .then((res) => {
@@ -153,19 +151,18 @@ export default {
           this.$refs.toast.showToast('無法取得購物車清單喔～', 'error');
         });
     },
-    addCart(itemID) {
-      this.isLoading.itemID = itemID;
+    addCart(item) {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
-      const productData = { data: { product_id: itemID, qty: 1 } };
+      const productData = { data: { product_id: item.id, qty: 1 } };
+      this.isLoading.itemID = item.id;
       this.axios
         .post(apiUrl, productData)
         .then((res) => {
           if (res.data.success) {
             this.isLoading.itemID = '';
-            // 觸發父層元件之函式，但在這得先定義 emits
             this.$emit('update');
             this.getCartsList();
-            this.$refs.toast.showToast(res.data.message);
+            this.$refs.toast.showToast(`『${item.title}』${res.data.message}`);
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
@@ -190,18 +187,18 @@ export default {
           this.localStorageData.push(item);
           localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
           this.$emit('update');
-          this.$refs.toast.showToast('已加到我的最愛囉！');
+          this.$refs.toast.showToast(`已將『${item.title}』加到我的最愛囉!`);
         } else {
           this.localStorageData.splice(dataIndex, 1);
           localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
           this.$emit('update');
-          this.$refs.toast.showToast('已從我的最愛移除囉！');
+          this.$refs.toast.showToast(`『${item.title}』，已從我的最愛移除囉!`, 'error');
         }
       } else {
         this.localStorageData.push(item);
         localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
         this.$emit('update');
-        this.$refs.toast.showToast('已加到我的最愛囉！');
+        this.$refs.toast.showToast(`已將『${item.title}』加到我的最愛囉!`);
       }
     },
     checkCartsData(id) {

@@ -13,7 +13,7 @@
         <div class="col d-flex justify-content-center align-items-center">
           <div class="row p-3">
             <div class="col-lg-8 mx-auto">
-              <h3 class="text-center fw-bolder">健身運動</h3>
+              <h3 class="text-center">健身運動</h3>
               <p>
                 沒有人天生就是個胖子，也不需要因外表而自卑，選擇健身這項運動，可以讓我們的生活可以更好，運動能釋放我們自身的壓力，同時也能獲得良好的體態。
               </p>
@@ -32,7 +32,7 @@
         <div class="col d-flex justify-content-center align-items-center">
           <div class="row p-3">
             <div class="col-lg-8 mx-auto">
-              <h3 class="text-center fw-bolder">專業教練</h3>
+              <h3 class="text-center">專業教練</h3>
               <p>
                 練得好的人不一定會教學，所以我們除了訓練自己外，也會安排教練進修，希望能帶給學員更好的運動經驗。
               </p>
@@ -51,7 +51,7 @@
         <div class="col d-flex flex-column justify-content-center">
           <div class="row p-3">
             <div class="col-lg-8 mx-auto">
-              <h3 class="text-center fw-bolder">成立契機</h3>
+              <h3 class="text-center">成立契機</h3>
               <p class="">
                 創立人以前是個胖子，直到接觸健身後，才慢慢戒掉手搖飲料、高糖分食物，學到更多健身經驗後，
                 才了解到更重要的是我們的生活與飲食習慣不佳，希望藉由工作室，讓更多人了解健身這項運動。

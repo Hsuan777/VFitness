@@ -55,7 +55,7 @@
                     type="button"
                     value="X"
                     class="btn btn-link btn-sm text-decoration-none link-secondary me-2"
-                    @click="deleteCart(item.id)"
+                    @click="deleteCart(item)"
                   />
                   <!-- 產品圖片 -->
                   <router-link :to="`/product/${item.product.id}`" class="link-dark">
@@ -174,7 +174,6 @@ export default {
       percent: 0,
     };
   },
-  emits: ['update'],
   props: ['cartsUpdate'],
   methods: {
     getCartsList() {
@@ -199,7 +198,7 @@ export default {
           this.isLoading.status = false;
         })
         .catch(() => {
-          this.$refs.toast.showToast('取得購物車清單有問題喔～', 'error');
+          this.$refs.toast.showToast('取得購物車清單有問題喔!', 'error');
         });
     },
     putCart(item, num) {
@@ -213,32 +212,36 @@ export default {
             this.isLoading.itemID = '';
             this.$emit('update');
             this.getCartsList();
-            this.$refs.toast.showToast(res.data.message);
+            if (item.qty < num) {
+              this.$refs.toast.showToast(`已增加『${item.product.title}』數量囉!`);
+            } else {
+              this.$refs.toast.showToast(`已減少『${item.product.title}』數量囉!`, 'error');
+            }
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('無法更新資料喔～', 'error');
+          this.$refs.toast.showToast('無法更新資料喔!', 'error');
         });
     },
-    deleteCart(itemID) {
-      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${itemID}`;
-      this.isLoading.itemID = itemID;
+    deleteCart(item) {
+      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
+      this.isLoading.itemID = item.id;
       this.axios
         .delete(apiUrl)
         .then((res) => {
           if (res.data.success) {
             this.$emit('update');
             this.getCartsList();
-            this.$refs.toast.showToast('已刪除購物車商品囉！');
+            this.$refs.toast.showToast(`已從購物車刪除『${item.product.title}』囉!`, 'error');
           } else {
             this.$refs.toast.showToast(res.data.message);
           }
           this.isLoading.itemID = '';
         })
         .catch(() => {
-          this.$refs.toast.showToast('無法刪除購物車內商品喔～', 'error');
+          this.$refs.toast.showToast('無法刪除購物車內商品喔!', 'error');
         });
     },
     deleteCartAll() {
@@ -247,7 +250,7 @@ export default {
         .delete(apiUrl)
         .then((res) => {
           if (res.data.success) {
-            this.$refs.toast.showToast('已無商品囉！');
+            this.$refs.toast.showToast('已無商品囉!', 'error');
             this.$emit('update');
             this.getCartsList();
           } else {
@@ -255,7 +258,7 @@ export default {
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('無法刪除購物車內商品喔～', 'error');
+          this.$refs.toast.showToast('無法刪除購物車內商品喔!', 'error');
         });
     },
     postCoupon() {
@@ -271,7 +274,7 @@ export default {
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('無法套用優惠券喔～', 'error');
+          this.$refs.toast.showToast('無法套用優惠券喔!', 'error');
         });
     },
   },

@@ -187,7 +187,7 @@ export default {
               this.$refs.toast.showToast(messageObj.message, messageObj.status);
             }
           } else {
-            this.$refs.toast.showToast('無法取得購物車清單喔', 'error');
+            this.$refs.toast.showToast('無法取得購物車清單喔!', 'error');
           }
         })
         .catch(() => {

@@ -195,7 +195,6 @@ export default {
       ],
     };
   },
-  emits: ['update'],
   methods: {
     getProductsAll() {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
@@ -211,7 +210,7 @@ export default {
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('無法取得商品全部資料喔～', 'error');
+          this.$refs.toast.showToast('無法取得商品全部資料喔!', 'error');
         });
     },
     addCart(itemID, num) {
@@ -223,16 +222,17 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.isLoading.itemID = '';
-            // 觸發父層元件之函式，但在這得先定義 emits
             this.$emit('update');
-            this.$refs.toast.showToast('感謝您的預約，再請您填寫資料');
-            this.$router.push('/checkoutInfo');
+            this.$refs.toast.showToast('感謝您的預約! 畫面跳轉後再請您填寫資料。');
+            setTimeout(() => {
+              this.$router.push('/checkoutInfo');
+            }, 3000);
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('無法加入購物車喔～', 'error');
+          this.$refs.toast.showToast('無法加入購物車喔!', 'error');
         });
     },
     randomNumber(max, min) {

@@ -50,7 +50,7 @@
             <button
               type="button"
               class="btn btn-link p-0"
-              @click="addCart(item.id)"
+              @click="addCart(item)"
               v-else-if="!checkCartsData(item.id)"
             >
               <img src="../../assets/images/bi-cart-plus.svg" alt="addCart" class="studio__icon" />
@@ -80,36 +80,17 @@ export default {
       cartsData: [],
     };
   },
-  emits: ['update'],
   props: ['cartsUpdate'],
   methods: {
     setLocalStorage(item) {
-      if (this.localStorageData[0]) {
-        // 若使用 indexOf 可能會遇到物件傳參考問題，改用其他方式
-        let dataIndex = null;
-        this.localStorageData.forEach((element, index) => {
-          if (element.id === item.id) {
-            dataIndex = index;
-          }
-        });
-        if (dataIndex === null) {
-          this.localStorageData.push(item);
-          localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
-          // 更新 Layout nav 資料
-          this.$emit('update');
-          this.$refs.toast.showToast('已加到我的最愛囉！');
-        } else {
-          this.localStorageData.splice(dataIndex, 1);
+      this.localStorageData.forEach((element, index) => {
+        if (element.id === item.id) {
+          this.localStorageData.splice(index, 1);
           localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
           this.$emit('update');
-          this.$refs.toast.showToast('已從我的最愛移除囉！');
+          this.$refs.toast.showToast(`『${item.title}』，已從我的最愛移除囉!`, 'error');
         }
-      } else {
-        this.localStorageData.push(item);
-        localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
-        this.$emit('update');
-        this.$refs.toast.showToast('已加到我的最愛囉！');
-      }
+      });
     },
     getCartsList() {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
@@ -119,32 +100,31 @@ export default {
           if (res.data.success) {
             this.cartsData = res.data.data.carts;
           } else {
-            this.$refs.toast.showToast('無法取得購物車清單喔', 'error');
+            this.$refs.toast.showToast('無法取得購物車清單喔!', 'error');
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('無法取得購物車清單喔', 'error');
+          this.$refs.toast.showToast('無法取得購物車清單喔!', 'error');
         });
     },
-    addCart(itemID) {
+    addCart(item) {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
-      const productData = { data: { product_id: itemID, qty: 1 } };
-      this.isLoading.itemID = itemID;
+      const productData = { data: { product_id: item.id, qty: 1 } };
+      this.isLoading.itemID = item.id;
       this.axios
         .post(apiUrl, productData)
         .then((res) => {
           if (res.data.success) {
             this.isLoading.itemID = '';
-            // 觸發父層元件之函式，但在這得先定義 emits
             this.$emit('update');
             this.getCartsList();
-            this.$refs.toast.showToast(res.data.message);
+            this.$refs.toast.showToast(`『${item.title}』${res.data.message}`);
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('無法加入購物車喔～', 'error');
+          this.$refs.toast.showToast(`無法將『${item.title}』加入購物車喔!`, 'error');
         });
     },
     checkCartsData(id) {

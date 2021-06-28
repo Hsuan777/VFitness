@@ -3,7 +3,7 @@
     <section class="container my-5">
       <div class="row">
         <div class="col">
-          <h2 class="text-center mb-5">常見問答</h2>
+          <h2 class="text-center fw-bolder mb-3 mb-md-4 mb-lg-5">常見問答</h2>
           <ul class="list-unstyled">
             <li class="mb-3" v-for="(item, key) in questions" :key="item.title + key">
               <div class="card">
