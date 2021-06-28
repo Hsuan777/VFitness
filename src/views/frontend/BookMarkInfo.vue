@@ -1,12 +1,16 @@
 <template>
   <section class="container my-5">
     <h2 class="text-center fw-bolder mb-5">我的最愛</h2>
-    <router-link
-      v-if="!localStorageData[0]"
-      to="/productsList"
-      class="btn btn-primary text-white w-50 d-block mx-auto"
-      >還沒有最愛喔！前往選購～</router-link
-    >
+    <div class="row">
+      <div class="col-lg-4 mx-auto">
+        <router-link
+          v-if="!localStorageData[0]"
+          to="/productsList"
+          class="btn btn-primary text-white d-block mx-auto"
+          >還沒有最愛喔！前往選購～</router-link
+        >
+      </div>
+    </div>
     <ul class="list-unstyled row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4">
       <li class="product--hover col" v-for="item in localStorageData" :key="item.id">
         <div class="card card-body border-0">
