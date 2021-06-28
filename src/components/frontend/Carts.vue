@@ -3,14 +3,13 @@
     <ul class="list-group list-group-flush px-3" v-if="cartsData.carts[0]">
       <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
         <div class="d-flex align-items-center">
-          <!-- 改成 route link -->
           <router-link :to="`/product/${item.product.id}`" class="link-dark me-5">
             {{ item.product.title }}
           </router-link>
           <button
             type="button"
             class="btn btn-link btn-sm pe-0 text-decoration-none link-secondary ms-auto"
-            @click="deleteCart(item.id)"
+            @click="deleteCart(item)"
           >
             <div
               class="spinner-border spinner-border-sm text-danger ms-auto me-3"
@@ -61,15 +60,18 @@ export default {
   },
   props: ['cartsData'],
   methods: {
-    deleteCart(itemID) {
-      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${itemID}`;
-      this.isLoading.itemID = itemID;
+    deleteCart(item) {
+      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
+      this.isLoading.itemID = item.id;
       this.axios
         .delete(apiUrl)
         .then((res) => {
           if (res.data.success) {
-            this.$emit('update');
-            this.$refs.toast.showToast('已刪除購物車商品囉！');
+            // 若直接在這裡使用通知，會被視為與下拉選單同一區塊
+            this.$emit('update', {
+              message: `『${item.product.title}』，已從購物車刪除囉！`,
+              status: 'error',
+            });
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }

@@ -64,10 +64,10 @@
             >)
           </router-link>
           <span class="d-none d-lg-block text-white pb-1">|</span>
-          <!-- 購物車內容 -->
+          <!-- 購物車 -->
           <a
             class="nav-link link-dark d-none d-lg-flex align-items-center"
-            href="#cartContent"
+            href="#cartsContent"
             data-bs-toggle="dropdown"
             data-bs-display="static"
           >
@@ -80,7 +80,7 @@
             >) TWD$ {{ $filters.currency(cartsData.total) }}
           </a>
           <!-- 購物車內容 -->
-          <div id="cartContent" ref="cartsComponent" class="dropdown-menu dropdown-menu-end me-2">
+          <div id="cartsContent" ref="cartsComponent" class="dropdown-menu dropdown-menu-end me-2">
             <carts :carts-data="cartsData" @update="getCartsList"></carts>
           </div>
         </div>
@@ -174,7 +174,7 @@ export default {
     };
   },
   methods: {
-    getCartsList() {
+    getCartsList(messageObj) {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       this.isUpdate = '1';
       this.axios
@@ -183,6 +183,9 @@ export default {
           this.isUpdate = '';
           if (res.data.success) {
             this.cartsData = res.data.data;
+            if (messageObj) {
+              this.$refs.toast.showToast(messageObj.message, messageObj.status);
+            }
           } else {
             this.$refs.toast.showToast('無法取得購物車清單喔', 'error');
           }
