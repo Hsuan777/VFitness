@@ -54,8 +54,18 @@
                 <td>{{ new Date().toLocaleString(order.create_at) }}</td>
               </tr>
               <tr>
-                <th>訂購 ID<br />(請記下可再查詢)</th>
-                <td>{{ order.id }}</td>
+                <th>
+                  訂購 ID<br />
+                  <input
+                    type="button"
+                    value="點我複製以便查詢"
+                    @click.prevent="copyOrderID"
+                    class="btn btn-outline-primary"
+                  />
+                </th>
+                <td>
+                  <input ref="orderID" type="text" :value="order.id" class="form-control" />
+                </td>
               </tr>
               <tr>
                 <th>訂購人</th>
@@ -185,6 +195,9 @@ export default {
         .catch(() => {
           this.$refs.toast.showToast('未通知商家付款資訊，請稍後再試。', 'error');
         });
+    },
+    copyOrderID() {
+      document.execCommand('Copy', false, this.$refs.orderID.select());
     },
   },
   created() {

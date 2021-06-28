@@ -28,7 +28,7 @@
                 <td>{{ new Date().toLocaleString(tempOrder.create_at) }}</td>
               </tr>
               <tr>
-                <th>訂購 ID<br />(請記下可再查詢)</th>
+                <th>訂購 ID</th>
                 <td>{{ tempOrder.id }}</td>
               </tr>
               <tr>
