@@ -26,21 +26,24 @@
       <button
         class="navbar-toggler"
         type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNavAltMarkup"
         aria-controls="navbarNavAltMarkup"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        @click="openCollapseNavbar"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div ref="collapseNavbar" class="collapse navbar-collapse">
         <div class="navbar-nav ms-auto d-flex align-items-center">
           <!-- 關於我們 -->
-          <router-link to="/about" class="nav-link">關於我們</router-link>
+          <router-link to="/about" class="nav-link" @click="closeCollapseNavbar"
+            >關於我們</router-link
+          >
           <span class="d-none d-lg-block text-white pb-1">|</span>
           <!-- 常見問答 -->
-          <router-link to="/questions" class="nav-link">常見問答</router-link>
+          <router-link to="/questions" class="nav-link" @click="closeCollapseNavbar"
+            >常見問答</router-link
+          >
           <span class="d-none d-lg-block text-white pb-1">|</span>
           <!-- 訂單查詢 -->
           <input
@@ -51,12 +54,12 @@
           />
           <span class="d-none d-lg-block text-white pb-1">|</span>
           <!-- 餐飲與課程 -->
-          <router-link to="/productsList" class="nav-link">
+          <router-link to="/productsList" class="nav-link" @click="closeCollapseNavbar">
             餐飲與課程
           </router-link>
           <span class="d-none d-lg-block text-white pb-1">|</span>
           <!-- 我的最愛 -->
-          <router-link to="/bookMark" class="nav-link">
+          <router-link to="/bookMark" class="nav-link" @click="closeCollapseNavbar">
             我的最愛(<span class="text-white">{{ localStorageData.length }}</span
             >)
           </router-link>
@@ -154,6 +157,7 @@
 </template>
 
 <script>
+import Collapse from 'bootstrap/js/dist/collapse';
 import carts from '../../components/frontend/Carts.vue';
 import trackModal from '../../components/frontend/TrackModal.vue';
 import scorllTop from '../../components/tools/ScorllTop.vue';
@@ -166,6 +170,7 @@ export default {
       },
       isUpdate: '',
       localStorageData: [],
+      collapse: {},
     };
   },
   methods: {
@@ -192,6 +197,13 @@ export default {
     },
     openTrackModal() {
       this.$refs.trackModal.showModal();
+      this.closeCollapseNavbar();
+    },
+    openCollapseNavbar() {
+      this.collapse.toggle();
+    },
+    closeCollapseNavbar() {
+      this.collapse.hide();
     },
   },
   components: {
@@ -210,6 +222,11 @@ export default {
   },
   created() {
     this.updateData();
+  },
+  mounted() {
+    this.collapse = new Collapse(this.$refs.collapseNavbar, {
+      toggle: false,
+    });
   },
 };
 </script>
