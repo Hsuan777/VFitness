@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="top btn btn-primary position-fixed bottom-5 end-5"
+    class="studio__scorllTop btn btn-primary position-fixed bottom-5 end-5"
     @click="scrollTo(0)"
     v-show="isShowOfTop"
   >
@@ -38,11 +38,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.top {
-  width: 50px;
-  height: 50px;
-  z-index: 100;
-}
-</style>

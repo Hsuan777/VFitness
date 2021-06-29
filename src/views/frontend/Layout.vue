@@ -35,6 +35,14 @@
       </button>
       <div ref="collapseNavbar" class="collapse navbar-collapse">
         <div class="navbar-nav ms-auto d-flex align-items-center">
+          <!-- 訂單查詢 -->
+          <input
+            type="button"
+            value="訂單查詢"
+            class="studio__topNavbar__link nav-link btn btn-link"
+            @click="openTrackModal"
+          />
+          <span class="d-none d-lg-block text-white pb-1">|</span>
           <!-- 關於我們 -->
           <router-link
             to="/about"
@@ -50,14 +58,6 @@
             @click="closeCollapseNavbar"
             >常見問答</router-link
           >
-          <span class="d-none d-lg-block text-white pb-1">|</span>
-          <!-- 訂單查詢 -->
-          <input
-            type="button"
-            value="訂單查詢"
-            class="studio__topNavbar__link nav-link btn btn-link"
-            @click="openTrackModal"
-          />
           <span class="d-none d-lg-block text-white pb-1">|</span>
           <!-- 餐飲與課程 -->
           <router-link

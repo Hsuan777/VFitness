@@ -1,24 +1,27 @@
 <template>
-  <figure
-    class="studio__banner studio__banner__bookMark
-        d-flex justify-content-center align-items-center mb-5"
-  >
-    <div class="container">
+  <section>
+    <!-- 我的最愛 banner -->
+    <figure
+      class="studio__banner studio__banner__secondary studio__banner__bookMark
+          d-flex justify-content-center align-items-center mb-5"
+    >
       <h2 class="studio__banner__title text-white fw-bolder p-4 rounded d-inline">我的最愛</h2>
-    </div>
-  </figure>
-  <section class="container mb-5">
-    <div class="container">
-      <div class="row">
+    </figure>
+    <!-- 我的最愛內容 -->
+    <div class="container mb-5">
+      <!-- 無資料 -->
+      <div v-if="!localStorageData[0]" class="row">
         <div class="col-lg-4 mx-auto">
-          <router-link
-            v-if="!localStorageData[0]"
-            to="/productsList"
-            class="btn btn-primary text-white d-block mx-auto"
-            >還沒有最愛喔！前往選購～</router-link
-          >
+          <div class="d-flex align-items-center py-5">
+            <router-link
+              to="/productsList"
+              class="btn btn-primary btn-lg text-white mx-auto"
+              >還沒有最愛喔！前往選購~</router-link
+            >
+          </div>
         </div>
       </div>
+      <!-- 有資料 -->
       <ul class="list-unstyled row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4">
         <li class="product--hover col" v-for="item in localStorageData" :key="item.id">
           <div class="card card-body border-0">
@@ -37,7 +40,10 @@
               </router-link>
             </h3>
             <!-- 價格與購物車 -->
-            <div class="d-flex justify-content-between align-items-center my-2 pb-2 border-bottom">
+            <div
+              class="d-flex justify-content-between align-items-center my-2 pb-2
+                border-bottom"
+            >
               <!-- 我的最愛按鈕 -->
               <button
                 type="button"
@@ -89,11 +95,14 @@
         </li>
       </ul>
     </div>
+    <subscribe></subscribe>
     <toast ref="toast"></toast>
   </section>
 </template>
 
 <script>
+import subscribe from '../../components/frontend/Subscribe.vue';
+
 export default {
   data() {
     return {
@@ -162,6 +171,9 @@ export default {
   },
   mounted() {
     this.localStorageData = JSON.parse(localStorage.getItem('myFavorite')) || [];
+  },
+  components: {
+    subscribe,
   },
   watch: {
     cartsUpdate(value) {

@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <section class="studio__about container-fluid px-lg-0 mb-5">
-      <figure
-        class="studio__banner studio__banner__about
-          d-flex justify-content-center align-items-center mb-5"
-      >
-        <h2 class="studio__banner__title text-white fw-bolder p-4 rounded">關於工作室</h2>
-      </figure>
+  <section>
+    <!-- 關於工作室 banner -->
+    <figure
+      class="studio__banner studio__banner__secondary studio__banner__about
+        d-flex justify-content-center align-items-center mb-5"
+    >
+      <h2 class="studio__banner__title text-white fw-bolder p-4 rounded">關於工作室</h2>
+    </figure>
+    <!-- 關於工作室內容 -->
+    <div class="studio__about container-fluid px-lg-0">
       <div class="row g-0 flex-column flex-md-row">
         <div class="col">
           <img
@@ -45,7 +47,7 @@
           </div>
         </div>
       </div>
-      <div class="row g-0 flex-column flex-md-row">
+      <div class="row g-0 flex-column flex-md-row mb-5">
         <div class="col">
           <img
             src="https://images.unsplash.com/photo-1519311965067-36d3e5f33d39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
@@ -65,9 +67,9 @@
           </div>
         </div>
       </div>
-    </section>
+    </div>
     <subscribe></subscribe>
-  </div>
+  </section>
 </template>
 
 <script>
