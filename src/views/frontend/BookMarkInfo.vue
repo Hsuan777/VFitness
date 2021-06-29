@@ -47,7 +47,8 @@
               <!-- 我的最愛按鈕 -->
               <button
                 type="button"
-                class="btn btn-link link-primary text-decoration-none d-flex align-items-center"
+                class="btn btn-link link-primary text-decoration-none d-flex align-items-center
+                  px-0"
                 @click="setLocalStorage(item)"
               >
                 <span class="material-icons">
@@ -95,8 +96,8 @@
         </li>
       </ul>
     </div>
-    <subscribe></subscribe>
     <toast ref="toast"></toast>
+    <subscribe></subscribe>
   </section>
 </template>
 

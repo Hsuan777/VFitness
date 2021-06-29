@@ -55,7 +55,7 @@
               <button
                 type="button"
                 class="btn btn-link link-primary text-decoration-none d-flex align-items-center
-                  ps-0"
+                  px-0"
                 @click="setLocalStorage(item)"
               >
                 <span class="material-icons">

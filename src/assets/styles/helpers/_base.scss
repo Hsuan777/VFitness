@@ -34,7 +34,10 @@ input:disabled {
 }
 
 .main {
-  min-height: calc(100vh - 136px);
+  min-height: calc(100vh - 189px);
+  @include media-breakpoint-down(lg) {
+    min-height: calc(100vh - 230px);
+  }
 }
 
 .height--vh {
