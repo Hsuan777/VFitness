@@ -9,15 +9,9 @@
     </figure>
     <!-- 關於工作室內容 -->
     <div class="studio__about container-fluid px-lg-0">
-      <div class="row g-0 flex-column flex-md-row">
-        <div class="col">
-          <img
-            src="https://images.unsplash.com/photo-1519859660545-3dea8ddf683c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80"
-            alt="健身運動"
-            class="w-100"
-          />
-        </div>
-        <div class="col d-flex justify-content-center align-items-center">
+      <!-- 健身運動 -->
+      <div class="row g-0 flex-row-reverse mb-5 mb-md-0">
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
           <div class="row p-3">
             <div class="col-lg-8 mx-auto">
               <h3 class="text-center">健身運動</h3>
@@ -27,16 +21,16 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row g-0 flex-column flex-md-row flex-md-row-reverse">
-        <div class="col">
+        <div class="col-md-6">
           <img
-            src="https://images.unsplash.com/photo-1614928228253-dc09cbc3b11c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
+            src="https://images.unsplash.com/photo-1519859660545-3dea8ddf683c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80"
             alt="健身運動"
-            class="w-100"
           />
         </div>
-        <div class="col d-flex justify-content-center align-items-center">
+      </div>
+      <!-- 專業教練 -->
+      <div class="row g-0 mb-5 mb-md-0">
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
           <div class="row p-3">
             <div class="col-lg-8 mx-auto">
               <h3 class="text-center">專業教練</h3>
@@ -46,16 +40,16 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row g-0 flex-column flex-md-row mb-5">
-        <div class="col">
+        <div class="col-md-6">
           <img
-            src="https://images.unsplash.com/photo-1519311965067-36d3e5f33d39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
-            alt="健身運動"
-            class="w-100"
+            src="https://images.unsplash.com/photo-1614928228253-dc09cbc3b11c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
+            alt="專業教練"
           />
         </div>
-        <div class="col d-flex flex-column justify-content-center">
+      </div>
+      <!-- 成立契機 -->
+      <div class="row g-0 flex-row-reverse mb-5">
+        <div class="col-md-6 d-flex flex-column justify-content-center">
           <div class="row p-3">
             <div class="col-lg-8 mx-auto">
               <h3 class="text-center">成立契機</h3>
@@ -65,6 +59,12 @@
               </p>
             </div>
           </div>
+        </div>
+        <div class="col-md-6">
+          <img
+            src="https://images.unsplash.com/photo-1519311965067-36d3e5f33d39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
+            alt="成立契機"
+          />
         </div>
       </div>
     </div>

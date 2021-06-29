@@ -61,7 +61,10 @@
   // 工作室目標區塊
   &__goal {
     li img {
-      height: 300px; 
+      height: 300px;
+      @include media-breakpoint-down(lg) {
+        height: 250px;
+      }
     }
   }
   // 學員心得區塊
