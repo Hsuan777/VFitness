@@ -44,7 +44,7 @@
           </div>
         </div>
         <!-- 填寫資料與檢視商品 -->
-        <div class="col-lg-9 mx-auto">
+        <div v-if="cartsData.carts[0]" class="col-lg-9 mx-auto">
           <div class="row flex-md-row-reverse row-cols-1 row-cols-md-2">
             <!-- 您的訂購 -->
             <div class="col mb-5 mb-md-0">
@@ -103,7 +103,7 @@
             </div>
             <!-- 訂購人資訊 -->
             <div class="col">
-              <section v-if="cartsData.carts[0]">
+              <section>
                 <h2 class="text-center fw-bolder mb-3">訂購人資訊</h2>
                 <Form action="" v-slot="{ errors }" ref="orderForm" @submit="postOrder">
                   <div class="row row-cols-1 g-3">
@@ -266,12 +266,13 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.isSubmitOrder = true;
-            this.$refs.toast.showToast('感謝您的選購! 畫面跳轉後請確認付款資訊，謝謝。');
+            window.scrollTo(0, 0);
+            this.$refs.toast.showToast('感謝您的選購! 請確認付款資訊，謝謝。');
             this.$refs.orderForm.resetForm();
             this.$emit('update');
             setTimeout(() => {
               this.$router.replace(`/order/${res.data.orderId}`);
-            }, 3000);
+            }, 1500);
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }

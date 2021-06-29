@@ -185,7 +185,7 @@ export default {
             this.getOrder();
             setTimeout(() => {
               this.$router.replace('/productsList');
-            }, 3000);
+            }, 1500);
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
