@@ -10,7 +10,7 @@
     <!-- 我的最愛內容 -->
     <div class="container mb-5">
       <!-- 無資料 -->
-      <div v-if="!localStorageData[0]" class="row">
+      <div v-if="!finalDisplayData[0]" class="row">
         <div class="col-lg-4 mx-auto">
           <div class="d-flex align-items-center py-5">
             <router-link
@@ -22,8 +22,8 @@
         </div>
       </div>
       <!-- 有資料 -->
-      <ul class="list-unstyled row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4">
-        <li class="product--hover col" v-for="item in localStorageData" :key="item.id">
+      <ul v-else class="list-unstyled row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4">
+        <li class="product--hover col" v-for="item in finalDisplayData" :key="item.id">
           <div class="card card-body border-0">
             <!-- 產品圖片 -->
             <router-link :to="`/product/${item.id}`" class="text-decoration-none link-dark">
@@ -95,6 +95,13 @@
           </div>
         </li>
       </ul>
+      <div class="d-flex justify-content-center mb-5">
+        <page
+          :pages="totalPages"
+          :currentPage="currentPage"
+          @display-page="changeDisplayData"
+        ></page>
+      </div>
     </div>
     <toast ref="toast"></toast>
     <subscribe></subscribe>
@@ -109,6 +116,9 @@ export default {
     return {
       localStorageData: [],
       cartsData: [],
+      totalPages: 0,
+      currentPage: 1,
+      finalDisplayData: [],
     };
   },
   props: ['cartsUpdate'],
@@ -166,12 +176,19 @@ export default {
       }
       return isExist;
     },
+    changeDisplayData(page = 1) {
+      const n = 8;
+      this.totalPages = Math.ceil(this.localStorageData.length / n);
+      this.currentPage = page;
+      this.finalDisplayData = this.localStorageData.slice(n * page - n, n * page);
+    },
   },
   created() {
     this.getCartsList();
   },
   mounted() {
     this.localStorageData = JSON.parse(localStorage.getItem('myFavorite')) || [];
+    this.changeDisplayData();
   },
   components: {
     subscribe,

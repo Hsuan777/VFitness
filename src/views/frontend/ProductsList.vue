@@ -33,7 +33,7 @@
     <!-- 商品列表 -->
     <section class="container">
       <ul class="list-unstyled row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4">
-        <li class="product--hover col" v-for="item in filterCategory" :key="item.id">
+        <li class="product--hover col" v-for="item in finalDisplayData" :key="item.id">
           <div class="card card-body border-0">
             <!-- 產品圖片 -->
             <router-link :to="`/product/${item.id}`" class="text-decoration-none link-dark">
@@ -102,6 +102,13 @@
           </div>
         </li>
       </ul>
+      <div class="d-flex justify-content-center mb-5">
+        <page
+          :pages="totalPages"
+          :currentPage="currentPage"
+          @display-page="changeDisplayData"
+        ></page>
+      </div>
     </section>
     <toast ref="toast"></toast>
   </div>
@@ -115,6 +122,9 @@ export default {
       cartsData: [],
       category: '',
       localStorageData: [],
+      totalPages: 0,
+      currentPage: 1,
+      finalDisplayData: [],
     };
   },
   props: ['cartsUpdate'],
@@ -128,6 +138,7 @@ export default {
           this.isLoading.status = false;
           if (res.data.success) {
             this.products = res.data.products;
+            this.changeDisplayData();
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
@@ -174,6 +185,7 @@ export default {
     clickCategory(key) {
       this.category = key;
       window.scrollTo(0, 0);
+      this.changeDisplayData();
     },
     setLocalStorage(item) {
       if (this.localStorageData[0]) {
@@ -209,6 +221,13 @@ export default {
       }
       return isExist;
     },
+    changeDisplayData(page = 1) {
+      const n = 8;
+      this.totalPages = Math.ceil(this.filterCategory.length / n);
+      this.currentPage = page;
+      // slice(起始位置, 結束位置)，實際擷取到結束位置前一個元素(0, 8)(8, 16)
+      this.finalDisplayData = this.filterCategory.slice(n * page - n, n * page);
+    },
   },
   created() {
     this.getProductsAll();
@@ -218,6 +237,7 @@ export default {
     this.localStorageData = JSON.parse(localStorage.getItem('myFavorite')) || [];
   },
   computed: {
+    // 目前的分類資料
     filterCategory() {
       return this.products.filter((item) => item.category.match(this.category));
     },
