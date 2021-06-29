@@ -25,7 +25,7 @@
 export default {
   methods: {
     clickSubscribe() {
-      this.$refs.toast.showToast('感謝您的訂閱。');
+      this.$refs.toast.showToast('輸入『VF777』享優惠，感謝您的訂閱。');
     },
   },
 };

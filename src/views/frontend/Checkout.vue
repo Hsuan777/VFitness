@@ -170,7 +170,7 @@ export default {
       cartsData: {
         carts: [],
       },
-      couponCode: 'test777',
+      couponCode: '',
       percent: 0,
     };
   },
