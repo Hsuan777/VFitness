@@ -13,9 +13,7 @@
       <div v-if="!finalDisplayData[0]" class="row">
         <div class="col-lg-4 mx-auto">
           <div class="d-flex align-items-center py-5">
-            <router-link
-              to="/productsList"
-              class="btn btn-primary btn-lg text-white mx-auto"
+            <router-link to="/productsList" class="btn btn-primary btn-lg text-white mx-auto"
               >還沒有最愛喔！前往選購~</router-link
             >
           </div>
@@ -35,7 +33,10 @@
             </router-link>
             <!-- 產品標題 -->
             <h3 class="h4 mb-0">
-              <router-link :to="`/product/${item.id}`" class="text-decoration-none text-dark">
+              <router-link
+                :to="`/product/${item.id}`"
+                class="text-decoration-none text-dark d-block text-truncate"
+              >
                 {{ item.title }}
               </router-link>
             </h3>
@@ -177,7 +178,7 @@ export default {
       return isExist;
     },
     changeDisplayData(page = 1) {
-      const n = 8;
+      const n = 12;
       this.totalPages = Math.ceil(this.localStorageData.length / n);
       this.currentPage = page;
       this.finalDisplayData = this.localStorageData.slice(n * page - n, n * page);

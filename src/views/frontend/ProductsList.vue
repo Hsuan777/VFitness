@@ -45,7 +45,10 @@
             </router-link>
             <!-- 產品標題 -->
             <h3 class="h4 mb-0">
-              <router-link :to="`/product/${item.id}`" class="text-decoration-none text-dark">
+              <router-link
+                :to="`/product/${item.id}`"
+                class="text-decoration-none text-dark d-block text-truncate"
+              >
                 {{ item.title }}
               </router-link>
             </h3>
@@ -222,7 +225,7 @@ export default {
       return isExist;
     },
     changeDisplayData(page = 1) {
-      const n = 8;
+      const n = 12;
       this.totalPages = Math.ceil(this.filterCategory.length / n);
       this.currentPage = page;
       // slice(起始位置, 結束位置)，實際擷取到結束位置前一個元素(0, 8)(8, 16)
