@@ -3,7 +3,11 @@
   <scorll-top></scorll-top>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
     <div class="container position-relative">
-      <router-link to="/" class="logo navbar-brand d-flex align-items-center">
+      <router-link
+        to="/"
+        class="logo navbar-brand d-flex align-items-center"
+        @click="closeCollapseNavbar"
+      >
         <span class="h3 mb-0 pt-1">VFitness</span>
         <div class="flex-column ms-1">
           <span class="logo__icon material-icons d-block">fitness_center</span>
