@@ -1,9 +1,17 @@
 <template>
   <div id="app">
     <loading :active="isLoading.status"></loading>
+    <!-- 置頂導覽列 -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <router-link to="/" class="navbar-brand">VFitness</router-link>
+      <div class="container-fluid">
+        <router-link to="/" class="logo navbar-brand ms-2">VFitness</router-link>
+        <div class="navbar-nav ms-auto">
+          <a
+            class="nav-link text-primary me-2 btn btn-outline-primary text-white"
+            @click.prevent="signOut"
+            >Sign out</a
+          >
+        </div>
       </div>
     </nav>
     <!-- 登入 -->
