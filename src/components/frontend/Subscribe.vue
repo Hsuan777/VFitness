@@ -10,10 +10,25 @@
           </p>
         </div>
         <div class="col-md-6 col-lg-4">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="輸入電子信箱" />
-            <button class="btn btn-primary" type="button" @click="clickSubscribe">送出</button>
-          </div>
+          <Form action="" v-slot="{ errors }" ref="subForm" @submit="clickSubscribe">
+            <div class="input-group">
+              <Field
+                id="userEmail"
+                name="聯絡信箱"
+                type="email"
+                class="form-control"
+                placeholder="請輸入電子信箱"
+                rules="email"
+                v-model="email"
+              ></Field>
+              <input
+                class="btn btn-primary"
+                value="送出"
+                type="submit"
+                :disabled="Object.keys(errors).length !== 0 || email === ''"
+              />
+            </div>
+          </Form>
         </div>
       </div>
     </figure>
@@ -23,8 +38,15 @@
 
 <script>
 export default {
+  data() {
+    return {
+      email: '',
+    };
+  },
   methods: {
     clickSubscribe() {
+      this.email = '';
+      this.$refs.subForm.resetForm();
       this.$refs.toast.showToast('輸入『VF777』享優惠，感謝您的訂閱。');
     },
   },

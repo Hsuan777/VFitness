@@ -132,17 +132,25 @@
                     <p>{{ percent }}</p>
                   </div>
                 </div>
-                <div class="input-group w-50 ms-auto mb-3">
-                  <input
-                    type="text"
-                    class="form-control text-danger"
-                    placeholder="請輸入優惠券代碼"
-                    v-model="couponCode"
-                  />
-                  <button class="btn btn-outline-secondary" type="button" @click="postCoupon">
-                    套用
-                  </button>
-                </div>
+                <Form action="" v-slot="{ errors }" ref="couponForm" @submit="postCoupon">
+                  <div class="input-group w-50 ms-auto mb-3">
+                    <Field
+                      id="userEmail"
+                      name="優惠券"
+                      type="text"
+                      class="form-control"
+                      placeholder="請輸入優惠券代碼"
+                      rules="min:5"
+                      v-model="couponCode"
+                    ></Field>
+                    <input
+                      class="btn btn-primary"
+                      value="套用"
+                      type="submit"
+                      :disabled="Object.keys(errors).length !== 0 || couponCode === ''"
+                    />
+                  </div>
+                </Form>
                 <router-link to="/CheckoutInfo" class="btn btn-primary text-white w-100"
                   >填寫資料</router-link
                 >
@@ -259,6 +267,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.$refs.toast.showToast(res.data.message);
+            this.$refs.couponForm.resetForm();
             this.getCartsList();
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
