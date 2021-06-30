@@ -144,7 +144,7 @@
                       v-model="couponCode"
                     ></Field>
                     <input
-                      class="btn btn-primary"
+                      class="btn btn-primary text-white"
                       value="套用"
                       type="submit"
                       :disabled="Object.keys(errors).length !== 0 || couponCode === ''"

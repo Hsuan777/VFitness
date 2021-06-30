@@ -22,7 +22,7 @@
                 v-model="email"
               ></Field>
               <input
-                class="btn btn-primary"
+                class="btn btn-primary text-white"
                 value="送出"
                 type="submit"
                 :disabled="Object.keys(errors).length !== 0 || email === ''"
