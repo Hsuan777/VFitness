@@ -10,7 +10,7 @@
     <!-- 我的最愛內容 -->
     <div class="container mb-5">
       <!-- 無資料 -->
-      <div v-if="!finalDisplayData[0]" class="row">
+      <div v-if="!localStorageData[0]" class="row">
         <div class="col-lg-4 mx-auto">
           <div class="d-flex align-items-center py-5">
             <router-link to="/productsList" class="btn btn-primary btn-lg text-white mx-auto"
@@ -130,6 +130,7 @@ export default {
           this.localStorageData.splice(index, 1);
           localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
           this.$emit('update');
+          this.changeDisplayData(this.currentPage);
           this.$refs.toast.showToast(`『${item.title}』，已從我的最愛移除囉!`, 'error');
         }
       });
@@ -182,6 +183,11 @@ export default {
       this.totalPages = Math.ceil(this.localStorageData.length / n);
       this.currentPage = page;
       this.finalDisplayData = this.localStorageData.slice(n * page - n, n * page);
+      // 若當前頁面已無資料，頁數減一
+      if (this.localStorageData.length > 1 && this.finalDisplayData.length === 0) {
+        this.currentPage -= 1;
+        this.changeDisplayData(this.currentPage);
+      }
     },
   },
   created() {
