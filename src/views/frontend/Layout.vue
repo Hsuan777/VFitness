@@ -16,7 +16,11 @@
       </router-link>
       <!-- mobile 直接進購物車頁面 -->
       <div class="navbar-nav ms-auto me-3">
-        <router-link to="/checkout" class="nav-link d-lg-none d-flex align-items-center">
+        <router-link
+          to="/checkout"
+          class="nav-link d-lg-none d-flex align-items-center"
+          @click="closeCollapseNavbar"
+        >
           <img
             src="../../assets/images/bi-cart-check-white.svg"
             alt="addCart"
