@@ -182,7 +182,7 @@
                 class="product__list__img mb-2 rounded-3"
               />
             </router-link>
-            <h3 class="h4 mb-0">{{ item.title }}</h3>
+            <h3 class="h4 text-truncate mb-0">{{ item.title }}</h3>
           </div>
         </li>
       </ul>
