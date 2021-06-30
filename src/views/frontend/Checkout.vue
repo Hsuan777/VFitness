@@ -75,15 +75,8 @@
                     <p class="mb-0">單價：{{ '$ ' + $filters.currency(item.product.price) }}</p>
                     <!-- 小計 -->
                     <p class="text-end mb-0">小計：{{ '$ ' + $filters.currency(item.total) }}</p>
-                    <div
-                      class="spinner-border spinner-border-sm text-danger me-3 ms-auto"
-                      role="status"
-                      v-if="isLoading.itemID === item.id"
-                    >
-                      <span class="visually-hidden">Loading...</span>
-                    </div>
                     <!-- 數量增減 -->
-                    <div class="input-group" v-else>
+                    <div class="input-group">
                       <button
                         class="btn btn-outline-primary border-secondary"
                         type="button"
@@ -204,12 +197,10 @@ export default {
     putCart(item, num) {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
       const productData = { data: { product_id: item.product_id, qty: num } };
-      this.isLoading.itemID = item.id;
       this.axios
         .put(apiUrl, productData)
         .then((res) => {
           if (res.data.success) {
-            this.isLoading.itemID = '';
             this.$emit('update');
             this.getCartsList();
             if (item.qty < num) {
