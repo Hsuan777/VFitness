@@ -289,7 +289,7 @@
                   />
                 </div>
                 <!-- 額外圖片輸入 -->
-                <template v-for="(item, i) in tempProduct.imagesUrl" :key="'productImageUrl' + i">
+                <div v-for="(item, i) in tempProduct.imagesUrl" :key="'productImageUrl' + i">
                   <label :for="'productImageUrl' + i" class="form-label"
                     >其他圖片網址 {{ i + 1 }}</label
                   >
@@ -316,7 +316,7 @@
                       Ｘ
                     </button>
                   </div>
-                </template>
+                </div>
               </div>
               <!-- 主圖預覽 -->
               <div class="col-4">

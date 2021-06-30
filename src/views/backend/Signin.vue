@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <loading :active="isLoading.status"></loading>
     <!-- 置頂導覽列 -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

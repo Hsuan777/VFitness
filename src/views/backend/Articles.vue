@@ -1,94 +1,96 @@
 <template>
-  <loading :active="isLoading.status"></loading>
-  <div class="sticky-top bg-white ps-2 pt-2 mb-1">
-    <h2 class="h3">文章列表</h2>
-    <div class="d-flex align-items-center">
-      <input
-        type="button"
-        value="新增"
-        class="btn btn-primary me-2"
-        @click="openArticleModal(this.article)"
-      />
-      <page
-        :pages="totalPages"
-        :currentPage="currentPage"
-        @display-page="getArticles"
-        class="me-2"
-      ></page>
-      <div class="input-group">
-        <span class="input-group-text">搜尋文章標題</span>
-        <search @filter-data="getFilterData"></search>
+  <div>
+    <loading :active="isLoading.status"></loading>
+    <div class="sticky-top bg-white ps-2 py-2 mb-1">
+      <h2 class="h3">文章列表</h2>
+      <div class="d-flex align-items-center">
+        <input
+          type="button"
+          value="新增"
+          class="btn btn-primary me-2"
+          @click="openArticleModal(this.article)"
+        />
+        <page
+          :pages="totalPages"
+          :currentPage="currentPage"
+          @display-page="getArticles"
+          class="me-2"
+        ></page>
+        <div class="input-group">
+          <span class="input-group-text">搜尋文章標題</span>
+          <search @filter-data="getFilterData"></search>
+        </div>
       </div>
     </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="text-center border-secondary">標題</th>
+          <th class="border-secondary">描述</th>
+          <th class="border-secondary">作者</th>
+          <th class="border-secondary">是否啟用</th>
+          <th class="border-secondary">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="item in filterData"
+          :key="item.create_at"
+          :class="{ 'table-primary': item.isPublic }"
+        >
+          <td class="text-center">{{ item.title }}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ item.author }}</td>
+          <td>
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                :id="item.id"
+                :checked="item.isPublic"
+                @change="getArticle(item.id, 'isPublic')"
+              />
+              <label class="form-check-label" :for="item.id">
+                {{ item.isPublic ? '已啟用' : '未啟用' }}
+                <span
+                  class="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                  v-if="isLoading.itemID === item.id"
+                ></span>
+              </label>
+            </div>
+          </td>
+          <td>
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-outline-dark border-secondary"
+                :class="{ disabled: item.isPublic }"
+                @click="getArticle(item.id, 'edit')"
+              >
+                修改
+              </button>
+              <input
+                type="button"
+                value="刪除"
+                class="btn btn-outline-danger border-secondary"
+                :class="{ disabled: item.isPublic }"
+                @click="openDeleteModal(item)"
+              />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <article-modal
+      ref="articleModal"
+      :article-data="tempArticle"
+      @update="getArticles"
+    ></article-modal>
+    <del-modal ref="deleteModal" :title="tempArticle.title" tab="文章" @delete-data="deleteArticle">
+    </del-modal>
   </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th class="text-center border-secondary">標題</th>
-        <th class="border-secondary">描述</th>
-        <th class="border-secondary">作者</th>
-        <th class="border-secondary">是否啟用</th>
-        <th class="border-secondary">操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        v-for="item in filterData"
-        :key="item.create_at"
-        :class="{ 'table-primary': item.isPublic }"
-      >
-        <td class="text-center">{{ item.title }}</td>
-        <td>{{ item.description }}</td>
-        <td>{{ item.author }}</td>
-        <td>
-          <div class="form-check form-switch">
-            <input
-              class="form-check-input me-2"
-              type="checkbox"
-              :id="item.id"
-              :checked="item.isPublic"
-              @change="getArticle(item.id, 'isPublic')"
-            />
-            <label class="form-check-label" :for="item.id">
-              {{ item.isPublic ? '已啟用' : '未啟用' }}
-              <span
-                class="spinner-border spinner-border-sm me-2"
-                role="status"
-                aria-hidden="true"
-                v-if="isLoading.itemID === item.id"
-              ></span>
-            </label>
-          </div>
-        </td>
-        <td>
-          <div class="btn-group">
-            <button
-              type="button"
-              class="btn btn-outline-dark border-secondary"
-              :class="{ disabled: item.isPublic }"
-              @click="getArticle(item.id, 'edit')"
-            >
-              修改
-            </button>
-            <input
-              type="button"
-              value="刪除"
-              class="btn btn-outline-danger border-secondary"
-              :class="{ disabled: item.isPublic }"
-              @click="openDeleteModal(item)"
-            />
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <article-modal
-    ref="articleModal"
-    :article-data="tempArticle"
-    @update="getArticles"
-  ></article-modal>
-  <del-modal ref="deleteModal" :title="tempArticle.title" tab="文章" @delete-data="deleteArticle">
-  </del-modal>
 </template>
 
 <script>

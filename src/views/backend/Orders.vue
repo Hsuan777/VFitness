@@ -1,87 +1,89 @@
 <template>
-  <loading :active="isLoading.status"></loading>
-  <div class="sticky-top bg-white ps-2 pt-2 mb-1">
-    <h2 class="h3">訂單列表</h2>
-    <div class="d-flex">
-      <page
-        :pages="totalPages"
-        :currentPage="currentPage"
-        @display-page="getOrders"
-        class="me-2"
-      ></page>
-      <search @filter-data="getFilterData"></search>
+  <div>
+    <loading :active="isLoading.status"></loading>
+    <div class="sticky-top bg-white ps-2 py-3 mb-1">
+      <h2 class="h3">訂單列表</h2>
+      <div class="d-flex">
+        <page
+          :pages="totalPages"
+          :currentPage="currentPage"
+          @display-page="getOrders"
+          class="me-2"
+        ></page>
+        <search @filter-data="getFilterData"></search>
+      </div>
     </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="100" class="text-center border-secondary">訂購人</th>
+          <th class="border-secondary">聯絡信箱</th>
+          <th class="border-secondary">連絡電話</th>
+          <th class="border-secondary">住址</th>
+          <th class="border-secondary">商品</th>
+          <th class="text-end border-secondary">總金額</th>
+          <th width="200" class="border-secondary">付款狀態</th>
+          <th class="border-secondary">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in filterData" :key="item.id" :class="{ 'table-primary': item.is_paid }">
+          <td class="text-center">{{ item.user.name }}</td>
+          <td>{{ item.user.email }}</td>
+          <td>{{ item.user.tel }}</td>
+          <td>{{ item.user.address }}</td>
+          <td>
+            <p v-for="productItem in item.products" :key="productItem.product.id" class="mb-0">
+              {{ productItem.product.title }}
+            </p>
+          </td>
+          <td class="text-end">{{ item.total }}</td>
+          <td>
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                :id="item.id"
+                :checked="item.is_paid"
+                @change="putOrder(item, 'isPaid')"
+              />
+              <label class="form-check-label" :for="item.id">
+                {{ item.is_paid ? '已付款' : '未付款' }}
+                <span
+                  class="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                  v-if="isLoading.itemID === item.id"
+                ></span>
+              </label>
+            </div>
+          </td>
+          <td>
+            <div class="btn-group">
+              <!-- 可以修改金額與付款狀態 -->
+              <input
+                type="button"
+                value="修改"
+                class="btn btn-outline-dark border-secondary"
+                :class="{ disabled: item.is_paid }"
+                @click="openEditModal(item)"
+              />
+              <input
+                type="button"
+                value="刪除"
+                class="btn btn-outline-danger border-secondary"
+                :class="{ disabled: !item.is_paid }"
+                @click="openDeleteModal(item)"
+              />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <order-modal ref="orderModal" :data="tempOrder" @edit-total="putOrder"></order-modal>
+    <del-modal ref="deleteModal" :title="tempOrder.user.name" tab="訂單" @delete-data="deleteOrder">
+    </del-modal>
   </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th width="100" class="text-center border-secondary">訂購人</th>
-        <th class="border-secondary">聯絡信箱</th>
-        <th class="border-secondary">連絡電話</th>
-        <th class="border-secondary">住址</th>
-        <th class="border-secondary">商品</th>
-        <th class="text-end border-secondary">總金額</th>
-        <th width="200" class="border-secondary">付款狀態</th>
-        <th class="border-secondary">操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in filterData" :key="item.id" :class="{ 'table-primary': item.is_paid }">
-        <td class="text-center">{{ item.user.name }}</td>
-        <td>{{ item.user.email }}</td>
-        <td>{{ item.user.tel }}</td>
-        <td>{{ item.user.address }}</td>
-        <td>
-          <p v-for="productItem in item.products" :key="productItem.product.id" class="mb-0">
-            {{ productItem.product.title }}
-          </p>
-        </td>
-        <td class="text-end">{{ item.total }}</td>
-        <td>
-          <div class="form-check form-switch">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              :id="item.id"
-              :checked="item.is_paid"
-              @change="putOrder(item, 'isPaid')"
-            />
-            <label class="form-check-label" :for="item.id">
-              {{ item.is_paid ? '已付款' : '未付款' }}
-              <span
-                class="spinner-border spinner-border-sm me-2"
-                role="status"
-                aria-hidden="true"
-                v-if="isLoading.itemID === item.id"
-              ></span>
-            </label>
-          </div>
-        </td>
-        <td>
-          <div class="btn-group">
-            <!-- 可以修改金額與付款狀態 -->
-            <input
-              type="button"
-              value="修改"
-              class="btn btn-outline-dark border-secondary"
-              :class="{ disabled: item.is_paid }"
-              @click="openEditModal(item)"
-            />
-            <input
-              type="button"
-              value="刪除"
-              class="btn btn-outline-danger border-secondary"
-              :class="{ disabled: !item.is_paid }"
-              @click="openDeleteModal(item)"
-            />
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <order-modal ref="orderModal" :data="tempOrder" @edit-total="putOrder"></order-modal>
-  <del-modal ref="deleteModal" :title="tempOrder.user.name" tab="訂單" @delete-data="deleteOrder">
-  </del-modal>
 </template>
 
 <script>

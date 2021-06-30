@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <!-- 置頂導覽列 -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
