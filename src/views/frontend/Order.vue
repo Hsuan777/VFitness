@@ -43,7 +43,10 @@
     <section>
       <h2 class="text-center fw-bolder mb-3 mb-lg-5">感謝您的訂購!</h2>
       <p class="h3 text-center">
-        以下是您的訂購資訊，<span class="d-md-none"><br/></span> 請確認後進行<span class="text-danger">付款</span>。
+        以下是您的訂購資訊，<span class="d-md-none"><br /></span> 請確認後進行<span
+          class="text-danger"
+          >付款</span
+        >。
       </p>
       <div class="row justify-content-center">
         <div class="col-lg-6">
@@ -110,23 +113,25 @@
               </tr>
               <tr>
                 <th>付款狀態</th>
-                <td>{{ order.is_paid ? '已付款' : '商家確認中' }}</td>
+                <td class="fw-bold" :class="`text-${order.is_paid ? 'success' : 'danger'}`">
+                  {{ order.is_paid ? '已付款' : '未付款' }}
+                </td>
               </tr>
             </tbody>
           </table>
           <!-- 無串接金流，故按下後自動付款 -->
           <input
-            v-if="order.total"
+            v-if="!order.is_paid"
             type="button"
             value="由此付款"
-            class="btn btn-primary text-white d-block w-50 mx-auto"
+            class="btn btn-primary btn-lg text-white d-block w-50 mx-auto"
             @click="payOrder"
           />
           <input
             v-else
             type="button"
-            value="無須付款，點擊確定"
-            class="btn btn-primary text-white d-block w-50 mx-auto"
+            value="繼續選購"
+            class="btn btn-primary btn-lg text-white d-block w-50 mx-auto"
             @click="this.$router.replace('/productsList')"
           />
         </div>
@@ -149,6 +154,7 @@ export default {
         },
         message: '',
       },
+      orders: [],
       percent: 0,
     };
   },
@@ -176,22 +182,21 @@ export default {
         });
     },
     payOrder() {
-      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}}/pay/${this.order.id}`;
+      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/pay/${this.order.id}`;
       this.axios
         .post(apiUrl)
         .then((res) => {
           if (res.data.success) {
-            this.$refs.toast.showToast('已通知商家付款資訊囉!');
+            console.log(res);
+            console.log(this.order.id);
+            this.$refs.toast.showToast('已完成付款並通知商家囉!');
             this.getOrder();
-            setTimeout(() => {
-              this.$router.replace('/productsList');
-            }, 1500);
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {
-          this.$refs.toast.showToast('未通知商家付款資訊，請稍後再試。', 'error');
+          this.$refs.toast.showToast('未完成付款，請稍後再試。', 'error');
         });
     },
     copyOrderID() {
