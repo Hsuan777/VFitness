@@ -86,6 +86,7 @@
               class="form-control"
               placeholder="請輸入訂單序號"
               v-model="orderID"
+              @keydown.enter="getOrder"
             />
             <button
               class="btn btn-outline-dark"
@@ -146,6 +147,9 @@ export default {
   },
   methods: {
     getOrder() {
+      if (!this.orderID) {
+        return;
+      }
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order/${this.orderID}`;
       this.axios
         .get(apiUrl)
