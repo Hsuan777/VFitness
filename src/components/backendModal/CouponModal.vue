@@ -69,7 +69,7 @@
                   class="form-control"
                   placeholder="英數較佳 e.g. VS777"
                   :class="{ 'is-invalid': errors['代碼'] }"
-                  rules="min:4|required"
+                  rules="min:5|required"
                   v-model="tempCoupon.code"
                 >
                 </Field>
