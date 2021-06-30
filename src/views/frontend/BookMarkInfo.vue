@@ -9,12 +9,32 @@
     </figure>
     <!-- 我的最愛內容 -->
     <div class="container mb-5">
-      <!-- 無資料 -->
-      <div v-if="!localStorageData[0]" class="row">
-        <div class="col-lg-4 mx-auto">
-          <div class="d-flex align-items-center py-5">
-            <router-link to="/productsList" class="btn btn-primary btn-lg text-white mx-auto"
-              >還沒有最愛喔！前往選購~</router-link
+      <!-- 無資料，額外產品-->
+      <div v-if="!localStorageData[0]">
+        <p class="h3">還沒有最愛喔，您可能也會有興趣 :</p>
+        <ul class="list-unstyled row g-1 row-cols-2 row-cols-md-4 mb-5">
+          <li class="product--hover col" v-for="item in randomData" :key="item.id">
+            <div class="card card-body border-0">
+              <router-link
+                :to="`/product/${item.id}`"
+                class="text-decoration-none link-dark stretched-link"
+              >
+                <img
+                  :src="item.imageUrl"
+                  alt="item.title"
+                  class="product__list__img mb-2 rounded-3"
+                />
+              </router-link>
+              <h3 class="h4 mb-0">{{ item.title }}</h3>
+            </div>
+          </li>
+        </ul>
+        <div class="row">
+          <div class="col d-flex justify-content-center">
+            <router-link
+              to="/productsList"
+              class="btn btn-primary btn-lg text-white"
+              >前往看更多~</router-link
             >
           </div>
         </div>
@@ -117,6 +137,8 @@ export default {
     return {
       localStorageData: [],
       cartsData: [],
+      products: [],
+      randomData: [],
       totalPages: 0,
       currentPage: 1,
       finalDisplayData: [],
@@ -124,6 +146,22 @@ export default {
   },
   props: ['cartsUpdate'],
   methods: {
+    getProductsAll() {
+      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
+      this.axios
+        .get(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.products = res.data.products;
+            this.randomProduct();
+          } else {
+            this.$refs.toast.showToast(res.data.message, 'error');
+          }
+        })
+        .catch(() => {
+          this.$refs.toast.showToast('無法取得商品全部資料喔!', 'error');
+        });
+    },
     setLocalStorage(item) {
       this.localStorageData.forEach((element, index) => {
         if (element.id === item.id) {
@@ -189,9 +227,22 @@ export default {
         this.changeDisplayData(this.currentPage);
       }
     },
+    randomNumber(max, min) {
+      return Math.floor(Math.random() * (max - min) + min);
+    },
+    randomProduct() {
+      const tempData = this.products;
+      this.randomData = [];
+      for (let x = 0; x < 4; x += 1) {
+        const y = this.randomNumber(tempData.length, 0);
+        this.randomData.push(this.products[y]);
+        tempData.splice(y, 1);
+      }
+    },
   },
   created() {
     this.getCartsList();
+    this.getProductsAll();
   },
   mounted() {
     this.localStorageData = JSON.parse(localStorage.getItem('myFavorite')) || [];
