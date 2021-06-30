@@ -135,7 +135,7 @@
                 <input
                   type="button"
                   value="更新購物車"
-                  class="btn btn-primary"
+                  class="btn btn-primary btn-sm"
                   @click="putCart(cartsOfProduct[0])"
                   v-if="cartsOfProduct[0].id"
                 />

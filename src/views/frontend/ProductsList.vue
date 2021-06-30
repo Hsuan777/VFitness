@@ -36,18 +36,12 @@
         <li class="product--hover col" v-for="item in finalDisplayData" :key="item.id">
           <div class="card card-body border-0">
             <!-- 產品圖片 -->
-            <router-link :to="`/product/${item.id}`" class="text-decoration-none link-dark">
-              <img
-                :src="item.imageUrl"
-                alt="item.title"
-                class="product__list__img mb-2 rounded-3"
-              />
-            </router-link>
+            <img :src="item.imageUrl" alt="item.title" class="product__list__img mb-2 rounded-3" />
             <!-- 產品標題 -->
             <h3 class="h4 mb-0">
               <router-link
                 :to="`/product/${item.id}`"
-                class="text-decoration-none text-dark d-block text-truncate"
+                class="text-decoration-none text-dark d-block text-truncate stretched-link"
               >
                 {{ item.title }}
               </router-link>
@@ -57,8 +51,8 @@
               <!-- 我的最愛按鈕 -->
               <button
                 type="button"
-                class="btn btn-link link-primary text-decoration-none d-flex align-items-center
-                  px-0"
+                class="product__list__functionBtn btn btn-link link-primary text-decoration-none
+                  d-flex align-items-center ps-0"
                 @click="setLocalStorage(item)"
               >
                 <span class="material-icons">
@@ -72,17 +66,19 @@
               <!-- 價格 -->
               <p class="display-7 mb-0">{{ $filters.currency(item.price) }}</p>
               <!-- 讀取效果 -->
-              <div
-                class="spinner-border spinner-border-sm text-danger me-3"
-                role="status"
+              <button
+                type="button"
+                class="btn btn-link link-dark ps-1"
                 v-if="isLoading.itemID === item.id"
               >
-                <span class="visually-hidden">Loading...</span>
-              </div>
+                <div class="spinner-border spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </button>
               <!-- 購物車按鈕 -->
               <button
                 type="button"
-                class="btn btn-link p-0"
+                class="product__list__functionBtn btn btn-link p-2"
                 @click="addCart(item)"
                 v-else-if="!checkCartsData(item.id)"
               >
@@ -92,13 +88,14 @@
                   class="studio__icon"
                 />
               </button>
-              <router-link :to="`/product/${item.id}`" class="btn btn-link link-dark p-0" v-else>
+              <!-- 為了排版等高 -->
+              <button type="button" class="btn btn-link link-dark p-2" v-else>
                 <img
                   src="../../assets/images/bi-cart-check.svg"
                   alt="checkCart"
                   class="studio__icon"
                 />
-              </router-link>
+              </button>
             </div>
             <!-- 商品描述 -->
             <p class="mb-0">{{ item.description }}</p>

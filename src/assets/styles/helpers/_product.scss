@@ -23,6 +23,9 @@
     }
   }
   &__list {
+    &__functionBtn {
+      z-index: 99;
+    }
     &__img {
       height: 210px;
       @include media-breakpoint-down(lg) {
