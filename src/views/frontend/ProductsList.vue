@@ -83,7 +83,7 @@
                 v-else-if="!checkCartsData(item.id)"
               >
                 <img
-                  src="@/assets/images/bi-cart-plus.svg"
+                  src="@/assets/images/icon/bi-cart-plus.svg"
                   alt="addCart"
                   class="studio__icon"
                 />
@@ -91,7 +91,7 @@
               <!-- 為了排版等高 -->
               <button type="button" class="btn btn-link link-dark p-2" v-else>
                 <img
-                  src="@/assets/images/bi-cart-check.svg"
+                  src="@/assets/images/icon/bi-cart-check.svg"
                   alt="checkCart"
                   class="studio__icon"
                 />

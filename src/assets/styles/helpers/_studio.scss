@@ -38,7 +38,7 @@
       z-index: 99;
     }
     &__home {
-      background-image: url('https://images.unsplash.com/photo-1558611848-73f7eb4001a1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=1080');
+      background-image: url('~@/assets/images/banner/studio.jpg');
       @include media-breakpoint-down(lg) {
         background-position: 20% center;
         height: 350px;
@@ -49,13 +49,13 @@
       }
     }
     &__about {
-      background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+      background-image: url('~@/assets/images/banner/about.jpg');
     }
     &__questions {
-      background-image: url('https://images.unsplash.com/photo-1598575468023-85b93d887c3f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+      background-image: url('~@/assets/images/banner/questions.jpg');
     }
     &__bookMark {
-      background-image: url('https://images.unsplash.com/photo-1526401485004-46910ecc8e51?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+      background-image: url('~@/assets/images/banner/bookMark.jpg');
     }
   }
   // 工作室目標區塊
@@ -109,7 +109,7 @@
   // 訂閱區塊
   &__subscribe {
     height: 300px;
-    background-image: url('https://images.unsplash.com/photo-1535743686920-55e4145369b9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+    background-image: url('~@/assets/images/subscribe.jpg');
     background-position: center;
     @include media-breakpoint-down(lg) {
       height: 200px;

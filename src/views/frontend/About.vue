@@ -23,7 +23,7 @@
         </div>
         <div class="col-md-6">
           <img
-            src="https://images.unsplash.com/photo-1519859660545-3dea8ddf683c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80"
+            src="@/assets/images/about/gym.jpg"
             alt="健身運動"
           />
         </div>
@@ -42,7 +42,7 @@
         </div>
         <div class="col-md-6">
           <img
-            src="https://images.unsplash.com/photo-1614928228253-dc09cbc3b11c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
+            src="@/assets/images/about/proCoach.jpg"
             alt="專業教練"
           />
         </div>
@@ -62,7 +62,7 @@
         </div>
         <div class="col-md-6">
           <img
-            src="https://images.unsplash.com/photo-1519311965067-36d3e5f33d39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
+            src="@/assets/images/about/juncture.jpg"
             alt="成立契機"
           />
         </div>

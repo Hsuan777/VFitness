@@ -111,7 +111,7 @@
                     @click="deleteCartAll"
                   >
                     <img
-                      src="@/assets/images/bi-cart-x.svg"
+                      src="@/assets/images/icon/bi-cart-x.svg"
                       alt="deleteCartAll"
                       class="studio__icon"
                     />
