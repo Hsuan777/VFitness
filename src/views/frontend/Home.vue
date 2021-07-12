@@ -244,15 +244,13 @@ export default {
             const cartsOfProduct = cartsData.carts.filter(
               (item) => item.product.id === this.experienceClass[0].id,
             );
+            this.classIsExist = false;
             if (cartsOfProduct[0] === undefined) {
               return;
             }
             if (cartsOfProduct[0].product_id === this.experienceClass[0].id) {
               this.classIsExist = true;
-            } else {
-              this.classIsExist = false;
             }
-            console.log(this.classIsExist);
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
