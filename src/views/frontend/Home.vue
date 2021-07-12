@@ -4,8 +4,14 @@
     <figure class="studio__banner studio__banner__home d-flex align-items-center mb-5">
       <div class="container mt-5">
         <h1 class="text-white display-3 fw-bolder mb-3">維克健身餐飲<br />複合工作室</h1>
-        <button type="button" class="btn btn-primary">
-          <span class="display-7" @click="addCart('-McmoIyQylGhUmoGMWBX', 1)">立即體驗</span>
+        <button
+          v-if="experienceClass[0]"
+          type="button"
+          class="btn btn-primary"
+          :disabled="isLoading.itemID === experienceClass[0].id || classIsExist"
+          @click="addCart(experienceClass[0].id, 1)"
+        >
+          <span class="display-7">立即體驗</span>
         </button>
       </div>
     </figure>
@@ -23,11 +29,7 @@
             <p>三分練，七分吃，增肌減脂都適合</p>
           </div>
           <div class="col-md-6 col-lg-7">
-            <img
-              src="@/assets/images/home/food.jpg"
-              alt="減脂餐(豬肉)"
-              class="w-100 rounded"
-            />
+            <img src="@/assets/images/home/food.jpg" alt="減脂餐(豬肉)" class="w-100 rounded" />
           </div>
         </li>
         <!-- 一對一訓練 -->
@@ -40,11 +42,7 @@
             <p>讓專業教練打造更好的自己</p>
           </div>
           <div class="col-md-6 col-lg-7">
-            <img
-              src="@/assets/images/home/oneToone.jpg"
-              alt="一對一訓練"
-              class="w-100 rounded"
-            />
+            <img src="@/assets/images/home/oneToone.jpg" alt="一對一訓練" class="w-100 rounded" />
           </div>
         </li>
         <!-- 團課訓練 -->
@@ -58,11 +56,7 @@
             <p>找到有共同興趣的同伴</p>
           </div>
           <div class="col-md-6 col-lg-7">
-            <img
-              src="@/assets/images/home/groupClasses.jpg"
-              alt="團課訓練"
-              class="w-100 rounded"
-            />
+            <img src="@/assets/images/home/groupClasses.jpg" alt="團課訓練" class="w-100 rounded" />
           </div>
         </li>
       </ul>
@@ -125,7 +119,7 @@
       </div>
     </section>
     <Subscribe></Subscribe>
-    <toast ref="toast"></toast>
+    <Toast ref="toast"></Toast>
   </div>
 </template>
 
@@ -193,6 +187,8 @@ export default {
             '以前我對於外表很沒有自信，自從報名教學班後，逐漸對健身越來越有興趣，現在我不再對自己沒有信心，反而更願意嘗試新事物，健身可以說是改變我一生的興趣。',
         },
       ],
+      experienceClass: [],
+      classIsExist: false,
     };
   },
   emits: ['update'],
@@ -202,9 +198,10 @@ export default {
       this.axios
         .get(apiUrl)
         .then((res) => {
-          this.isLoading.status = false;
           if (res.data.success) {
             this.products = res.data.products;
+            this.experienceClass = this.products.filter((item) => item.title === '體驗課程');
+            this.checkCartsList();
             this.randomProduct();
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
@@ -222,10 +219,10 @@ export default {
         .post(apiUrl, productData)
         .then((res) => {
           if (res.data.success) {
-            this.isLoading.itemID = '';
             this.$emit('update');
             this.$refs.toast.showToast('感謝您的預約! 畫面跳轉後再請您填寫資料。');
             setTimeout(() => {
+              this.isLoading.itemID = '';
               this.$router.push('/checkoutInfo');
             }, 3000);
           } else {
@@ -234,6 +231,30 @@ export default {
         })
         .catch(() => {
           this.$refs.toast.showToast('無法加入購物車喔!', 'error');
+        });
+    },
+    checkCartsList() {
+      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
+      this.axios
+        .get(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            const cartsData = res.data.data;
+            const cartsOfProduct = cartsData.carts.filter(
+              (item) => item.product.id === this.experienceClass[0].id,
+            );
+            if (cartsOfProduct[0] === undefined) {
+              return;
+            }
+            if (cartsOfProduct[0].product_id === this.experienceClass[0].id) {
+              this.classIsExist = true;
+            }
+          } else {
+            this.$refs.toast.showToast(res.data.message, 'error');
+          }
+        })
+        .catch(() => {
+          this.$refs.toast.showToast('無法取得購物車資料喔!', 'error');
         });
     },
     randomNumber(max, min) {

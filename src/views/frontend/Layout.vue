@@ -193,6 +193,7 @@
       </div>
     </footer>
     <TrackModal ref="trackModal"></TrackModal>
+    <Toast ref="toast"></Toast>
   </div>
 </template>
 

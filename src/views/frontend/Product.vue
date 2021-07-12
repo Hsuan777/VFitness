@@ -233,7 +233,6 @@ export default {
       this.axios
         .get(apiUrl)
         .then((res) => {
-          this.isLoading.status = false;
           if (res.data.success) {
             this.products = res.data.products;
             this.randomProduct();
@@ -251,9 +250,9 @@ export default {
       this.axios
         .get(apiUrl)
         .then((res) => {
-          this.isLoading.status = false;
           if (res.data.success) {
             this.product = res.data.product;
+            this.isLoading.status = false;
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }

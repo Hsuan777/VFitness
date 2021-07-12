@@ -136,9 +136,9 @@ export default {
       this.axios
         .get(apiUrl)
         .then((res) => {
-          this.isLoading.status = false;
           if (res.data.success) {
             this.products = res.data.products;
+            this.isLoading.status = false;
             this.changeDisplayData();
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
