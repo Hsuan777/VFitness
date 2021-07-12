@@ -1,6 +1,6 @@
 <template>
   <div>
-    <loading :active="isLoading.status"></loading>
+    <Loading :active="isLoading.status"></Loading>
     <!-- 產品區 -->
     <section class="container border-bottom my-5 pb-5">
       <div class="row">
@@ -187,13 +187,13 @@
         </li>
       </ul>
     </section>
-    <subscribe></subscribe>
+    <Subscribe></Subscribe>
     <toast ref="toast"></toast>
   </div>
 </template>
 
 <script>
-import subscribe from '@/components/frontend/Subscribe.vue';
+import Subscribe from '@/components/frontend/Subscribe.vue';
 
 export default {
   data() {
@@ -372,7 +372,7 @@ export default {
     },
   },
   components: {
-    subscribe,
+    Subscribe,
   },
   created() {
     this.getProductsAll();

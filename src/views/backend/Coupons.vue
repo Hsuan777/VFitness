@@ -1,6 +1,6 @@
 <template>
   <div>
-    <loading :active="isLoading.status"></loading>
+    <Loading :active="isLoading.status"></Loading>
     <div class="sticky-top bg-white ps-2 py-3 mb-1">
       <h2 class="h3">優惠券列表</h2>
       <div class="d-flex">
@@ -10,15 +10,15 @@
           class="btn btn-primary me-2"
           @click="openCouponModal(this.coupon)"
         />
-        <page
+        <Page
           :pages="totalPages"
           :currentPage="currentPage"
           @display-page="getCoupons"
           class="me-2"
-        ></page>
+        ></Page>
         <div class="input-group">
           <span class="input-group-text">搜尋優惠券名稱</span>
-          <search @filter-data="getFilterData"></search>
+          <Search @filter-data="getFilterData"></Search>
         </div>
       </div>
     </div>
@@ -81,15 +81,15 @@
         </tr>
       </tbody>
     </table>
-    <coupon-modal ref="couponModal" :coupon-data="tempCoupon" @update="getCoupons"></coupon-modal>
-    <del-modal ref="deleteModal" :title="tempCoupon.code" tab="優惠券" @delete-data="deleteCoupon">
-    </del-modal>
+    <CouponModal ref="couponModal" :coupon-data="tempCoupon" @update="getCoupons"></CouponModal>
+    <DelModal ref="deleteModal" :title="tempCoupon.code" tab="優惠券" @delete-data="deleteCoupon">
+    </DelModal>
   </div>
 </template>
 
 <script>
-import couponModal from '@/components/backendModal/CouponModal.vue';
-import delModal from '@/components/backendModal/DeleteModal.vue';
+import CouponModal from '@/components/backendModal/CouponModal.vue';
+import DelModal from '@/components/backendModal/DeleteModal.vue';
 
 export default {
   data() {
@@ -187,8 +187,8 @@ export default {
     this.getCoupons();
   },
   components: {
-    couponModal,
-    delModal,
+    CouponModal,
+    DelModal,
   },
   computed: {
     filterData() {

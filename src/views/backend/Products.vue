@@ -1,6 +1,6 @@
 <template>
   <div>
-    <loading :active="isLoading.status"></loading>
+    <Loading :active="isLoading.status"></Loading>
     <div class="sticky-top bg-white ps-2 py-3 mb-1">
       <h2 class="h3">商品列表</h2>
       <div class="d-flex">
@@ -10,15 +10,15 @@
           class="btn btn-primary"
           @click="openProductModal(this.product)"
         />
-        <page
+        <Page
           :pages="totalPages"
           :currentPage="currentPage"
           @display-page="getProducts"
           class="mx-2"
-        ></page>
+        ></Page>
         <div class="input-group">
           <span class="input-group-text">搜尋商品標題</span>
-          <search @filter-data="getFilterData"></search>
+          <Search @filter-data="getFilterData"></Search>
         </div>
       </div>
     </div>
@@ -90,19 +90,19 @@
         </tr>
       </tbody>
     </table>
-    <product-modal
+    <ProductModal
       ref="productModal"
       :product-data="tempProduct"
       @update="getProducts"
-    ></product-modal>
-    <del-modal ref="deleteModal" :title="tempProduct.title" tab="商品" @delete-data="deleteProduct">
-    </del-modal>
+    ></ProductModal>
+    <DelModal ref="deleteModal" :title="tempProduct.title" tab="商品" @delete-data="deleteProduct">
+    </DelModal>
   </div>
 </template>
 
 <script>
-import productModal from '@/components/backendModal/ProductModal.vue';
-import delModal from '@/components/backendModal/DeleteModal.vue';
+import ProductModal from '@/components/backendModal/ProductModal.vue';
+import DelModal from '@/components/backendModal/DeleteModal.vue';
 
 export default {
   data() {
@@ -218,8 +218,8 @@ export default {
     this.getProducts();
   },
   components: {
-    productModal,
-    delModal,
+    ProductModal,
+    DelModal,
   },
   computed: {
     filterData() {

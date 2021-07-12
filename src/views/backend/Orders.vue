@@ -1,16 +1,16 @@
 <template>
   <div>
-    <loading :active="isLoading.status"></loading>
+    <Loading :active="isLoading.status"></Loading>
     <div class="sticky-top bg-white ps-2 py-3 mb-1">
       <h2 class="h3">訂單列表</h2>
       <div class="d-flex">
-        <page
+        <Page
           :pages="totalPages"
           :currentPage="currentPage"
           @display-page="getOrders"
           class="me-2"
-        ></page>
-        <search @filter-data="getFilterData"></search>
+        ></Page>
+        <Search @filter-data="getFilterData"></Search>
       </div>
     </div>
     <table class="table">
@@ -80,15 +80,15 @@
         </tr>
       </tbody>
     </table>
-    <order-modal ref="orderModal" :data="tempOrder" @edit-total="putOrder"></order-modal>
-    <del-modal ref="deleteModal" :title="tempOrder.user.name" tab="訂單" @delete-data="deleteOrder">
-    </del-modal>
+    <OrderModal ref="orderModal" :data="tempOrder" @edit-total="putOrder"></OrderModal>
+    <DelModal ref="deleteModal" :title="tempOrder.user.name" tab="訂單" @delete-data="deleteOrder">
+    </DelModal>
   </div>
 </template>
 
 <script>
-import orderModal from '@/components/backendModal/OrderModal.vue';
-import delModal from '@/components/backendModal/DeleteModal.vue';
+import OrderModal from '@/components/backendModal/OrderModal.vue';
+import DelModal from '@/components/backendModal/DeleteModal.vue';
 
 export default {
   data() {
@@ -178,8 +178,8 @@ export default {
     },
   },
   components: {
-    orderModal,
-    delModal,
+    OrderModal,
+    DelModal,
   },
   computed: {
     filterData() {

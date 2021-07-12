@@ -111,20 +111,20 @@
         </li>
       </ul>
       <div class="d-flex justify-content-center mb-5">
-        <page
+        <Page
           :pages="totalPages"
           :currentPage="currentPage"
           @display-page="changeDisplayData"
-        ></page>
+        ></Page>
       </div>
     </div>
     <toast ref="toast"></toast>
-    <subscribe></subscribe>
+    <Subscribe></Subscribe>
   </section>
 </template>
 
 <script>
-import subscribe from '@/components/frontend/Subscribe.vue';
+import Subscribe from '@/components/frontend/Subscribe.vue';
 
 export default {
   data() {
@@ -244,7 +244,7 @@ export default {
     this.changeDisplayData();
   },
   components: {
-    subscribe,
+    Subscribe,
   },
   watch: {
     cartsUpdate(value) {

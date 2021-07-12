@@ -1,6 +1,6 @@
 <template>
   <div>
-    <loading :active="isLoading.status"></loading>
+    <Loading :active="isLoading.status"></Loading>
     <div class="container my-5">
       <div class="row">
         <!-- 購物流程 -->

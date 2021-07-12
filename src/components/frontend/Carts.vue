@@ -44,7 +44,7 @@
         >前往選購</router-link
       >
     </div>
-    <toast ref="toast"></toast>
+    <Toast ref="toast"></Toast>
   </section>
 </template>
 

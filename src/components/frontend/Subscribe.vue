@@ -32,7 +32,7 @@
         </div>
       </div>
     </figure>
-    <toast ref="toast"></toast>
+    <Toast ref="toast"></Toast>
   </div>
 </template>
 

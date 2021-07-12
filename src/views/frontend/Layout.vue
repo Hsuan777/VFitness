@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 置頂導覽列 -->
-    <scorll-top></scorll-top>
+    <ScorllTop></ScorllTop>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
       <div class="container position-relative">
         <router-link
@@ -108,7 +108,7 @@
               ref="cartsComponent"
               class="dropdown-menu dropdown-menu-end me-2"
             >
-              <carts :carts-data="cartsData" @update="getCartsList"></carts>
+              <Carts :carts-data="cartsData" @update="getCartsList"></Carts>
             </div>
           </div>
         </div>
@@ -192,16 +192,15 @@
         </div>
       </div>
     </footer>
-    <track-modal ref="trackModal"></track-modal>
-    <toast ref="toast"></toast>
+    <TrackModal ref="trackModal"></TrackModal>
   </div>
 </template>
 
 <script>
 import Collapse from 'bootstrap/js/dist/collapse';
-import carts from '@/components/frontend/Carts.vue';
-import trackModal from '@/components/frontend/TrackModal.vue';
-import scorllTop from '@/components/tools/ScorllTop.vue';
+import Carts from '@/components/frontend/Carts.vue';
+import TrackModal from '@/components/frontend/TrackModal.vue';
+import ScorllTop from '@/components/tools/ScorllTop.vue';
 
 export default {
   data() {
@@ -251,9 +250,9 @@ export default {
     },
   },
   components: {
-    carts,
-    trackModal,
-    scorllTop,
+    Carts,
+    TrackModal,
+    ScorllTop,
   },
   computed: {
     cartsCount() {

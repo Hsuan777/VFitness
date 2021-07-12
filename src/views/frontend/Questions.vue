@@ -38,12 +38,12 @@
         </div>
       </div>
     </div>
-    <subscribe></subscribe>
+    <Subscribe></Subscribe>
   </section>
 </template>
 
 <script>
-import subscribe from '@/components/frontend/Subscribe.vue';
+import Subscribe from '@/components/frontend/Subscribe.vue';
 
 export default {
   data() {
@@ -87,7 +87,7 @@ export default {
     };
   },
   components: {
-    subscribe,
+    Subscribe,
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <loading :active="isLoading.status"></loading>
+    <Loading :active="isLoading.status"></Loading>
     <div class="sticky-top bg-white ps-2 py-2 mb-1">
       <h2 class="h3">文章列表</h2>
       <div class="d-flex align-items-center">
@@ -10,15 +10,15 @@
           class="btn btn-primary me-2"
           @click="openArticleModal(this.article)"
         />
-        <page
+        <Page
           :pages="totalPages"
           :currentPage="currentPage"
           @display-page="getArticles"
           class="me-2"
-        ></page>
+        ></Page>
         <div class="input-group">
           <span class="input-group-text">搜尋文章標題</span>
-          <search @filter-data="getFilterData"></search>
+          <Search @filter-data="getFilterData"></Search>
         </div>
       </div>
     </div>
@@ -83,19 +83,19 @@
         </tr>
       </tbody>
     </table>
-    <article-modal
+    <ArticleModal
       ref="articleModal"
       :article-data="tempArticle"
       @update="getArticles"
-    ></article-modal>
-    <del-modal ref="deleteModal" :title="tempArticle.title" tab="文章" @delete-data="deleteArticle">
-    </del-modal>
+    ></ArticleModal>
+    <DelModal  ref="deleteModal" :title="tempArticle.title" tab="文章" @delete-data="deleteArticle">
+    </DelModal>
   </div>
 </template>
 
 <script>
-import articleModal from '@/components/backendModal/ArticleModal.vue';
-import delModal from '@/components/backendModal/DeleteModal.vue';
+import ArticleModal from '@/components/backendModal/ArticleModal.vue';
+import DelModal from '@/components/backendModal/DeleteModal.vue';
 
 export default {
   data() {
@@ -215,8 +215,8 @@ export default {
     this.getArticles();
   },
   components: {
-    articleModal,
-    delModal,
+    ArticleModal,
+    DelModal,
   },
   computed: {
     filterData() {
