@@ -195,6 +195,7 @@ export default {
       ],
     };
   },
+  emits: ['update'],
   methods: {
     getProductsAll() {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;

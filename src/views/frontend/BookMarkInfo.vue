@@ -138,6 +138,7 @@ export default {
       finalDisplayData: [],
     };
   },
+  emits: ['update'],
   props: ['cartsUpdate'],
   methods: {
     getProductsAll() {

@@ -113,6 +113,7 @@ export default {
       percent: 0,
     };
   },
+  emits: ['editTotal'],
   props: ['data'],
   methods: {
     editTotal() {

@@ -131,6 +131,7 @@ export default {
       },
     };
   },
+  emits: ['update'],
   props: ['couponData'],
   methods: {
     addCoupon() {

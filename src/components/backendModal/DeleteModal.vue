@@ -40,6 +40,7 @@ export default {
       modal: {},
     };
   },
+  emits: ['delete-data'],
   props: ['title', 'tab'],
   methods: {
     showModal() {

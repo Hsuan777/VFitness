@@ -412,6 +412,7 @@ export default {
       },
     };
   },
+  emits: ['update'],
   props: ['productData'],
   methods: {
     addProduct() {

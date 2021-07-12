@@ -58,6 +58,7 @@ export default {
       },
     };
   },
+  emits: ['update'],
   props: ['cartsData'],
   methods: {
     deleteCart(item) {

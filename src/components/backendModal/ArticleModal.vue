@@ -177,6 +177,7 @@ export default {
       },
     };
   },
+  emits: ['update'],
   props: ['articleData'],
   methods: {
     addArticle() {

@@ -175,6 +175,7 @@ export default {
       percent: 0,
     };
   },
+  emits: ['update'],
   props: ['cartsUpdate'],
   methods: {
     getCartsList() {

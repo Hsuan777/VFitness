@@ -225,6 +225,7 @@ export default {
       localStorageData: [],
     };
   },
+  emits: ['update'],
   props: ['cartsUpdate'],
   methods: {
     getProductsAll() {

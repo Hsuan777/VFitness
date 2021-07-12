@@ -58,6 +58,7 @@
 
 <script>
 export default {
+  emits: ['display-page'],
   props: {
     pages: {
       type: Number,
