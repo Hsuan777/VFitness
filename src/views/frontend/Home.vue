@@ -11,7 +11,7 @@
           :disabled="isLoading.itemID === experienceClass[0].id || classIsExist"
           @click="addCart(experienceClass[0].id, 1)"
         >
-          <span class="display-7">立即體驗</span>
+          <span class="display-7">{{ classIsExist ? '已預約' : '立即體驗'}}</span>
         </button>
       </div>
     </figure>
@@ -192,6 +192,7 @@ export default {
     };
   },
   emits: ['update'],
+  props: ['cartsUpdate'],
   methods: {
     getProductsAll() {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
@@ -248,7 +249,10 @@ export default {
             }
             if (cartsOfProduct[0].product_id === this.experienceClass[0].id) {
               this.classIsExist = true;
+            } else {
+              this.classIsExist = false;
             }
+            console.log(this.classIsExist);
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
@@ -280,6 +284,13 @@ export default {
   },
   created() {
     this.getProductsAll();
+  },
+  watch: {
+    cartsUpdate(value) {
+      if (value) {
+        this.getProductsAll();
+      }
+    },
   },
 };
 </script>
