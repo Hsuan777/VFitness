@@ -281,8 +281,7 @@ export default {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
-        .catch((res) => {
-          console.log(res);
+        .catch(() => {
           this.$refs.toast.showToast('無法取得購物車資料喔!', 'error');
         });
     },

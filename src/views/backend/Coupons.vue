@@ -167,9 +167,8 @@ export default {
           }
           this.isLoading.itemID = '';
         })
-        .catch((res) => {
+        .catch(() => {
           this.swal('無法刪除資料喔～快去看什麼問題吧！', 'error');
-          console.log(res);
         });
     },
     openCouponModal(item) {

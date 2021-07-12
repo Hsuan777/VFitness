@@ -166,8 +166,7 @@ export default {
             this.$refs.toast.showToast('查無此訂單喔！', 'error');
           }
         })
-        .catch((res) => {
-          console.log(res);
+        .catch(() => {
           this.$refs.toast.showToast('無法取得資料喔～', 'error');
         });
     },

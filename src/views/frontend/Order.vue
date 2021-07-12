@@ -187,8 +187,6 @@ export default {
         .post(apiUrl)
         .then((res) => {
           if (res.data.success) {
-            console.log(res);
-            console.log(this.order.id);
             this.$refs.toast.showToast('已完成付款並通知商家囉!');
             this.getOrder();
           } else {
