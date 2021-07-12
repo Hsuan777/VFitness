@@ -88,8 +88,8 @@
 </template>
 
 <script>
-import couponModal from '../../components/backendModal/CouponModal.vue';
-import delModal from '../../components/backendModal/DeleteModal.vue';
+import couponModal from '@/components/backendModal/CouponModal.vue';
+import delModal from '@/components/backendModal/DeleteModal.vue';
 
 export default {
   data() {

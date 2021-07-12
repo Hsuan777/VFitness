@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import subscribe from '../../components/frontend/Subscribe.vue';
+import subscribe from '@/components/frontend/Subscribe.vue';
 
 export default {
   data() {

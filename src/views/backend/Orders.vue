@@ -87,8 +87,8 @@
 </template>
 
 <script>
-import orderModal from '../../components/backendModal/OrderModal.vue';
-import delModal from '../../components/backendModal/DeleteModal.vue';
+import orderModal from '@/components/backendModal/OrderModal.vue';
+import delModal from '@/components/backendModal/DeleteModal.vue';
 
 export default {
   data() {

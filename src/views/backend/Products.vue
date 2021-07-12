@@ -101,8 +101,8 @@
 </template>
 
 <script>
-import productModal from '../../components/backendModal/ProductModal.vue';
-import delModal from '../../components/backendModal/DeleteModal.vue';
+import productModal from '@/components/backendModal/ProductModal.vue';
+import delModal from '@/components/backendModal/DeleteModal.vue';
 
 export default {
   data() {

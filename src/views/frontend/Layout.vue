@@ -23,7 +23,7 @@
             @click="closeCollapseNavbar"
           >
             <img
-              src="../../assets/images/bi-cart-check-white.svg"
+              src="@/assets/images/bi-cart-check-white.svg"
               alt="addCart"
               class="studio__icon__nav me-2"
             />
@@ -95,7 +95,7 @@
               data-bs-display="static"
             >
               <img
-                src="../../assets/images/bi-cart-check-white.svg"
+                src="@/assets/images/bi-cart-check-white.svg"
                 alt="addCart"
                 class="studio__icon__nav me-2"
               />
@@ -151,13 +151,13 @@
           <div class="col-lg-6 mb-2 mb-lg-0">
             <div class="d-flex justify-content-lg-end">
               <a href="https://www.facebook.com/" target="_block">
-                <img src="../../assets/images/ic_social_fb.svg" alt="FB" />
+                <img src="@/assets/images/ic_social_fb.svg" alt="FB" />
               </a>
               <a href="https://www.instagram.com/" target="_block" class="mx-3">
-                <img src="../../assets/images/ic_social_ig.svg" alt="IG" />
+                <img src="@/assets/images/ic_social_ig.svg" alt="IG" />
               </a>
               <a href="https://line.me/zh-hant/" target="_block">
-                <img src="../../assets/images/ic_social_line.svg" alt="LINE" />
+                <img src="@/assets/images/ic_social_line.svg" alt="LINE" />
               </a>
             </div>
           </div>
@@ -199,9 +199,9 @@
 
 <script>
 import Collapse from 'bootstrap/js/dist/collapse';
-import carts from '../../components/frontend/Carts.vue';
-import trackModal from '../../components/frontend/TrackModal.vue';
-import scorllTop from '../../components/tools/ScorllTop.vue';
+import carts from '@/components/frontend/Carts.vue';
+import trackModal from '@/components/frontend/TrackModal.vue';
+import scorllTop from '@/components/tools/ScorllTop.vue';
 
 export default {
   data() {
