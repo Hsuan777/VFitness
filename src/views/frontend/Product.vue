@@ -102,50 +102,54 @@
               <div class="d-flex">
                 <!-- 讀取效果  -->
                 <div
-                  class="spinner-border text-primary me-auto"
+                  class="spinner-border text-primary ms-auto me-3"
                   role="status"
                   v-if="isLoading.itemID"
                 >
                   <span class="visually-hidden">Loading...</span>
                 </div>
-                <!-- 購物車按鈕購物 -->
-                <div class="input-group me-3" v-else>
-                  <button
-                    class="btn btn-outline-primary border-secondary"
-                    type="button"
-                    @click="cartsOfProduct[0].qty -= 1"
-                    :disabled="cartsOfProduct[0].qty - 1 === 0"
-                  >
-                    -
-                  </button>
+                <template v-else>
+                  <!-- 購物車數量按鈕群組 -->
+                  <div class="input-group me-3">
+                    <button
+                      class="btn btn-outline-primary border-secondary"
+                      type="button"
+                      @click="cartsOfProduct[0].qty -= 1"
+                      :disabled="cartsOfProduct[0].qty - 1 === 0"
+                    >
+                      -
+                    </button>
+                    <input
+                      type="text"
+                      class="form-control text-center bg-white"
+                      v-model="cartsOfProduct[0].qty"
+                      disabled
+                    />
+                    <button
+                      class="btn btn-outline-primary"
+                      type="button"
+                      @click="cartsOfProduct[0].qty += 1"
+                    >
+                      +
+                    </button>
+                  </div>
+                  <!-- 更新購物車 -->
                   <input
-                    type="text"
-                    class="form-control text-center bg-white"
-                    v-model="cartsOfProduct[0].qty"
-                    disabled
-                  />
-                  <button
-                    class="btn btn-outline-primary"
                     type="button"
-                    @click="cartsOfProduct[0].qty += 1"
-                  >
-                    +
-                  </button>
-                </div>
-                <input
-                  type="button"
-                  value="更新購物車"
-                  class="btn btn-primary btn-sm"
-                  @click="putCart(cartsOfProduct[0])"
-                  v-if="cartsOfProduct[0].id"
-                />
-                <input
-                  type="button"
-                  value="加入購物車"
-                  class="btn btn-primary"
-                  @click="addCart(product, cartsOfProduct[0].qty)"
-                  v-else
-                />
+                    value="更新購物車"
+                    class="btn btn-primary btn-sm me-2"
+                    @click="putCart(cartsOfProduct[0])"
+                    v-if="cartsOfProduct[0].id"
+                  />
+                  <!-- 加入購物車 -->
+                  <input
+                    type="button"
+                    value="加入購物車"
+                    class="btn btn-primary"
+                    @click="addCart(product, cartsOfProduct[0].qty)"
+                    v-else
+                  />
+                </template>
                 <!-- 我的最愛按鈕 -->
                 <button
                   type="button"

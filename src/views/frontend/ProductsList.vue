@@ -33,8 +33,8 @@
     <!-- 商品列表 -->
     <section class="container">
       <ul class="list-unstyled row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4">
-        <li class="product--hover col" v-for="item in finalDisplayData" :key="item.id">
-          <div class="card card-body border-0">
+        <li class="col" v-for="item in finalDisplayData" :key="item.id">
+          <div class="product--hover card card-body border-0">
             <!-- 產品圖片 -->
             <img :src="item.imageUrl" alt="item.title" class="product__list__img mb-2 rounded-3" />
             <!-- 產品標題 -->
@@ -48,11 +48,13 @@
             </h3>
             <!-- 價格與購物車 -->
             <div class="d-flex justify-content-between align-items-center my-2 pb-2 border-bottom">
+              <!-- 價格 -->
+              <p class="display-7 mb-0 me-2">{{ $filters.currency(item.price) }}</p>
               <!-- 我的最愛按鈕 -->
               <button
                 type="button"
                 class="product__list__functionBtn btn btn-link link-primary text-decoration-none
-                  d-flex align-items-center ps-0"
+                  d-flex align-items-center me-auto"
                 @click="setLocalStorage(item)"
               >
                 <span class="material-icons">
@@ -63,8 +65,6 @@
                   }}
                 </span>
               </button>
-              <!-- 價格 -->
-              <p class="display-7 mb-0">{{ $filters.currency(item.price) }}</p>
               <!-- 讀取效果 -->
               <button
                 type="button"
@@ -75,27 +75,33 @@
                   <span class="visually-hidden">Loading...</span>
                 </div>
               </button>
-              <!-- 購物車按鈕 -->
-              <button
-                type="button"
-                class="product__list__functionBtn btn btn-link p-2"
-                @click="addCart(item)"
-                v-else-if="!checkCartsData(item.id)"
-              >
-                <img
-                  src="@/assets/images/icon/bi-cart-plus.svg"
-                  alt="addCart"
-                  class="studio__icon"
-                />
-              </button>
-              <!-- 為了排版等高 -->
-              <button type="button" class="btn btn-link link-dark p-2" v-else>
-                <img
-                  src="@/assets/images/icon/bi-cart-check.svg"
-                  alt="checkCart"
-                  class="studio__icon"
-                />
-              </button>
+              <template v-else>
+                <!-- 購物車按鈕 -->
+                <button
+                  type="button"
+                  class="product__list__functionBtn btn btn-link p-2"
+                  @click="addCart(item)"
+                  v-if="!checkCartsData(item.id)"
+                >
+                  <img
+                    src="@/assets/images/icon/bi-cart-plus.svg"
+                    alt="addCart"
+                    class="studio__icon"
+                  />
+                </button>
+                <!-- 已加入購物車 -->
+                <button
+                  type="button"
+                  class="btn btn-link link-dark p-2"
+                  v-else
+                >
+                  <img
+                    src="@/assets/images/icon/bi-cart-check.svg"
+                    alt="checkCart"
+                    class="studio__icon"
+                  />
+                </button>
+              </template>
             </div>
             <!-- 商品描述 -->
             <p class="mb-0">{{ item.description }}</p>
@@ -155,6 +161,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.cartsData = res.data.data.carts;
+            this.isLoading.itemID = '';
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
@@ -166,15 +173,16 @@ export default {
     addCart(item) {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       const productData = { data: { product_id: item.id, qty: 1 } };
+      // 加入商品時打開讀取效果
       this.isLoading.itemID = item.id;
       this.axios
         .post(apiUrl, productData)
         .then((res) => {
           if (res.data.success) {
             this.$emit('update');
+            // 當商品已存在購物車時，才關掉讀取效果
             this.getCartsList();
             this.$refs.toast.showToast(`『${item.title}』${res.data.message}`);
-            this.isLoading.itemID = '';
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }

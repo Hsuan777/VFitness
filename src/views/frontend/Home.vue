@@ -101,8 +101,8 @@
     <section class="studio__productSelect mb-5">
       <h2 class="text-center fw-bolder mb-5">今天想選擇甚麼?</h2>
       <div class="row g-1 justify-content-center">
-        <div class="product--hover col-6 col-lg-5" v-for="item in randomData" :key="item.id">
-          <div class="card card-body border-0">
+        <div class="col-6 col-lg-5" v-for="item in randomData" :key="item.id">
+          <div class="product--hover card card-body border-0">
             <router-link
               :to="`/product/${item.id}`"
               class="text-decoration-none link-dark stretched-link"
