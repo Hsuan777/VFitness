@@ -48,7 +48,7 @@
           <section v-if="cartsData.carts[0]">
             <h2 class="text-center fw-bolder mb-3 mb-md-4 mb-lg-5">購物車列表</h2>
             <ul class="list-group">
-              <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
+              <li class="list-group-item py-3" v-for="item in cartsData.carts" :key="item.id">
                 <div class="d-flex align-items-center">
                   <!-- 刪除單一產品 -->
                   <input
@@ -103,19 +103,8 @@
                   </div>
                 </div>
               </li>
-              <li class="list-group-item">
+              <li class="list-group-item py-3">
                 <div class="d-flex">
-                  <button
-                    type="button"
-                    class="btn btn-link link-secondary ps-0"
-                    @click="deleteCartAll"
-                  >
-                    <img
-                      src="@/assets/images/icon/bi-cart-x.svg"
-                      alt="deleteCartAll"
-                      class="studio__icon"
-                    />
-                  </button>
                   <div class="ms-auto">
                     <p class="mb-0 d-flex">
                       商品合計：
@@ -238,23 +227,6 @@ export default {
             this.isLoading.itemID = '';
           } else {
             this.$refs.toast.showToast(res.data.message);
-          }
-        })
-        .catch(() => {
-          this.$refs.toast.showToast('無法刪除購物車內商品喔!', 'error');
-        });
-    },
-    deleteCartAll() {
-      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/carts`;
-      this.axios
-        .delete(apiUrl)
-        .then((res) => {
-          if (res.data.success) {
-            this.$refs.toast.showToast('已無商品囉!', 'error');
-            this.$emit('update');
-            this.getCartsList();
-          } else {
-            this.$refs.toast.showToast(res.data.message, 'error');
           }
         })
         .catch(() => {

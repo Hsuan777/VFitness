@@ -193,13 +193,14 @@
                       ></Field>
                       <error-message name="備註" class="invalid-feedback"></error-message>
                     </div>
-                    <!-- RWD 時置底 -->
-                    <input
-                      type="submit"
-                      value="送出訂單"
-                      class="btn btn-primary text-white"
-                      :disabled="Object.keys(errors).length !== 0 || !checkData"
-                    />
+                    <div class="col">
+                      <input
+                        type="submit"
+                        value="送出訂單"
+                        class="btn btn-primary text-white w-100"
+                        :disabled="Object.keys(errors).length !== 0 || !checkData"
+                      />
+                    </div>
                   </div>
                 </Form>
               </section>
