@@ -88,6 +88,7 @@
                 <button
                   type="button"
                   class="product__list__functionBtn btn btn-link p-2"
+                  :class="{'disabled': isLoading.itemID}"
                   @click="addCart(item)"
                   v-if="!checkCartsData(item.id)"
                 >
