@@ -73,10 +73,10 @@ export default {
               message: `『${item.product.title}』，已從購物車刪除囉！`,
               status: 'error',
             });
+            this.isLoading.itemID = '';
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
-          this.isLoading.itemID = '';
         })
         .catch(() => {
           this.$refs.toast.showToast('無法刪除商品喔～', 'error');

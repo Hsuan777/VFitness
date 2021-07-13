@@ -125,10 +125,10 @@ export default {
             this.articles = res.data.articles;
             this.totalPages = res.data.pagination.total_pages;
             this.currentPage = res.data.pagination.current_page;
+            this.isLoading.status = false;
           } else {
             this.swal(res.data.message, 'error');
           }
-          this.isLoading.status = false;
         })
         .catch(() => {
           this.swal('無法取得資料喔～快去看什麼問題吧！', 'error');
@@ -168,10 +168,10 @@ export default {
           if (res.data.success) {
             this.getArticles();
             this.swal(res.data.message);
+            this.isLoading.itemID = '';
           } else {
             this.swal(res.data.message, 'error');
           }
-          this.isLoading.itemID = '';
         })
         .catch(() => {
           this.swal('無法修改資料喔～快去看什麼問題吧！', 'error');
@@ -187,10 +187,10 @@ export default {
             this.$refs.deleteModal.hideModal();
             this.getArticles();
             this.swal(res.data.message);
+            this.isLoading.itemID = '';
           } else {
             this.swal(res.data.message, 'error');
           }
-          this.isLoading.itemID = '';
         })
         .catch(() => {
           this.swal('無法刪除資料喔～快去看什麼問題吧！', 'error');

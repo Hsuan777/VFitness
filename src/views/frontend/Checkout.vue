@@ -194,10 +194,10 @@ export default {
                 ? `已打 ${this.cartsData.carts[0].coupon.percent} 折`
                 : '未使用優惠券';
             }
+            this.isLoading.status = false;
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
-          this.isLoading.status = false;
         })
         .catch(() => {
           this.$refs.toast.showToast('取得購物車清單有問題喔!', 'error');
@@ -235,10 +235,10 @@ export default {
             this.$emit('update');
             this.getCartsList();
             this.$refs.toast.showToast(`已從購物車刪除『${item.product.title}』囉!`, 'error');
+            this.isLoading.itemID = '';
           } else {
             this.$refs.toast.showToast(res.data.message);
           }
-          this.isLoading.itemID = '';
         })
         .catch(() => {
           this.$refs.toast.showToast('無法刪除購物車內商品喔!', 'error');

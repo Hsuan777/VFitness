@@ -151,10 +151,10 @@ export default {
             this.products = res.data.products;
             this.totalPages = res.data.pagination.total_pages;
             this.currentPage = res.data.pagination.current_page;
+            this.isLoading.status = false;
           } else {
             this.swal(res.data.message, 'error');
           }
-          this.isLoading.status = false;
         })
         .catch(() => {
           this.swal('無法取得產品資料喔～快去看什麼問題吧！', 'error');
@@ -171,10 +171,10 @@ export default {
           if (res.data.success) {
             this.getProducts();
             this.swal(res.data.message);
+            this.isLoading.itemID = '';
           } else {
             this.swal(res.data.message, 'error');
           }
-          this.isLoading.itemID = '';
         })
         .catch(() => {
           this.swal('無法修改產品資料喔～快去看什麼問題吧！', 'error');
@@ -188,12 +188,12 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.$refs.deleteModal.hideModal();
-            this.swal(res.data.message);
             this.getProducts();
+            this.swal(res.data.message);
+            this.isLoading.itemID = '';
           } else {
             this.swal(res.data.message);
           }
-          this.isLoading.itemID = '';
         })
         .catch(() => {
           this.swal('無法刪除產品資料喔～快去看什麼問題吧！', 'error');

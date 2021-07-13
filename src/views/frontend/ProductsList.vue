@@ -138,8 +138,8 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.products = res.data.products;
-            this.isLoading.status = false;
             this.changeDisplayData();
+            this.isLoading.status = false;
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
@@ -171,10 +171,10 @@ export default {
         .post(apiUrl, productData)
         .then((res) => {
           if (res.data.success) {
-            this.isLoading.itemID = '';
             this.$emit('update');
             this.getCartsList();
             this.$refs.toast.showToast(`『${item.title}』${res.data.message}`);
+            this.isLoading.itemID = '';
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }

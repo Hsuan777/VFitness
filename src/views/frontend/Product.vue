@@ -293,10 +293,10 @@ export default {
         .post(apiUrl, productData)
         .then((res) => {
           if (res.data.success) {
-            this.isLoading.itemID = '';
             this.$emit('update');
-            this.$refs.toast.showToast(`『${item.title}』${res.data.message}`);
             this.checkCartsList();
+            this.$refs.toast.showToast(`『${item.title}』${res.data.message}`);
+            this.isLoading.itemID = '';
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
@@ -322,10 +322,10 @@ export default {
             } else {
               this.$refs.toast.showToast(`『${this.product.title}』數量不變喔!`);
             }
+            this.isLoading.itemID = '';
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
-          this.isLoading.itemID = '';
         })
         .catch(() => {
           this.$refs.toast.showToast('無法更新購物車資料喔!', 'error');

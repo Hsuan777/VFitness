@@ -115,10 +115,10 @@ export default {
             this.orders = res.data.orders;
             this.totalPages = res.data.pagination.total_pages;
             this.currentPage = res.data.pagination.current_page;
+            this.isLoading.status = false;
           } else {
             this.swal(res.data.message, 'error');
           }
-          this.isLoading.status = false;
         })
         .catch(() => {
           this.swal('無法取得資料喔～快去看什麼問題吧！', 'error');
@@ -137,10 +137,10 @@ export default {
       this.axios
         .put(apiUrl, orderObj)
         .then((res) => {
-          this.isLoading.itemID = '';
           if (res.data.success) {
             this.swal(res.data.message);
             this.getOrders();
+            this.isLoading.itemID = '';
           } else {
             this.swal(res.data.message, 'error');
           }
@@ -156,10 +156,10 @@ export default {
         .delete(apiUrl)
         .then((res) => {
           if (res.data.success) {
-            this.isLoading.itemID = '';
             this.$refs.deleteModal.hideModal();
             this.getOrders();
             this.swal(res.data.message);
+            this.isLoading.itemID = '';
           } else {
             this.swal(res.data.message, 'error');
           }

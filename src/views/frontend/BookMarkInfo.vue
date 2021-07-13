@@ -191,10 +191,10 @@ export default {
         .post(apiUrl, productData)
         .then((res) => {
           if (res.data.success) {
-            this.isLoading.itemID = '';
             this.$emit('update');
             this.getCartsList();
             this.$refs.toast.showToast(`『${item.title}』${res.data.message}`);
+            this.isLoading.itemID = '';
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }

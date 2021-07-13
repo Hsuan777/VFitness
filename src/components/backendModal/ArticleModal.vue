@@ -195,10 +195,10 @@ export default {
             this.hideModal();
             this.$emit('update');
             this.swal(res.data.message);
+            this.isLoading.itemID = '';
           } else {
             this.swal(res.data.message, 'error');
           }
-          this.isLoading.itemID = '';
         })
         .catch(() => {
           this.swal('無法加入資料喔～快去看什麼問題吧！', 'error');
@@ -215,10 +215,10 @@ export default {
             this.hideModal();
             this.$emit('update');
             this.swal(res.data.message);
+            this.isLoading.itemID = '';
           } else {
             this.swal(res.data.message, 'error');
           }
-          this.isLoading.itemID = '';
         })
         .catch(() => {
           this.swal('無法修改資料喔～快去看什麼問題吧！', 'error');

@@ -8,7 +8,7 @@
           v-if="experienceClass[0]"
           type="button"
           class="btn btn-primary"
-          :disabled="isLoading.itemID === experienceClass[0].id || classIsExist"
+          :disabled="classIsExist"
           @click="addCart(experienceClass[0].id, 1)"
         >
           <span class="display-7">{{ classIsExist ? '已預約' : '立即體驗'}}</span>
@@ -215,7 +215,6 @@ export default {
     addCart(itemID, num) {
       const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       const productData = { data: { product_id: itemID, qty: num } };
-      this.isLoading.itemID = itemID;
       this.axios
         .post(apiUrl, productData)
         .then((res) => {
@@ -223,7 +222,6 @@ export default {
             this.$emit('update');
             this.$refs.toast.showToast('感謝您的預約! 畫面跳轉後再請您填寫資料。');
             setTimeout(() => {
-              this.isLoading.itemID = '';
               this.$router.push('/checkoutInfo');
             }, 3000);
           } else {

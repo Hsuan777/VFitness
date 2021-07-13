@@ -241,7 +241,6 @@ export default {
       this.axios
         .get(apiUrl)
         .then((res) => {
-          this.isLoading.status = false;
           if (res.data.success) {
             this.cartsData = res.data.data;
             if (!this.cartsData.carts.length && !this.isSubmitOrder) {
@@ -252,6 +251,7 @@ export default {
                 ? `已打 ${this.cartsData.carts[0].coupon.percent} 折`
                 : '未使用優惠券';
             }
+            this.isLoading.status = false;
           } else {
             this.$refs.toast.showToast(res.data.message, 'error');
           }
