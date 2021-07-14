@@ -11,7 +11,7 @@
           :disabled="classIsExist"
           @click="addCart(experienceClass[0].id, 1)"
         >
-          <span class="display-7">{{ classIsExist ? '已預約' : '立即體驗'}}</span>
+          <span class="display-7">{{ classIsExist ? '已預約' : '立即體驗' }}</span>
         </button>
       </div>
     </figure>
@@ -22,49 +22,59 @@
         <!-- 吃得健康 -->
         <li class="row flex-row-reverse align-items-center mb-5">
           <div
-            class="col-md-6 col-lg-5 d-flex flex-column
+            class="col-md-6 d-flex flex-column
             justify-content-center align-items-center"
           >
             <h3>吃得健康</h3>
-            <p>三分練，七分吃，增肌減脂都適合</p>
+            <p class="border-bottom pb-3">三分練，七分吃，增肌減脂都適合</p>
+            <p class="px-lg-5 mb-lg-0">
+              主餐採用新鮮牛肉、豬肉或者雞肉，不加過多調味料，均以原型食物方式呈現在餐點中。再配合當季新鮮蔬菜與根莖類食材，佐上當日調製健康醬料，讓您每一餐都吃得安心，不會產生罪惡感。
+            </p>
           </div>
-          <div class="col-md-6 col-lg-7">
+          <div class="col-md-6">
             <img src="@/assets/images/home/food.jpg" alt="減脂餐(豬肉)" class="w-100 rounded" />
           </div>
         </li>
         <!-- 一對一訓練 -->
         <li class="row align-items-center mb-5">
           <div
-            class="col-md-6 col-lg-5 d-flex flex-column
+            class="col-md-6 d-flex flex-column
             justify-content-center align-items-center"
           >
             <h3>一對一訓練</h3>
-            <p>讓專業教練打造更好的自己</p>
+            <p class="border-bottom pb-3">讓專業教練打造更好的自己</p>
+            <p class="px-lg-5 mb-lg-0">
+              想踏入健身運動，又不知該如何開始嗎?
+              跟著我們的教練，從根本打好基礎，一步步帶您成為更棒的自己。若您已是有經驗者，想調整更好的動作，我們的專業教練也能快速找到您的問題點。
+            </p>
           </div>
-          <div class="col-md-6 col-lg-7">
+          <div class="col-md-6">
             <img src="@/assets/images/home/oneToone.jpg" alt="一對一訓練" class="w-100 rounded" />
           </div>
         </li>
         <!-- 團課訓練 -->
         <li class="row flex-row-reverse align-items-center mb-5">
           <div
-            class="col-md-6 col-lg-5 d-flex flex-column
+            class="col-md-6 d-flex flex-column
             justify-content-center align-items-center"
           >
             <h3>團課訓練</h3>
-            <p class="mb-0">動作教學、有氧活動</p>
-            <p>找到有共同興趣的同伴</p>
+            <p class="border-bottom pb-3">動作教學、有氧活動</p>
+            <p class="px-lg-5 mb-lg-0">
+              若您下班下課，或者有任何時間不知該如何打發，歡迎參與我們的團課活動。我們有不同的主題，阻力動作或是有氧活動，讓您運動不無聊，也能認識同好。
+              阻力將有專業教練帶您認識各種阻力器材，並教您基礎動作。有氧活動目前有有氧拳擊與瑜珈課程可供選擇。
+            </p>
           </div>
-          <div class="col-md-6 col-lg-7">
+          <div class="col-md-6">
             <img src="@/assets/images/home/groupClasses.jpg" alt="團課訓練" class="w-100 rounded" />
           </div>
         </li>
       </ul>
     </section>
     <!-- 專業團隊 -->
-    <section class="container-fluid bg-dark mb-5 py-3 py-md-5">
+    <section class="container-fluid bg-dark mb-5 py-5">
       <div class="container">
-        <h2 class="text-center text-white fw-bolder mb-3 mb-md-4 mb-lg-5">專業團隊</h2>
+        <h2 class="text-center text-white fw-bolder mb-4 mb-lg-5">專業團隊</h2>
         <ul class="list-unstyled row g-4 row-cols-2 row-cols-lg-4 mb-0">
           <li class="col" v-for="(item, key) in team" :key="item.name + key">
             <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center">
