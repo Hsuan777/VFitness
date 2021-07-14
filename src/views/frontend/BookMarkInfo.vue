@@ -45,7 +45,28 @@
         <li class="col" v-for="item in finalDisplayData" :key="item.id">
           <div class="product--hover card card-body border-0">
             <!-- 產品圖片 -->
-            <img :src="item.imageUrl" alt="item.title" class="product__list__img mb-2 rounded-3" />
+            <figure class="position-relative">
+              <img
+                :src="item.imageUrl"
+                alt="item.title"
+                class="product__list__img mb-2 rounded-3"
+              />
+              <!-- 我的最愛按鈕 -->
+              <button
+                type="button"
+                class="product__list__functionBtn btn btn-sm btn-link link-primary
+                  text-decoration-none d-flex align-items-center position-absolute top-0 end-0"
+                @click="setLocalStorage(item)"
+              >
+                <span class="material-icons text-primary h2">
+                  {{
+                    this.localStorageProductID.some((id) => id === item.id)
+                      ? 'bookmark'
+                      : 'bookmark_border'
+                  }}
+                </span>
+              </button>
+            </figure>
             <!-- 產品標題 -->
             <h3 class="h4 mb-0">
               <router-link
@@ -59,21 +80,6 @@
             <div class="d-flex justify-content-between align-items-center my-2 pb-2 border-bottom">
               <!-- 價格 -->
               <p class="display-7 mb-0 me-2">{{ $filters.currency(item.price) }}</p>
-              <!-- 我的最愛按鈕 -->
-              <button
-                type="button"
-                class="product__list__functionBtn btn btn-link link-primary text-decoration-none
-                  d-flex align-items-center me-auto"
-                @click="setLocalStorage(item)"
-              >
-                <span class="material-icons">
-                  {{
-                    this.localStorageData.some((obj) => obj.id === item.id)
-                      ? 'bookmark'
-                      : 'bookmark_border'
-                  }}
-                </span>
-              </button>
               <!-- 讀取效果 -->
               <button
                 type="button"
@@ -88,7 +94,7 @@
                 <!-- 購物車按鈕 -->
                 <button
                   type="button"
-                  class="product__list__functionBtn btn btn-link p-2"
+                  class="product__list__functionBtn btn btn-link p-2 me-1"
                   :class="{'disabled': isLoading.itemID}"
                   @click="addCart(item)"
                   v-if="!checkCartsData(item.id)"
@@ -102,7 +108,7 @@
                 <!-- 已加入購物車 -->
                 <button
                   type="button"
-                  class="btn btn-link link-dark p-2"
+                  class="btn btn-link link-dark p-2 me-1"
                   v-else
                 >
                   <img
