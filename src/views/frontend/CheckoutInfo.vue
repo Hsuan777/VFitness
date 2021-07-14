@@ -51,7 +51,7 @@
               <section>
                 <h2 class="text-center fw-bolder mb-3 mb-md-5">您的訂購</h2>
                 <ul class="list-group">
-                  <li class="list-group-item" v-for="item in cartsData.carts" :key="item.id">
+                  <li class="list-group-item py-3" v-for="item in cartsData.carts" :key="item.id">
                     <div class="d-flex align-items-center">
                       <!-- 產品圖片 -->
                       <router-link :to="`/product/${item.product.id}`" class="link-dark">
@@ -70,16 +70,18 @@
                         <!-- 單價 -->
                         <p class="mb-0">
                           單價：{{ '$ ' + $filters.currency(item.product.price) }} x
-                          {{ item.product.num }} {{item.product.unit}}
+                          {{ item.qty }} {{ item.product.unit }}
                         </p>
                         <!-- 小計 -->
-                        <p class="text-end mb-0">
-                          小計：{{ '$ ' + $filters.currency(item.total) }}
+                        <p class="mb-0">
+                          小計：<span class="text-end">{{
+                            '$ ' + $filters.currency(item.total)
+                          }}</span>
                         </p>
                       </div>
                     </div>
                   </li>
-                  <li class="list-group-item">
+                  <li class="list-group-item py-3">
                     <div class="d-flex">
                       <div class="ms-auto">
                         <p class="mb-0 d-flex">
@@ -94,7 +96,7 @@
                             {{ 'TWD$ ' + $filters.currency(Math.floor(cartsData.final_total)) }}
                           </span>
                         </p>
-                        <p>{{ percent }}</p>
+                        <p class="mb-0">{{ percent }}</p>
                       </div>
                     </div>
                   </li>
