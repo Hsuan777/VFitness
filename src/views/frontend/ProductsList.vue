@@ -59,7 +59,7 @@
               >
                 <span class="material-icons">
                   {{
-                    this.localStorageData.some((obj) => obj.id === item.id)
+                    this.localStorageProductID.some((id) => id === item.id)
                       ? 'bookmark'
                       : 'bookmark_border'
                   }}
@@ -128,7 +128,7 @@ export default {
       products: [],
       cartsData: [],
       category: '',
-      localStorageData: [],
+      localStorageProductID: [],
       totalPages: 0,
       currentPage: 1,
       finalDisplayData: [],
@@ -198,27 +198,27 @@ export default {
       this.changeDisplayData();
     },
     setLocalStorage(item) {
-      if (this.localStorageData[0]) {
+      if (this.localStorageProductID[0]) {
         let dataIndex = null;
-        this.localStorageData.forEach((element, index) => {
-          if (element.id === item.id) {
+        this.localStorageProductID.forEach((prodcutID, index) => {
+          if (prodcutID === item.id) {
             dataIndex = index;
           }
         });
         if (dataIndex === null) {
-          this.localStorageData.push(item);
-          localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
+          this.localStorageProductID.push(item.id);
+          localStorage.setItem('myFavorite', JSON.stringify(this.localStorageProductID));
           this.$emit('update');
           this.$refs.toast.showToast(`已將『${item.title}』加到我的最愛囉!`);
         } else {
-          this.localStorageData.splice(dataIndex, 1);
-          localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
+          this.localStorageProductID.splice(dataIndex, 1);
+          localStorage.setItem('myFavorite', JSON.stringify(this.localStorageProductID));
           this.$emit('update');
           this.$refs.toast.showToast(`『${item.title}』，已從我的最愛移除囉!`, 'error');
         }
       } else {
-        this.localStorageData.push(item);
-        localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
+        this.localStorageProductID.push(item.id);
+        localStorage.setItem('myFavorite', JSON.stringify(this.localStorageProductID));
         this.$emit('update');
         this.$refs.toast.showToast(`已將『${item.title}』加到我的最愛囉!`);
       }
@@ -244,7 +244,7 @@ export default {
     this.getCartsList();
   },
   mounted() {
-    this.localStorageData = JSON.parse(localStorage.getItem('myFavorite')) || [];
+    this.localStorageProductID = JSON.parse(localStorage.getItem('myFavorite')) || [];
   },
   computed: {
     // 目前的分類資料

@@ -153,12 +153,13 @@
                 <!-- 我的最愛按鈕 -->
                 <button
                   type="button"
-                  class="btn btn-link link-primary text-decoration-none d-flex align-items-center"
+                  class="btn btn-link link-primary text-decoration-none
+                    d-flex align-items-center ms-2"
                   @click="setLocalStorage(product)"
                 >
                   <span class="material-icons">
                     {{
-                      this.localStorageData.some((obj) => obj.id === product.id)
+                      this.localStorageProductID.some((id) => id === product.id)
                         ? 'bookmark'
                         : 'bookmark_border'
                     }}
@@ -226,7 +227,7 @@ export default {
         },
       ],
       tempQty: 0,
-      localStorageData: [],
+      localStorageProductID: [],
     };
   },
   emits: ['update'],
@@ -348,27 +349,27 @@ export default {
       }
     },
     setLocalStorage(item) {
-      if (this.localStorageData[0]) {
+      if (this.localStorageProductID[0]) {
         let dataIndex = null;
-        this.localStorageData.forEach((element, index) => {
-          if (element.id === item.id) {
+        this.localStorageProductID.forEach((prodcutID, index) => {
+          if (prodcutID === item.id) {
             dataIndex = index;
           }
         });
         if (dataIndex === null) {
-          this.localStorageData.push(item);
-          localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
+          this.localStorageProductID.push(item.id);
+          localStorage.setItem('myFavorite', JSON.stringify(this.localStorageProductID));
           this.$emit('update');
           this.$refs.toast.showToast(`已將『${item.title}』加到我的最愛囉!`);
         } else {
-          this.localStorageData.splice(dataIndex, 1);
-          localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
+          this.localStorageProductID.splice(dataIndex, 1);
+          localStorage.setItem('myFavorite', JSON.stringify(this.localStorageProductID));
           this.$emit('update');
           this.$refs.toast.showToast(`『${item.title}』，已從我的最愛移除囉!`, 'error');
         }
       } else {
-        this.localStorageData.push(item);
-        localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
+        this.localStorageProductID.push(item.id);
+        localStorage.setItem('myFavorite', JSON.stringify(this.localStorageProductID));
         this.$emit('update');
         this.$refs.toast.showToast(`已將『${item.title}』加到我的最愛囉!`);
       }
@@ -383,7 +384,7 @@ export default {
     this.checkCartsList();
   },
   mounted() {
-    this.localStorageData = JSON.parse(localStorage.getItem('myFavorite')) || [];
+    this.localStorageProductID = JSON.parse(localStorage.getItem('myFavorite')) || [];
   },
   watch: {
     // 在產品內頁點選購物車中連結時，切換產品

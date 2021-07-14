@@ -1,5 +1,6 @@
 <template>
   <section>
+    <Loading :active="isLoading.status"></Loading>
     <!-- 我的最愛 banner -->
     <figure
       class="studio__banner studio__banner__secondary studio__banner__bookMark
@@ -8,7 +9,7 @@
       <h2 class="studio__banner__title text-white fw-bolder p-4 rounded d-inline">我的最愛</h2>
     </figure>
     <!-- 我的最愛內容 -->
-    <div class="container mb-5">
+    <div class="container mb-5" v-if="!isLoading.status">
       <!-- 無資料，額外產品-->
       <div v-if="!localStorageData[0]">
         <p class="h3">還沒有最愛喔，您可能也會有興趣 :</p>
@@ -137,6 +138,7 @@ export default {
   data() {
     return {
       localStorageData: [],
+      localStorageProductID: [],
       cartsData: [],
       products: [],
       randomData: [],
@@ -164,11 +166,30 @@ export default {
           this.$refs.toast.showToast('無法取得商品全部資料喔!', 'error');
         });
     },
+    getProduct(productID) {
+      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/product/${productID}`;
+      this.isLoading.status = true;
+      this.axios
+        .get(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.localStorageData.push(res.data.product);
+            this.changeDisplayData();
+            this.isLoading.status = false;
+          } else {
+            this.$refs.toast.showToast(res.data.message, 'error');
+          }
+        })
+        .catch(() => {
+          this.$refs.toast.showToast('無法取得產品資料喔!', 'error');
+        });
+    },
     setLocalStorage(item) {
       this.localStorageData.forEach((element, index) => {
         if (element.id === item.id) {
           this.localStorageData.splice(index, 1);
-          localStorage.setItem('myFavorite', JSON.stringify(this.localStorageData));
+          this.localStorageProductID.splice(index, 1);
+          localStorage.setItem('myFavorite', JSON.stringify(this.localStorageProductID));
           this.$emit('update');
           this.changeDisplayData(this.currentPage);
           this.$refs.toast.showToast(`『${item.title}』，已從我的最愛移除囉!`, 'error');
@@ -247,7 +268,10 @@ export default {
     this.getProductsAll();
   },
   mounted() {
-    this.localStorageData = JSON.parse(localStorage.getItem('myFavorite')) || [];
+    this.localStorageProductID = JSON.parse(localStorage.getItem('myFavorite')) || [];
+    this.localStorageProductID.forEach((item) => {
+      this.getProduct(item);
+    });
     this.changeDisplayData();
   },
   components: {
