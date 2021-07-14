@@ -36,7 +36,28 @@
         <li class="col" v-for="item in finalDisplayData" :key="item.id">
           <div class="product--hover card card-body border-0">
             <!-- 產品圖片 -->
-            <img :src="item.imageUrl" alt="item.title" class="product__list__img mb-2 rounded-3" />
+            <figure class="position-relative">
+              <img
+                :src="item.imageUrl"
+                alt="item.title"
+                class="product__list__img mb-2 rounded-3"
+              />
+              <!-- 我的最愛按鈕 -->
+              <button
+                type="button"
+                class="product__list__functionBtn btn btn-link link-primary
+                  text-decoration-none d-flex align-items-center position-absolute top-0 end-0"
+                @click="setLocalStorage(item)"
+              >
+                <span class="material-icons text-white h3">
+                  {{
+                    this.localStorageProductID.some((id) => id === item.id)
+                      ? 'bookmark'
+                      : 'bookmark_border'
+                  }}
+                </span>
+              </button>
+            </figure>
             <!-- 產品標題 -->
             <h3 class="h4 mb-0">
               <router-link
@@ -49,22 +70,7 @@
             <!-- 價格與購物車 -->
             <div class="d-flex justify-content-between align-items-center my-2 pb-2 border-bottom">
               <!-- 價格 -->
-              <p class="display-7 mb-0 me-2">{{ $filters.currency(item.price) }}</p>
-              <!-- 我的最愛按鈕 -->
-              <button
-                type="button"
-                class="product__list__functionBtn btn btn-link link-primary text-decoration-none
-                  d-flex align-items-center me-auto"
-                @click="setLocalStorage(item)"
-              >
-                <span class="material-icons">
-                  {{
-                    this.localStorageProductID.some((id) => id === item.id)
-                      ? 'bookmark'
-                      : 'bookmark_border'
-                  }}
-                </span>
-              </button>
+              <p class="display-7 mb-0 me-auto">{{ $filters.currency(item.price) }}</p>
               <!-- 讀取效果 -->
               <button
                 type="button"
@@ -80,7 +86,7 @@
                 <button
                   type="button"
                   class="product__list__functionBtn btn btn-link p-2"
-                  :class="{'disabled': isLoading.itemID}"
+                  :class="{ disabled: isLoading.itemID }"
                   @click="addCart(item)"
                   v-if="!checkCartsData(item.id)"
                 >
@@ -91,11 +97,7 @@
                   />
                 </button>
                 <!-- 已加入購物車 -->
-                <button
-                  type="button"
-                  class="btn btn-link link-dark p-2"
-                  v-else
-                >
+                <button type="button" class="btn btn-link link-dark p-2" v-else>
                   <img
                     src="@/assets/images/icon/bi-cart-check.svg"
                     alt="checkCart"
