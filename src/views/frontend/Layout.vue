@@ -83,7 +83,7 @@
               class="studio__topNavbar__link nav-link"
               @click="closeCollapseNavbar"
             >
-              我的最愛(<span class="text-white">{{ localStorageData.length }}</span
+              我的最愛(<span class="text-white">{{ localStorageProductID.length }}</span
               >)
             </router-link>
             <span class="d-none d-lg-block text-white pb-1">|</span>
