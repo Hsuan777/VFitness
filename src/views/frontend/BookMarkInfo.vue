@@ -60,7 +60,7 @@
               >
                 <span class="material-icons text-primary h2">
                   {{
-                    this.localStorageProductID.some((id) => id === item.id)
+                    this.localStorageData.some((product) => product.id === item.id)
                       ? 'bookmark'
                       : 'bookmark_border'
                   }}
