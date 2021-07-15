@@ -132,7 +132,7 @@
         ></Page>
       </div>
     </div>
-    <toast ref="toast"></toast>
+    <Toast ref="toast"></Toast>
     <Subscribe></Subscribe>
   </section>
 </template>

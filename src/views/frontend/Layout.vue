@@ -210,7 +210,7 @@ export default {
         carts: [],
       },
       isUpdate: '',
-      localStorageData: [],
+      localStorageProductID: [],
       collapse: {},
     };
   },
@@ -237,7 +237,7 @@ export default {
     },
     updateData() {
       this.getCartsList();
-      this.localStorageData = JSON.parse(localStorage.getItem('myFavorite')) || [];
+      this.localStorageProductID = JSON.parse(localStorage.getItem('myFavorite')) || [];
     },
     openTrackModal() {
       this.$refs.trackModal.showModal();

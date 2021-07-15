@@ -192,8 +192,8 @@
         </li>
       </ul>
     </section>
+    <Toast ref="toast"></Toast>
     <Subscribe></Subscribe>
-    <toast ref="toast"></toast>
   </div>
 </template>
 
