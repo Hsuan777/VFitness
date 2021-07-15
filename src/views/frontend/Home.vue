@@ -5,11 +5,12 @@
       <div class="container mt-5">
         <h1 class="text-white display-3 fw-bolder mb-3">維克健身餐飲<br />複合工作室</h1>
         <button
-          v-if="experienceClass[0]"
           type="button"
           class="btn btn-primary"
           :disabled="classIsExist"
           @click="addCart(experienceClass[0].id, 1)"
+          data-aos="flip-up"
+          data-aos-duration="1000"
         >
           <span class="display-7">{{ classIsExist ? '已預約' : '立即體驗' }}</span>
         </button>
@@ -27,7 +28,7 @@
           >
             <h3>吃得健康</h3>
             <p class="border-bottom pb-3 text-nowrap">三分練，七分吃，增肌減脂都適合</p>
-            <p class="px-lg-5 mb-lg-0">
+            <p class="px-lg-5 mb-lg-0" data-aos="fade-up" data-aos-duration="1000">
               主餐採用新鮮牛肉、豬肉或者雞肉，不加過多調味料，均以原型食物方式呈現在餐點中。再配合當季新鮮蔬菜與根莖類食材，佐上當日調製健康醬料，讓您每一餐都吃得安心，不會產生罪惡感。
             </p>
           </div>
@@ -43,7 +44,7 @@
           >
             <h3>一對一訓練</h3>
             <p class="border-bottom pb-3 text-nowrap">讓專業教練打造更好的自己</p>
-            <p class="px-lg-5 mb-lg-0">
+            <p class="px-lg-5 mb-lg-0" data-aos="fade-up" data-aos-duration="1000">
               想踏入健身運動，又不知該如何開始嗎?
               跟著我們的教練，從根本打好基礎，一步步帶您成為更棒的自己。若您已是有經驗者，想調整更好的動作，我們的專業教練也能快速找到您的問題點。
             </p>
@@ -60,7 +61,7 @@
           >
             <h3>團課訓練</h3>
             <p class="border-bottom pb-3 text-nowrap">動作教學、有氧活動</p>
-            <p class="px-lg-5 mb-lg-0">
+            <p class="px-lg-5 mb-lg-0" data-aos="fade-up" data-aos-duration="1000">
               若您下班下課，或者有任何時間不知該如何打發，歡迎參與我們的團課活動。我們有不同的主題，阻力動作或是有氧活動，讓您運動不無聊，也能認識同好。
               阻力將有專業教練帶您認識各種阻力器材，並教您基礎動作。有氧活動目前有有氧拳擊與瑜珈課程可供選擇。
             </p>
@@ -82,6 +83,8 @@
                 :src="`${item.imageUrl}`"
                 class="studio__avatar me-lg-3 mb-2 mb-lg-0"
                 :alt="item.name"
+                data-aos="flip-left"
+                data-aos-duration="1000"
               />
               <div class="text-center text-lg-start">
                 <p class="h4 mb-0 text-white">{{ item.name }}</p>
@@ -109,7 +112,9 @@
     </section>
     <!-- 商品選擇 -->
     <section class="studio__productSelect mb-5">
-      <h2 class="text-center fw-bolder mb-5">今天想選擇甚麼?</h2>
+      <h2 class="text-center fw-bolder mb-5" data-aos="zoom-in-up" data-aos-duration="1000">
+        今天想選擇甚麼?
+      </h2>
       <div class="row g-1 justify-content-center">
         <div class="col-6 col-lg-5" v-for="item in randomData" :key="item.id">
           <div class="product--hover card card-body border-0">

@@ -17,6 +17,10 @@ import VueAxios from 'vue-axios';
 import Loading from 'vue3-loading-overlay';
 import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 
+// 匯入 Aos 動畫特效
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 // 匯入 VueSweetalert2 通知特效
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
@@ -94,4 +98,7 @@ app.mixin({
     };
   },
   mixins: [Swal],
+  created() {
+    AOS.init();
+  },
 });
