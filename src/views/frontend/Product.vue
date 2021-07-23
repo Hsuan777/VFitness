@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Loading :active="isLoading.status"></Loading>
+    <Loading :active="isLoading.status"/>
     <!-- 產品區 -->
     <section class="container border-bottom my-5 pb-5">
       <div class="row">
@@ -192,8 +192,8 @@
         </li>
       </ul>
     </section>
-    <Toast ref="toast"></Toast>
-    <Subscribe></Subscribe>
+    <Toast ref="toast"/>
+    <Subscribe/>
   </div>
 </template>
 

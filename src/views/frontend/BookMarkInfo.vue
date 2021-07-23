@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Loading :active="isLoading.status"></Loading>
+    <Loading :active="isLoading.status"/>
     <!-- 我的最愛 banner -->
     <figure
       class="studio__banner studio__banner__secondary studio__banner__bookMark
@@ -129,11 +129,11 @@
           :pages="totalPages"
           :currentPage="currentPage"
           @display-page="changeDisplayData"
-        ></Page>
+        />
       </div>
     </div>
-    <Toast ref="toast"></Toast>
-    <Subscribe></Subscribe>
+    <Toast ref="toast"/>
+    <Subscribe/>
   </section>
 </template>
 

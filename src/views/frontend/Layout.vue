@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 置頂導覽列 -->
-    <ScorllTop></ScorllTop>
+    <ScorllTop/>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
       <div class="container position-relative">
         <router-link
@@ -108,7 +108,7 @@
               ref="cartsComponent"
               class="dropdown-menu dropdown-menu-end me-2"
             >
-              <Carts :carts-data="cartsData" @update="getCartsList"></Carts>
+              <Carts :carts-data="cartsData" @update="getCartsList"/>
             </div>
           </div>
         </div>
@@ -192,8 +192,8 @@
         </div>
       </div>
     </footer>
-    <TrackModal ref="trackModal"></TrackModal>
-    <Toast ref="toast"></Toast>
+    <TrackModal ref="trackModal"/>
+    <Toast ref="toast"/>
   </div>
 </template>
 

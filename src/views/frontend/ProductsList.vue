@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Loading :active="isLoading.status"></Loading>
+    <Loading :active="isLoading.status"/>
     <!-- 商品頁籤 -->
     <nav class="studio__stickyTop product__categoryTab container-fluid mb-3 bg-white">
       <div class="container">
@@ -116,10 +116,10 @@
           :pages="totalPages"
           :currentPage="currentPage"
           @display-page="changeDisplayData"
-        ></Page>
+        />
       </div>
     </section>
-    <Toast ref="toast"></Toast>
+    <Toast ref="toast"/>
   </div>
 </template>
 

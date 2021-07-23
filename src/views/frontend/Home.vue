@@ -133,8 +133,8 @@
         </div>
       </div>
     </section>
-    <Subscribe></Subscribe>
-    <Toast ref="toast"></Toast>
+    <Subscribe/>
+    <Toast ref="toast"/>
   </div>
 </template>
 

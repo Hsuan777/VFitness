@@ -137,7 +137,7 @@
         </div>
       </div>
     </section>
-    <Toast ref="toast"></Toast>
+    <Toast ref="toast"/>
   </div>
 </template>
 

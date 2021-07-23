@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Loading :active="isLoading.status"></Loading>
+    <Loading :active="isLoading.status"/>
     <div class="container my-5">
       <div class="row">
         <!-- 購物流程 -->
@@ -211,7 +211,7 @@
         </div>
       </div>
     </div>
-    <Toast ref="toast"></Toast>
+    <Toast ref="toast"/>
   </div>
 </template>
 

@@ -68,7 +68,7 @@
         </div>
       </div>
     </div>
-    <Subscribe></Subscribe>
+    <Subscribe/>
   </section>
 </template>
 
