@@ -39,7 +39,7 @@
             <figure class="position-relative">
               <img
                 :src="item.imageUrl"
-                alt="item.title"
+                :alt="item.title"
                 class="product__list__img mb-2 rounded-3"
               />
               <!-- 我的最愛按鈕 -->
