@@ -175,8 +175,8 @@
     <section class="container mb-5">
       <p class="h3">您可能也會有興趣 :</p>
       <ul class="list-unstyled row g-1 row-cols-2 row-cols-md-4">
-        <li class="product--hover col" v-for="item in randomData" :key="item.id">
-          <div class="card card-body border-0">
+        <li class="col" v-for="item in randomData" :key="item.id">
+          <div class="product--hover card card-body border-0">
             <router-link
               :to="`/product/${item.id}`"
               class="text-decoration-none link-dark stretched-link"
